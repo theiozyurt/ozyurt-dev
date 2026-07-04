@@ -93,10 +93,10 @@ hazır.
 ## 4. Ana Sayfa (/) — `index.astro` + `Hero.astro`
 
 ### 4.1 Hero
-- Başlık — EN: **Documenting my whole journey here.** / TR: **Tüm yolculuğumu burada belgeliyorum.**
+- Başlık — EN: **This is where I document my journey.** / TR: **Yolculuğumu burada belgeliyorum.**
 - Genel bakış (overview):
-  - EN: Flutter, Firebase and Python — building products that ship, not just prototypes. At Ceviz I work across two products and the KVKK/GDPR DICOM pipeline behind them, and I'm set to lead algorithm design on an international ML research project.
-  - TR: Flutter, Firebase ve Python ile çalışıyorum — prototip değil, gerçekten kullanılan ürünler geliştiriyorum. Ceviz'de iki ürün ve arkalarındaki KVKK/GDPR DICOM hattı üzerinde çalışıyorum; ayrıca uluslararası bir ML araştırma projesinde algoritma tasarımına liderlik edeceğim.
+  - EN: I build real products with Flutter, Firebase and Python — not just prototypes. At Ceviz I develop two products and the KVKK/GDPR DICOM pipeline behind them, and I'll soon be leading algorithm development on an international ML research project.
+  - TR: Flutter, Firebase ve Python ile gerçek ürünler geliştiriyorum — prototip değil. Ceviz'de iki ürünü ve arkalarındaki KVKK/GDPR DICOM hattını geliştiriyorum; yakında uluslararası bir ML araştırma projesinde algoritma geliştirmeye liderlik edeceğim.
 - CTA'lar: **See my work / Çalışmalarıma bak** · **Get in touch / İletişime geç**
 
 **Hero daktilo (typewriter) satırları:**
@@ -104,17 +104,17 @@ hazır.
 |---|---|
 | building at Ceviz Biyoteknoloji | ceviz_biyoteknoloji'de geliştirme yapıyorum |
 | researching computer vision at Salerno | salerno'da bilgisayarlı görü araştırması yaptım (2024) |
-| set to lead algorithm design on an international ML project | uluslararası bir ML projesinde algoritma tasarımına liderlik edeceğim |
+| leading algorithm development on an international ML project | uluslararası bir ML projesinde algoritma geliştirmeye liderlik edeceğim |
 
 **Hero şeridi (strip):**
 | Etiket (EN/TR) | Başlık (EN/TR) | Alt (EN/TR) |
 |---|---|---|
 | now / şu an | Ceviz Biyoteknoloji | Developer & Partner / Geliştirici & Ortak |
 | before / öncesinde | University of Salerno / Salerno Üniversitesi | Computer vision, 2024 / Bilgisayarlı görü, 2024 |
-| ahead / ilerisi | See where this is going / Bunun nereye gittiğini gör | → Goals / Hedefler |
+| ahead / ilerisi | Where I'm headed / Sırada ne var | → Goals / Hedefler |
 
 ### 4.2 "What I'm building / İnşa ettiklerim" (üç kart)
-Bölüm etiketi — EN: **What I'm building** / TR: **İnşa ettiklerim**
+Bölüm etiketi — EN: **What I'm building** / TR: **Üzerinde Çalıştıklarım**
 
 **Kart 1 — Ceviz Biyoteknoloji**
 - Üst satır — EN: Developer & Partner · Now / TR: Developer & Partner · Şimdi
@@ -124,19 +124,19 @@ Bölüm etiketi — EN: **What I'm building** / TR: **İnşa ettiklerim**
 
 **Kart 2 — Research & internships / Araştırma & stajlar**
 - Üst satır — EN: Salerno, Güral, Gürok · Track record / TR: Salerno, Güral, Gürok · Geçmiş
-- EN: Computer-vision research at the University of Salerno (2024), enterprise Flutter work at Güral Porselen, and an upcoming Gürok Group internship — engineering depth, gathered on purpose.
-- TR: Salerno Üniversitesi'nde bilgisayarlı görü araştırması (2024), Güral Porselen'de kurumsal Flutter deneyimi ve yaklaşan Gürok Group stajı — bilinçli olarak biriktirilen bir mühendislik derinliği.
+- EN: Computer-vision research at the University of Salerno (2024), enterprise Flutter at Güral Porselen, and an upcoming Gürok Group internship — each has deepened my engineering experience.
+- TR: Salerno Üniversitesi'nde bilgisayarlı görü araştırması (2024), Güral Porselen'de kurumsal Flutter deneyimi ve yaklaşan Gürok Group stajı — her biri mühendislik deneyimimi biraz daha derinleştirdi.
 - CTA: **See the timeline / Zaman çizelgesine bak**
 
 **Kart 3 — Where this is going / Bu nereye gidiyor**
 - Üst satır — EN: The bigger picture · Ahead / TR: Büyük resim · İleride
-- EN: Everything above is a step. Academic work, leadership at KSBÜ Teknofest Club, mentoring — deliberate practice in building things that work end-to-end. What shape it takes long-term is still coming together.
-- TR: Yukarıdaki her şey bir adım. Akademik çalışmalar, KSBÜ Teknofest Topluluğu'ndaki liderlik, mentorluk — bir şeyi baştan sona inşa etmek için bilinçli bir pratik. Uzun vadede nasıl bir şekil alacağı ise hâlâ şekilleniyor.
-- CTA: **See where this is going / Bunun nereye gittiğini gör**
+- EN: Everything above has shaped where I am today. Academic work, leading KSBÜ Teknofest Club, mentoring — deliberate practice at building things that actually work end to end. I'm still figuring out exactly where it leads.
+- TR: Yukarıdaki her şey beni bugüne getirdi. Akademik çalışmalar, KSBÜ Teknofest Topluluğu'nu yönetmek, mentorluk — baştan sona işleyen şeyler üretmek için bilinçli bir pratik. Uzun vadede beni nereye götüreceğini hâlâ keşfediyorum.
+- CTA: **Where I'm headed / Devamını gör**
 
-### 4.3 "Go deeper / Daha derine" (dizin)
-- Bölüm etiketi — EN: **Go deeper** / TR: **Daha derine**
-- Başlık — EN: **The whole picture, one page at a time.** / TR: **Bütün resim, birer sayfa halinde.**
+### 4.3 "Explore more / Yakından incele" (dizin)
+- Bölüm etiketi — EN: **Explore more** / TR: **Yakından incele**
+- Başlık — EN: **The full picture, page by page.** / TR: **Bütünü, sayfa sayfa.**
 
 | # | Ad (EN/TR) | Açıklama (EN/TR) |
 |---|---|---|
@@ -153,7 +153,7 @@ Bölüm etiketi — EN: **What I'm building** / TR: **İnşa ettiklerim**
 **Sayfa:**
 - Meta açıklama (yalnızca EN): İsmail Özyurt's experience — Ceviz Biyoteknoloji, international ML research, Gürok Group and Güral Porselen internships, and prior computer-vision research at the University of Salerno.
 - Bölüm etiketi — EN: **Experience** / TR: **Deneyim**
-- Başlık — EN: **A track record, built on purpose.** / TR: **Bilinçle inşa edilmiş bir geçmiş.**
+- Başlık — EN: **Experience, built deliberately.** / TR: **Adım adım, bilerek kurduğum bir deneyim.**
 - Alt metin — EN: Chronological, most recent first — role, organization, dates, and concrete outcomes. / TR: Kronolojik, en yeniden eskiye — rol, kurum, tarih ve somut çıktılar.
 - Kart CTA'sı — EN: **View details** / TR: **Detayları gör**
 - Detay sayfası CTA'ları: **Back to experience / Deneyime dön** · **Get in touch / İletişime geç** · Geri linki: **Back to experience / Deneyimlere dön**
@@ -180,7 +180,7 @@ Bölüm etiketi — EN: **What I'm building** / TR: **İnşa ettiklerim**
 - Rol — EN: Algorithm Development Lead / TR: Algoritma Geliştirme Lideri
 - Tür — EN: Academic research / TR: Akademik araştırma
 - Özet:
-  - EN: Accepted onto an international machine learning research project at the invitation of Assoc. Prof. Dr. Bahar Çelik, where I'm set to lead algorithm development. Work is starting soon.
+  - EN: Accepted onto an international machine learning research project at the invitation of Assoc. Prof. Dr. Bahar Çelik, where I'll lead algorithm development. It starts soon.
   - TR: Doç. Dr. Bahar Çelik'in davetiyle uluslararası bir makine öğrenmesi araştırma projesine kabul edildim; algoritma geliştirmeye liderlik edeceğim. Çalışma yakında başlayacak.
 - Etiketler (yalnızca EN): Machine Learning, Python, Research
 
@@ -218,7 +218,7 @@ Bölüm etiketi — EN: **What I'm building** / TR: **İnşa ettiklerim**
 **Sayfa:**
 - Meta açıklama (yalnızca EN): Selected projects by İsmail Özyurt — Ceviz Biyoteknoloji (case study), Birth Adventure, Motivasyon Adam and more.
 - Bölüm etiketi — EN: **Projects** / TR: **Projeler**
-- Başlık — EN: **Things I've shipped and built.** / TR: **Yayınladığım ve inşa ettiğim şeyler.**
+- Başlık — EN: **Things I've built and shipped.** / TR: **Geliştirdiğim ve yayınladığım işler.**
 - "Diğer projeler" bölümü — EN: **More projects** / TR: **Diğer projeler**
 - Liste kartı CTA — EN: **VIEW PROJECT** / TR: **PROJEYİ GÖR**
 
@@ -253,7 +253,7 @@ Bölüm etiketi — EN: **What I'm building** / TR: **İnşa ettiklerim**
 - Maddeler:
   1. EN: Designed with friends around a real academic thesis project in the Midwifery department — a rare cross-discipline collaboration.
      TR: Ebelik bölümündeki gerçek bir tez projesi için arkadaşlarımla birlikte tasarladık — disiplinler arası, ender bir iş birliği.
-  2. EN: Won recognition despite being an unfinished prototype — proof the core concept resonated.
+  2. EN: Won recognition despite being an unfinished prototype — a sign the core idea actually worked.
      TR: Tamamlanmamış bir prototip olmasına rağmen ödül aldı — temel fikrin karşılık bulduğunun bir işareti.
 - Etiketler (yalnızca EN): Product design, Innovation
 
@@ -342,8 +342,8 @@ Bölüm etiketi — EN: **What I'm building** / TR: **İnşa ettiklerim**
 - Dönem — EN: 2024 — Present / TR: 2024 — Devam ediyor
 - Rol — EN: Founding President / TR: Kurucu Başkan
 - Özet:
-  - EN: Founded and lead a student club at Kütahya Health Sciences University. It's a young, small club with modest visibility so far — but with concrete activity to point to.
-  - TR: Kütahya Sağlık Bilimleri Üniversitesi'nde bir öğrenci topluluğu kurdum ve yönetiyorum. Henüz genç, küçük ölçekli ve görünürlüğü sınırlı bir topluluk — ama somut işlerle.
+  - EN: Founded and lead a student club at Kütahya Health Sciences University. It's a young, small club with modest visibility so far — but with real work behind it.
+  - TR: Kütahya Sağlık Bilimleri Üniversitesi'nde bir öğrenci topluluğu kurdum ve yönetiyorum. Henüz genç, küçük ölçekli ve görünürlüğü sınırlı bir topluluk — ama arkasında somut işler var.
 - Maddeler:
   1. EN: Organized a trip to the Milli Teknoloji Zirvesi at DEÜ İzmir with 38 participants.
      TR: DEÜ İzmir'deki Milli Teknoloji Zirvesi'ne 38 katılımcıyla bir gezi düzenledim.
@@ -392,10 +392,10 @@ Bölüm etiketi — EN: **What I'm building** / TR: **İnşa ettiklerim**
 - Bölüm etiketi — EN: **Goals** / TR: **Hedefler**
 - Başlık — EN: **Where this is going** / TR: **Bu nereye gidiyor**
 - Ana metin (lead):
-  - EN: I care about building things that work end-to-end — from an idea to something people actually use. That's what draws me to Ceviz Biyoteknoloji, to research, and to every project I take on. I'm still figuring out exactly what shape that takes long-term, but I know I want to keep building, leading, and learning how great products and teams come together.
+  - EN: I care about building things that work end-to-end — from an idea to something people actually use. That's what draws me to Ceviz Biyoteknoloji, to research, and to every project I take on. I'm still figuring out exactly where it leads long-term, but I know I want to keep building, leading, and learning what makes good products and teams work.
   - TR: Beni asıl motive eden şey, bir fikri baştan sona gerçek bir ürüne dönüştürmek — insanların gerçekten kullandığı bir şeye. Ceviz Biyoteknoloji'de, araştırmalarımda ve üstlendiğim her projede beni çeken şey bu. Bunun uzun vadede tam olarak nasıl bir şekil alacağını hâlâ keşfediyorum, ama inşa etmeye, liderlik etmeye ve iyi ürünlerin ve ekiplerin nasıl bir araya geldiğini öğrenmeye devam etmek istediğimi biliyorum.
-- Vurgu (pull) — EN: **Build. Lead. Learn.** / TR: **İnşa et. Liderlik et. Öğren.**
-- CTA'lar: **See what I'm building / Ne inşa ettiğime bak** · **Get in touch / İletişime geç**
+- Vurgu (pull) — EN: **Build. Lead. Learn.** / TR: **Geliştir. Yönet. Öğren.**
+- CTA'lar: **See what I'm building / Neler geliştirdiğime bak** · **Get in touch / İletişime geç**
 
 ---
 

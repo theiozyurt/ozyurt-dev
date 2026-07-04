@@ -13,8 +13,8 @@ import PixelField from './PixelField.astro';
       <div class="hero-content">
         <h1 class="hero-headline">
           <T
-            en="Documenting my whole journey here."
-            tr="Tüm yolculuğumu burada belgeliyorum."
+            en="This is where I document my journey."
+            tr="Yolculuğumu burada belgeliyorum."
           />
         </h1>
 
@@ -25,8 +25,8 @@ import PixelField from './PixelField.astro';
 
         <p class="hero-overview">
           <T
-            en="Flutter, Firebase and Python — building products that ship, not just prototypes. At Ceviz I work across two products and the KVKK/GDPR DICOM pipeline behind them, and I'm set to lead algorithm design on an international ML research project."
-            tr="Flutter, Firebase ve Python ile çalışıyorum — prototip değil, gerçekten kullanılan ürünler geliştiriyorum. Ceviz'de iki ürün ve arkalarındaki KVKK/GDPR DICOM hattı üzerinde çalışıyorum; ayrıca uluslararası bir ML araştırma projesinde algoritma tasarımına liderlik edeceğim."
+            en="I build real products with Flutter, Firebase and Python — not just prototypes. At Ceviz I develop two products and the KVKK/GDPR DICOM pipeline behind them, and I'll soon be leading algorithm development on an international ML research project."
+            tr="Flutter, Firebase ve Python ile gerçek ürünler geliştiriyorum — prototip değil. Ceviz'de iki ürünü ve arkalarındaki KVKK/GDPR DICOM hattını geliştiriyorum; yakında uluslararası bir ML araştırma projesinde algoritma geliştirmeye liderlik edeceğim."
           />
         </p>
 
@@ -66,7 +66,7 @@ import PixelField from './PixelField.astro';
       </div>
       <a href="/goals" class="strip-item strip-item-link">
         <span class="strip-label"><T en="ahead" tr="ilerisi" /></span>
-        <span class="strip-title"><T en="See where this is going" tr="Bunun nereye gittiğini gör" /></span>
+        <span class="strip-title"><T en="Where I'm headed" tr="Sırada ne var" /></span>
         <span class="strip-sub">→ <T en="Goals" tr="Hedefler" /></span>
       </a>
     </div>
@@ -240,12 +240,12 @@ import PixelField from './PixelField.astro';
     var linesEN = [
       'building at Ceviz Biyoteknoloji',
       'researching computer vision at Salerno',
-      'set to lead algorithm design on an international ML project',
+      'leading algorithm development on an international ML project',
     ];
     var linesTR = [
       "ceviz_biyoteknoloji'de geliştirme yapıyorum",
       "salerno'da bilgisayarlı görü araştırması yaptım (2024)",
-      'uluslararası bir ML projesinde algoritma tasarımına liderlik edeceğim',
+      'uluslararası bir ML projesinde algoritma geliştirmeye liderlik edeceğim',
     ];
     function pick() {
       return document.documentElement.getAttribute('data-lang') === 'tr' ? linesTR : linesEN;
