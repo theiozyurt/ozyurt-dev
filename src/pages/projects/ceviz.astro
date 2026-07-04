@@ -106,6 +106,40 @@ import MediaPlaceholder from '../../components/MediaPlaceholder.astro';
     </div>
   </section>
 
+  <!-- Web siteleri -->
+  <section class="section">
+    <div class="container">
+      <span class="section-label"><T en="Websites" tr="Web siteleri" /></span>
+      <h2 class="case-h2"><T en="Three sites, hand-coded" tr="Üç site, elle kodlandı" /></h2>
+      <p class="websites-intro">
+        <T
+          en="Under the Ceviz Biyoteknoloji umbrella I hand-coded three separate websites in HTML5/CSS3 — free of off-the-shelf template constraints, with performance and SEO as first-class goals."
+          tr="Ceviz Biyoteknoloji çatısı altında üç ayrı web sitesini HTML5/CSS3 ile sıfırdan kodladım — hazır şablon kısıtlamalarından bağımsız, performans ve SEO odaklı."
+        />
+      </p>
+      <div class="website-cards">
+        <a href="https://cevizbiotech.com" target="_blank" rel="noopener" class="website-card">
+          <span class="website-label"><T en="Main site" tr="Ana site" /></span>
+          <span class="website-url mono">cevizbiotech.com</span>
+          <span class="website-desc"><T en="Brand & showcase site" tr="Marka ve tanıtım sitesi" /></span>
+          <span class="website-cta mono">[ <T en="VISIT" tr="SİTEYİ GÖR" /> ]_</span>
+        </a>
+        <a href="https://cevizbiotech.com/app" target="_blank" rel="noopener" class="website-card">
+          <span class="website-label">Ceviz App</span>
+          <span class="website-url mono">cevizbiotech.com/app</span>
+          <span class="website-desc"><T en="Physician–engineer B2B platform, web showcase" tr="Hekim-mühendis B2B platformu, web tanıtımı" /></span>
+          <span class="website-cta mono">[ <T en="VISIT" tr="SİTEYİ GÖR" /> ]_</span>
+        </a>
+        <a href="https://cevizbiotech.com/viewer" target="_blank" rel="noopener" class="website-card">
+          <span class="website-label">Ceviz Viewer & Converter</span>
+          <span class="website-url mono">cevizbiotech.com/viewer</span>
+          <span class="website-desc"><T en="3D viewer/converter, web showcase" tr="3D görüntüleyici/dönüştürücü, web tanıtımı" /></span>
+          <span class="website-cta mono">[ <T en="VISIT" tr="SİTEYİ GÖR" /> ]_</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
   <section class="section section--darker">
     <div class="container cta-band">
       <h2><T en="Want the rest of the story?" tr="Hikâyenin devamını ister misin?" /></h2>
@@ -180,6 +214,34 @@ import MediaPlaceholder from '../../components/MediaPlaceholder.astro';
   .case-h2 { font-size: var(--fs-h2); margin: var(--space-xl) 0 var(--space-md); }
   .case-narrow > .case-h2:first-of-type { margin-top: var(--space-md); }
   .case-narrow p { max-width: none; }
+
+  .websites-intro { color: var(--text-body); max-width: 640px; margin-bottom: var(--space-lg); }
+  .website-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    border-top: 1px solid var(--border);
+    border-left: 1px solid var(--border);
+  }
+  .website-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: var(--space-lg);
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    text-decoration: none;
+    transition: background var(--dur) var(--ease);
+  }
+  .website-card:hover { background: var(--bg-primary-darker); }
+  .website-label { font-family: var(--font-display); font-size: 1.15rem; color: var(--text-heading); }
+  .website-url { font-size: var(--fs-label); color: var(--text-muted); }
+  .website-desc { font-size: var(--fs-small); color: var(--text-body); }
+  .website-cta {
+    margin-top: var(--space-xs);
+    font-size: var(--fs-label);
+    letter-spacing: 0.08em;
+    color: var(--accent);
+  }
 
   .cta-band {
     display: flex;
