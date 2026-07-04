@@ -18,8 +18,8 @@ import site from '../data/site.json';
       <h1><T en="Let's talk." tr="Konuşalım." /></h1>
       <p class="page-lead">
         <T
-          en="Building something, hiring, or just curious? Send a note below — it lands straight in my inbox. You can also reach me directly at the channels on the left."
-          tr="Bir şey mi inşa ediyorsun, işe mi alıyorsun, yoksa sadece merak mı ettin? Aşağıya bir not yaz — doğrudan gelen kutuma düşer. Soldaki kanallardan da bana ulaşabilirsin."
+          en="Building something, hiring, or just curious? The contact form is coming soon — for now, reach me directly through the channels on the left."
+          tr="Bir şey mi inşa ediyorsun, işe mi alıyorsun, yoksa sadece merak mı ettin? İletişim formu yakında aktif olacak — şimdilik soldaki kanallardan doğrudan ulaşabilirsin."
         />
       </p>
     </div>
@@ -90,7 +90,7 @@ import site from '../data/site.json';
           </div>
 
           <Cta as="button" type="submit" variant="primary" id="contact-submit">
-            <T en="Send message" tr="Mesajı gönder" />
+            <T en="Coming soon" tr="Yakında aktif" />
           </Cta>
 
           <p class="form-status mono" id="form-status" role="status" aria-live="polite" hidden></p>
@@ -173,26 +173,20 @@ import site from '../data/site.json';
   (function () {
     var form = document.getElementById('contact-form');
     if (!form) return;
-    var btn = document.getElementById('contact-submit');
-    var btnLabel = btn.querySelector('.cta-label');
     var status = document.getElementById('form-status');
 
+    // Backend (Resend) şimdilik ertelendi — form yalnızca frontend'de.
+    // Submit hiçbir istek atmaz; "yakında aktif olacak" bilgisini gösterir.
     var COPY = {
-      sending: { en: 'Sending…', tr: 'Gönderiliyor…' },
-      send: { en: 'Send message', tr: 'Mesajı gönder' },
-      success: {
-        en: "Message sent — I'll get back to you soon.",
-        tr: 'Mesajın gönderildi, en kısa sürede dönüş yapacağım.',
-      },
-      invalid: {
-        en: 'Please fill in your name, a valid email, and a message.',
-        tr: 'Lütfen adını, geçerli bir e-posta ve bir mesaj gir.',
-      },
-      error: {
-        en: 'Something went wrong. You can email me directly at ',
-        tr: 'Bir şeyler ters gitti. Doğrudan yazmak istersen: ',
+      soon: {
+        en: 'The contact form isn’t live yet — it’s coming soon. In the meantime, email me directly at ',
+        tr: 'İletişim formu henüz aktif değil, yakında aktif olacak. Şimdilik doğrudan e-posta gönderebilirsin: ',
       },
     };
+
+    function lang() {
+      return document.documentElement.getAttribute('data-lang') === 'tr' ? 'tr' : 'en';
+    }
 
     // Dil-duyarlı placeholder'lar (attribute olduğu için CSS trick çalışmaz)
     function applyPlaceholders() {
@@ -207,67 +201,11 @@ import site from '../data/site.json';
       attributeFilter: ['data-lang'],
     });
 
-    function lang() {
-      return document.documentElement.getAttribute('data-lang') === 'tr' ? 'tr' : 'en';
-    }
-    function setLabel(key) {
-      btnLabel.textContent = COPY[key][lang()];
-    }
-    function show(kind, html) {
-      status.hidden = false;
-      status.className = 'form-status mono ' + (kind ? 'is-' + kind : '');
-      status.innerHTML = html;
-    }
-    var isEmail = function (v) {
-      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
-    };
-
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-
-      // form.name native HTMLFormElement özelliğiyle çakıştığı için id ile eriş
-      var name = document.getElementById('c-name').value.trim();
-      var mail = document.getElementById('c-email').value.trim();
-      var subject = document.getElementById('c-subject').value.trim();
-      var message = document.getElementById('c-message').value.trim();
-      var company = document.getElementById('c-company').value.trim(); // honeypot
-
-      if (!name || !isEmail(mail) || !message) {
-        show('error', COPY.invalid[lang()]);
-        return;
-      }
-
-      btn.setAttribute('aria-busy', 'true');
-      setLabel('sending');
-      status.hidden = true;
-
-      fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: name, email: mail, subject: subject, message: message, company: company }),
-      })
-        .then(function (res) {
-          return res.json().catch(function () { return { success: res.ok }; });
-        })
-        .then(function (data) {
-          if (data && data.success) {
-            form.reset();
-            show('success', COPY.success[lang()]);
-          } else {
-            throw new Error((data && data.error) || 'failed');
-          }
-        })
-        .catch(function () {
-          show(
-            'error',
-            COPY.error[lang()] +
-              '<a href="mailto:' + email + '">' + email + '</a>.'
-          );
-        })
-        .finally(function () {
-          btn.removeAttribute('aria-busy');
-          setLabel('send');
-        });
+      status.hidden = false;
+      status.className = 'form-status mono';
+      status.innerHTML = COPY.soon[lang()] + '<a href="mailto:' + email + '">' + email + '</a>.';
     });
   })();
 </script>
