@@ -91,7 +91,7 @@
         }
       }
       if (i >= lines.length) {
-        timer = setTimeout(finish, 600);
+        timer = setTimeout(finish, 1400);
         return;
       }
       var el = document.createElement('div');
@@ -114,12 +114,12 @@
       el.appendChild(c);
       container.appendChild(el);
       i++;
-      timer = setTimeout(showNext, 450);
+      timer = setTimeout(showNext, 600);
     }
 
     if (skipBtn) skipBtn.addEventListener('click', finish);
-    // Backstop: bir şey takılırsa 9sn sonra kesin kapat
-    setTimeout(finish, 9000);
+    // Backstop: bir şey takılırsa 11sn sonra kesin kapat
+    setTimeout(finish, 11000);
     // Logo önce fade-in yapsın, boot satırları ~300ms sonra başlasın
     timer = setTimeout(showNext, 300);
   })();
