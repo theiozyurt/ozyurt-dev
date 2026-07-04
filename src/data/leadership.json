@@ -36,7 +36,12 @@
       "en": "Technical mentor in Deneyap, a nationwide STEM program by the Ministry of Industry and Technology for gifted youth (ages 12–18). I guide students through hands-on projects and competition preparation in robotics, AI, software and electronics.",
       "tr": "Sanayi ve Teknoloji Bakanlığı'nın 12–18 yaş yetenekli gençlere yönelik ulusal STEM programı Deneyap'ta teknik mentor. Öğrencilere robotik, yapay zeka, yazılım ve elektronik alanlarında uygulamalı projeler ve yarışma hazırlığında rehberlik ediyorum."
     },
-    "points": [],
+    "points": [
+      {
+        "en": "Delivered training sessions on Software Technologies, Artificial Intelligence, and related topics to Deneyap students.",
+        "tr": "Deneyap öğrencilerine Yazılım Teknolojileri, Yapay Zeka ve ilgili konularda eğitimler verdim."
+      }
+    ],
     "gallery": [
       "/images/leadership/deneyap/10ba7e34-8737-43c3-8ea4-f9b8df8d183a.jpeg",
       "/images/leadership/deneyap/1762091624025.jpeg",
@@ -50,10 +55,15 @@
     "role": { "en": "Scholar & Volunteer", "tr": "Bursiyer & Gönüllü" },
     "org": { "en": "T3 Foundation", "tr": "T3 Vakfı" },
     "summary": {
-      "en": "Two-time recipient of the T3 Foundation's \"Sen Geleceksin\" merit scholarship, and a volunteer contributor to the T3AI program bringing AI education to cities across Turkey.",
-      "tr": "T3 Vakfı'nın \"Sen Geleceksin\" başarı bursunu iki kez aldım ve Türkiye genelinde yapay zeka eğitimi taşıyan T3AI programına gönüllü katkıda bulunuyorum."
+      "en": "Selected twice in a row for the T3 Foundation's \"Sen Geleceksin\" merit scholarship, among roughly 300 students nationwide each year. This scholarship is what makes both my Deneyap mentorship and my Teknofest Club presidency possible — it's the thread connecting the two. I also volunteer for the T3AI program, which brings AI education to cities across Turkey.",
+      "tr": "T3 Vakfı'nın \"Sen Geleceksin\" başarı bursuna, her yıl yaklaşık 300 öğrenci arasından iki kez üst üste seçildim. Hem Deneyap'taki mentorluğumu hem de Teknofest Topluluğu başkanlığımı mümkün kılan da bu burs — ikisini birbirine bağlayan iplik. Ayrıca Türkiye genelinde yapay zeka eğitimi taşıyan T3AI programına gönüllü katkıda bulunuyorum."
     },
-    "points": [],
+    "points": [
+      {
+        "en": "Selected two consecutive years, among ~300 students nationwide each cycle.",
+        "tr": "Her dönem yaklaşık 300 öğrenci arasından, iki yıl üst üste seçildim."
+      }
+    ],
     "gallery": [
       "/images/leadership/sen_geleceksin/1769163026590.jpeg"
     ]
@@ -65,10 +75,19 @@
     "role": { "en": "Project Coordinator", "tr": "Proje Koordinatörü" },
     "org": { "en": "ÜNİDES — Ministry of Youth & Sports", "tr": "ÜNİDES — Gençlik ve Spor Bakanlığı" },
     "summary": {
-      "en": "Coordinated university-level community-service projects under ÜNİDES, a national grant program funding student-led social-impact initiatives. Managed the Digital Game Design and HealthNova AI program cycles.",
-      "tr": "Öğrenci öncülüğündeki sosyal etki girişimlerini fonlayan ulusal hibe programı ÜNİDES kapsamında üniversite düzeyinde topluluk hizmeti projelerini koordine ettim. Digital Game Design ve HealthNova AI program döngülerini yönettim."
+      "en": "Coordinated 'Göklerden Köylere' ('From the Skies to the Villages'), a rocket education project under ÜNİDES — a national grant program funding student-led social-impact initiatives — held in Çavdarhisar, Kütahya. I organized a model rocket event for primary school students there, and produced everything the program required: the final ÜNİDES report, social media content, and procurement specifications (şartname). I also coordinated the Digital Game Design and HealthNova AI program cycles under the same umbrella.",
+      "tr": "Öğrenci öncülüğündeki sosyal etki girişimlerini fonlayan ulusal hibe programı ÜNİDES kapsamında, Kütahya'nın Çavdarhisar ilçesinde 'Göklerden Köylere' roket eğitimi projesini koordine ettim. Orada ilkokul öğrencileri için bir model roket etkinliği düzenledim ve programın gerektirdiği her şeyi hazırladım: ÜNİDES final raporu, sosyal medya içerikleri ve teknik şartnameler. Aynı çatı altında Digital Game Design ve HealthNova AI program döngülerini de yürüttüm."
     },
-    "points": [],
+    "points": [
+      {
+        "en": "Organized a hands-on model rocket event for primary school students in Çavdarhisar, Kütahya.",
+        "tr": "Kütahya Çavdarhisar'da ilkokul öğrencileri için uygulamalı bir model roket etkinliği düzenledim."
+      },
+      {
+        "en": "Produced the complete program documentation: final report, social media content, and procurement specifications.",
+        "tr": "Programın tüm dokümantasyonunu hazırladım: final raporu, sosyal medya içerikleri ve teknik şartnameler."
+      }
+    ],
     "gallery": []
   }
 ]

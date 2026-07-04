@@ -1,14 +1,14 @@
 {
   "summary": {
     "en": "Third-year Computer Engineering student at Kütahya Health Sciences University. Developer & Partner at Ceviz Biyoteknoloji (backed by TÜBİTAK 1501 and 1812), working on a B2B health-technology platform. Experienced in Flutter/Firebase mobile development, GDPR/KVKK compliance, and international research.",
-    "tr": "Kütahya Sağlık Bilimleri Üniversitesi'nde 3. sınıf Bilgisayar Mühendisliği öğrencisi. Ceviz Biyoteknoloji'de (TÜBİTAK 1501 ve 1812 destekli) geliştirici ve ortak olarak B2B bir sağlık teknolojisi platformu üzerinde çalışıyor. Flutter/Firebase mobil geliştirme, GDPR/KVKK uyumluluğu ve uluslararası araştırma deneyimine sahip."
+    "tr": "Kütahya Sağlık Bilimleri Üniversitesi'nde 3. sınıf Bilgisayar Mühendisliği öğrencisiyim. Ceviz Biyoteknoloji'de (TÜBİTAK 1501 ve 1812 destekli) geliştirici ve ortak olarak bir B2B sağlık teknolojisi platformu üzerinde çalışıyorum. Flutter/Firebase mobil geliştirme, GDPR/KVKK uyumluluğu ve uluslararası araştırma deneyimim var."
   },
   "education": [
     {
       "period": { "en": "2023 — Present", "tr": "2023 — Devam ediyor" },
       "degree": { "en": "B.Sc. Computer Engineering", "tr": "Bilgisayar Mühendisliği (Lisans)" },
       "school": { "en": "Kütahya Health Sciences University", "tr": "Kütahya Sağlık Bilimleri Üniversitesi" },
-      "note": { "en": "Third-year student. Admitted as the top-ranked student in the department.", "tr": "Üçüncü sınıf öğrencisi. Bölüme birincilikle giriş yaptı." }
+      "note": { "en": "Third-year student. Admitted as the top-ranked student in the department.", "tr": "Üçüncü sınıf öğrencisiyim. Bölüme birincilikle girdim." }
     },
     {
       "period": { "en": "2023 — Frozen", "tr": "2023 — Donduruldu" },

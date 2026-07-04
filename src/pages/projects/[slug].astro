@@ -33,6 +33,21 @@ const bi = (v: any) => (typeof v === 'string' ? { en: v, tr: v } : v);
   <section class="section">
     <div class="container proj-narrow">
       <p class="proj-summary"><T t={bi(project.summary)} /></p>
+
+      {project.points && project.points.length > 0 && (
+        <ul class="proj-points">
+          {project.points.map((p: any) => (
+            <li><T t={bi(p)} /></li>
+          ))}
+        </ul>
+      )}
+
+      {project.mentor && (
+        <p class="proj-mentor mono">
+          <T en="Mentored by " tr="Staj boyunca " /><a href={project.mentor.url} target="_blank" rel="noopener">{project.mentor.name}</a><T en=" throughout the internship." tr="'ın mentorluğunda çalıştım." />
+        </p>
+      )}
+
       {project.tags && project.tags.length > 0 && (
         <ul class="proj-tags">
           {project.tags.map((t: string) => <li class="tag tag--ghost">{t}</li>)}
@@ -62,6 +77,22 @@ const bi = (v: any) => (typeof v === 'string' ? { en: v, tr: v } : v);
   .proj-award { color: var(--accent); }
   .proj-narrow { max-width: 720px; }
   .proj-summary { font-size: 1.2rem; color: var(--text-body); }
+  .proj-points {
+    list-style: none;
+    margin-top: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .proj-points li {
+    position: relative;
+    padding-left: 1.25rem;
+    color: var(--text-body);
+    max-width: 68ch;
+  }
+  .proj-points li::before { content: '—'; position: absolute; left: 0; color: var(--accent); }
+  .proj-mentor { margin-top: var(--space-lg); color: var(--text-muted); font-size: var(--fs-small); }
+  .proj-mentor a { color: var(--accent); }
   .proj-tags { list-style: none; display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: var(--space-lg); }
   .proj-repo {
     display: inline-block;

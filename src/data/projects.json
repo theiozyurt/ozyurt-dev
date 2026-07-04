@@ -17,7 +17,14 @@
       "/images/projects/gural_porselen/1755007121268.jpeg",
       "/images/projects/gural_porselen/1755007124248.jpeg"
     ],
-    "repo": ""
+    "repo": "https://github.com/theiozyurt/gural_porselen_personel_bilgi_sistemi",
+    "mentor": { "name": "Oğuzhan Danış", "url": "https://www.linkedin.com/in/oguzhandanis/" },
+    "points": [
+      {
+        "en": "Handled sensitive employee data end to end: payroll for blue-collar staff, clock-in/clock-out logs, leave requests, and even daily cafeteria menus.",
+        "tr": "Hassas çalışan verilerini uçtan uca yönettim: mavi yaka personelin bordrosu, işe giriş-çıkış kayıtları, izin talepleri ve hatta günlük yemekhane menüleri."
+      }
+    ]
   },
   {
     "slug": "birth-adventure",
@@ -25,10 +32,20 @@
     "period": { "en": "2025", "tr": "2025" },
     "award": { "en": "Bronze Medal — 1IDEA 1WORLD International Competition", "tr": "Bronz Madalya — 1IDEA 1WORLD Uluslararası Yarışması" },
     "summary": {
-      "en": "A bronze medal among 981 projects from 33 countries at the 1IDEA 1WORLD international innovation competition, organized by TÜMMİAD and Ankara Metropolitan Municipality. I played an active role in product design.",
-      "tr": "TÜMMİAD ve Ankara Büyükşehir Belediyesi tarafından düzenlenen 1IDEA 1WORLD uluslararası inovasyon yarışmasında 33 ülkeden 981 proje arasında bronz madalya. Ürün tasarımında aktif rol aldım."
+      "en": "This game began as a concept for a master's student in our university's Midwifery department — designed around her thesis project. The game itself was never fully completed, but the prototype still won a bronze medal among 981 projects from 33 countries at the 1IDEA 1WORLD competition, organized by TÜMMİAD and Ankara Metropolitan Municipality. I played an active role in product design.",
+      "tr": "Bu oyun, üniversitemizin Ebelik bölümünden bir yüksek lisans öğrencisinin tez projesi için tasarlanan bir konsept olarak başladı. Oyunun kendisi hiçbir zaman tam olarak tamamlanmadı; yine de prototipi, TÜMMİAD ve Ankara Büyükşehir Belediyesi tarafından düzenlenen 1IDEA 1WORLD yarışmasında 33 ülkeden 981 proje arasında bronz madalya kazandı. Ürün tasarımında aktif rol aldım."
     },
     "tags": ["Product design", "Innovation"],
+    "points": [
+      {
+        "en": "Designed around a real academic thesis project in the Midwifery department — a rare cross-discipline collaboration.",
+        "tr": "Ebelik bölümündeki gerçek bir tez projesi etrafında tasarlandı — disiplinler arası, ender bir iş birliği."
+      },
+      {
+        "en": "Won recognition despite being an unfinished prototype — proof the core concept resonated.",
+        "tr": "Tamamlanmamış bir prototip olmasına rağmen ödül aldı — temel fikrin karşılık bulduğunun bir işareti."
+      }
+    ],
     "gallery": []
   },
   {
@@ -37,10 +54,20 @@
     "period": { "en": "2024", "tr": "2024" },
     "award": { "en": "Rehabilitation Game — Dumlupınar University collaboration", "tr": "Rehabilitasyon Oyunu — Dumlupınar Üniversitesi iş birliği" },
     "summary": {
-      "en": "Co-developed an interactive game that motivates physical-therapy patients during recovery, as part of the \"Adım Robot\" rehabilitation project.",
-      "tr": "\"Adım Robot\" rehabilitasyon projesi kapsamında, fizik tedavi hastalarını iyileşme sürecinde motive eden interaktif bir oyunu birlikte geliştirdim."
+      "en": "This was a chance to contribute to Dumlupınar University's larger \"Adım Robot\" rehabilitation project. Ferzende Tekçe, one of the software developers on that project who I'd stayed in good contact with, asked if I knew of a game that could motivate patients while the machine regulated their walking during physical therapy. My friends and I built a simple one. It ended up not being used — it fell outside the project's budget — but the collaboration itself was the real win.",
+      "tr": "Dumlupınar Üniversitesi'nin daha büyük \"Adım Robot\" rehabilitasyon projesine katkıda bulunma fırsatıydı. Projedeki yazılımcılardan, iletişimimi sürdürdüğüm Ferzende Tekçe, makine hastaların yürüyüşünü düzenlerken onları motive edecek bir oyun bilip bilmediğimi sordu. Arkadaşlarımla birlikte basit bir oyun geliştirdik. Proje bütçesinin dışında kaldığı için sonunda kullanılmadı; ama asıl kazanım iş birliğinin kendisiydi."
     },
     "tags": ["Game development", "Health"],
+    "points": [
+      {
+        "en": "Built in response to a real request from inside an active university rehabilitation project.",
+        "tr": "Aktif bir üniversite rehabilitasyon projesinden gelen gerçek bir talep üzerine geliştirdim."
+      },
+      {
+        "en": "Not adopted due to budget constraints — an honest outcome, not a failure of the work itself.",
+        "tr": "Bütçe kısıtları nedeniyle kullanılmadı — çalışmanın bir başarısızlığı değil, dürüst bir sonuç."
+      }
+    ],
     "gallery": []
   }
 ]
