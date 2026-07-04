@@ -15,11 +15,11 @@ const { images = [], heading = '[ GALLERY ]' } = Astro.props;
 <div class="entry-gallery">
   <h3 class="gallery-heading mono">{heading}</h3>
   {images.length > 0 ? (
-    <div class="gallery-grid">
+    <div class="gallery-grid" data-lightbox-group>
       {images.map((img) => (
-        <div class="gallery-item">
+        <button class="gallery-item" type="button" data-lightbox aria-label="Görseli büyüt">
           <img src={img} alt="" loading="lazy" />
-        </div>
+        </button>
       ))}
     </div>
   ) : (
@@ -45,9 +45,18 @@ const { images = [], heading = '[ GALLERY ]' } = Astro.props;
     margin-top: 24px;
   }
   .gallery-item {
+    display: block;
+    width: 100%;
     aspect-ratio: 4 / 3;
     overflow: hidden;
     border: 1px solid var(--border);
+    padding: 0;
+    background: none;
+    cursor: pointer;
+  }
+  .gallery-item:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
   }
   .gallery-item img {
     width: 100%;

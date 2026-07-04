@@ -61,9 +61,11 @@ const bi = (v: any) => (typeof v === 'string' ? { en: v, tr: v } : v);
                   </ul>
                 )}
                 {item.gallery && item.gallery.length > 0 && (
-                  <div class="item-gallery-preview" aria-hidden="true">
+                  <div class="item-gallery-preview" aria-hidden="true" data-lightbox-group>
                     {item.gallery.slice(0, 3).map((img) => (
-                      <img src={img} alt="" loading="lazy" />
+                      <button type="button" class="preview-shot" tabindex="-1" data-lightbox>
+                        <img src={img} alt="" loading="lazy" />
+                      </button>
                     ))}
                   </div>
                 )}

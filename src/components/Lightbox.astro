@@ -1,0 +1,148 @@
+---
+/**
+ * Paylaşılan tam-ekran lightbox — BaseLayout'ta bir kez render edilir.
+ * Herhangi bir `[data-lightbox-group]` kabı içindeki `[data-lightbox]`
+ * tetikleyicisine tıklanınca açılır ve o gruptaki tüm görseller arasında
+ * ok tuşları / ‹ › butonları / Escape ile gezinilir. Ayrı bir sistem yok:
+ * hem Gallery.astro grid'i hem de kartlardaki mini galeri önizlemesi aynı
+ * mantığı kullanır (bkz. CARD_FOCUS_GLOW_ADDENDUM.md).
+ */
+---
+<div
+  class="lightbox"
+  id="lightbox"
+  aria-hidden="true"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Görsel önizleme"
+>
+  <button class="lightbox-close" id="lightbox-close" type="button" aria-label="Kapat">[ ESC ]</button>
+  <button class="lightbox-prev" id="lightbox-prev" type="button" aria-label="Önceki görsel">‹</button>
+  <img class="lightbox-image" id="lightbox-image" src="" alt="" />
+  <button class="lightbox-next" id="lightbox-next" type="button" aria-label="Sonraki görsel">›</button>
+</div>
+
+<script is:inline>
+  (function () {
+    var lightbox = document.getElementById('lightbox');
+    if (!lightbox) return;
+    var image = document.getElementById('lightbox-image');
+    var btnClose = document.getElementById('lightbox-close');
+    var btnPrev = document.getElementById('lightbox-prev');
+    var btnNext = document.getElementById('lightbox-next');
+    var images = [];
+    var index = 0;
+    var lastFocus = null;
+
+    function render() {
+      image.src = images[index] || '';
+      var multi = images.length > 1;
+      btnPrev.style.display = multi ? '' : 'none';
+      btnNext.style.display = multi ? '' : 'none';
+    }
+    function open(list, i, trigger) {
+      if (!list.length) return;
+      images = list;
+      index = i;
+      lastFocus = trigger || null;
+      render();
+      lightbox.classList.add('open');
+      lightbox.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      btnClose.focus();
+    }
+    function close() {
+      lightbox.classList.remove('open');
+      lightbox.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      image.src = '';
+      if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
+      lastFocus = null;
+    }
+    function next() { if (images.length) { index = (index + 1) % images.length; render(); } }
+    function prev() { if (images.length) { index = (index - 1 + images.length) % images.length; render(); } }
+
+    // Delegasyon: sayfadaki herhangi bir lightbox tetikleyicisi çalışır.
+    document.addEventListener('click', function (e) {
+      var trigger = e.target.closest('[data-lightbox]');
+      if (!trigger) return;
+      var group = trigger.closest('[data-lightbox-group]') || document;
+      var triggers = Array.prototype.slice.call(group.querySelectorAll('[data-lightbox]'));
+      var list = triggers
+        .map(function (t) {
+          var im = t.matches('img') ? t : t.querySelector('img');
+          return im ? im.getAttribute('src') : t.getAttribute('data-lightbox-src');
+        })
+        .filter(Boolean);
+      var i = triggers.indexOf(trigger);
+      e.preventDefault();
+      open(list, i < 0 ? 0 : i, trigger);
+    });
+
+    btnClose.addEventListener('click', close);
+    btnNext.addEventListener('click', next);
+    btnPrev.addEventListener('click', prev);
+    lightbox.addEventListener('click', function (e) { if (e.target === lightbox) close(); });
+    document.addEventListener('keydown', function (e) {
+      if (!lightbox.classList.contains('open')) return;
+      if (e.key === 'Escape') close();
+      else if (e.key === 'ArrowRight') next();
+      else if (e.key === 'ArrowLeft') prev();
+    });
+  })();
+</script>
+
+<style>
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 18, 32, 0.92); /* --bg-primary-darker'ın koyu/şeffaf hali */
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9998;
+  }
+  .lightbox.open { display: flex; }
+  .lightbox-image {
+    max-width: 85vw;
+    max-height: 85vh;
+    object-fit: contain;
+    border: 1px solid var(--accent);
+  }
+  .lightbox-close {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    background: none;
+    border: none;
+    color: var(--text-body);
+    font-family: var(--font-mono);
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+  }
+  .lightbox-close:hover { color: var(--accent); }
+  .lightbox-prev,
+  .lightbox-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--text-body);
+    font-family: var(--font-mono);
+    font-size: 40px;
+    line-height: 1;
+    padding: 16px;
+    cursor: pointer;
+  }
+  .lightbox-prev { left: 8px; }
+  .lightbox-next { right: 8px; }
+  .lightbox-prev:hover,
+  .lightbox-next:hover { color: var(--accent); }
+
+  @media (max-width: 720px) {
+    .lightbox-prev, .lightbox-next { font-size: 32px; padding: 10px; }
+    .lightbox-close { top: 14px; right: 14px; }
+  }
+</style>

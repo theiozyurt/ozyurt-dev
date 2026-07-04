@@ -458,7 +458,10 @@ html:not([data-splash]) #splash-screen { display: none; }
    ============================================================ */
 .exp-item,
 .leadership-item {
-  transition: transform 0.3s var(--ease), background 0.3s var(--ease);
+  position: relative;
+  transform-origin: center;
+  transition: transform 0.4s var(--ease), background 0.4s var(--ease),
+    box-shadow 0.4s var(--ease), opacity 0.4s var(--ease), filter 0.4s var(--ease);
 }
 .exp-item .item-description,
 .leadership-item .item-description {
@@ -471,27 +474,71 @@ html:not([data-splash]) #splash-screen { display: none; }
   gap: 8px;
   margin-top: var(--space-md);
 }
+.item-gallery-preview .preview-shot {
+  background: none;
+  border: none;
+  padding: 0;
+  line-height: 0;
+  cursor: pointer;
+}
 .item-gallery-preview img {
   width: 84px;
   height: 84px;
   object-fit: cover;
   border: 1px solid var(--border);
   filter: grayscale(15%);
+  transition: filter 0.3s var(--ease);
 }
+.item-gallery-preview .preview-shot:hover img { filter: grayscale(0%); }
+/* Spotlight/odak — aktif (dokunmatik) ya da hover'lanan kart belirgin
+   şekilde büyüyüp pirinç ışıltısıyla öne çıkar; listedeki diğer kartlar
+   kararıp geri çekilir. --accent = #B08D4F = rgb(176,141,79). */
 .exp-item.active,
-.leadership-item.active { transform: scale(1.01); }
+.leadership-item.active {
+  transform: scale(1.04);
+  z-index: 10;
+  box-shadow:
+    0 0 0 1px var(--accent),
+    0 0 24px 4px rgba(176, 141, 79, 0.35),
+    0 20px 40px rgba(0, 0, 0, 0.5);
+}
 .exp-item.active .item-description,
 .leadership-item.active .item-description { max-height: 400px; }
 .exp-item.active .item-gallery-preview,
 .leadership-item.active .item-gallery-preview { display: flex; }
 
+/* Aktif kart varken diğerleri kararsın (dokunmatikte .active üzerinden) */
+#exp-timeline:has(.exp-item.active) .exp-item:not(.active),
+#lead-list:has(.leadership-item.active) .leadership-item:not(.active) {
+  opacity: 0.35;
+  filter: brightness(0.5) blur(1px);
+  transform: scale(0.98);
+}
+
 @media (hover: hover) {
   .exp-item:hover,
-  .leadership-item:hover { transform: scale(1.01); }
+  .leadership-item:hover {
+    transform: scale(1.04);
+    z-index: 10;
+    box-shadow:
+      0 0 0 1px var(--accent),
+      0 0 24px 4px rgba(176, 141, 79, 0.35),
+      0 20px 40px rgba(0, 0, 0, 0.5);
+    opacity: 1;
+    filter: none;
+  }
   .exp-item:hover .item-description,
   .leadership-item:hover .item-description { max-height: 400px; }
   .exp-item:hover .item-gallery-preview,
   .leadership-item:hover .item-gallery-preview { display: flex; }
+
+  /* Bir kart hover'lanınca listedeki diğerleri kararsın */
+  #exp-timeline:has(.exp-item:hover) .exp-item:not(:hover),
+  #lead-list:has(.leadership-item:hover) .leadership-item:not(:hover) {
+    opacity: 0.35;
+    filter: brightness(0.5) blur(1px);
+    transform: scale(0.98);
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   .exp-item,
