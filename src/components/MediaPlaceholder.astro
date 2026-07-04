@@ -1,0 +1,58 @@
+---
+/**
+ * Görsel yer tutucu. Dosya YOKSA düz --bg-primary-darker kutu + etiket
+ * gösterir (kırık görsel ikonu YOK). Dosya `src` yoluna eklenirse
+ * (onerror ile kaldırılmadığı sürece) otomatik olarak görüntülenir.
+ *
+ * <MediaPlaceholder src="/images/projects/ceviz-app.jpg" label="Ceviz App" ratio="16 / 10" />
+ */
+interface Props {
+  src?: string;
+  alt?: string;
+  label?: string;
+  ratio?: string;
+}
+const { src, alt = '', label = '', ratio = '16 / 10' } = Astro.props;
+---
+<figure class="media-ph" style={`aspect-ratio:${ratio}`}>
+  {src && <img src={src} alt={alt} loading="lazy" onerror="this.remove()" />}
+  {label && <figcaption class="media-ph-label mono">{label}</figcaption>}
+</figure>
+
+<style>
+  .media-ph {
+    position: relative;
+    width: 100%;
+    background: var(--bg-primary-darker);
+    border: 1px solid var(--border-faint);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .media-ph img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+  }
+  .media-ph-label {
+    position: relative;
+    z-index: 0;
+    color: var(--text-muted);
+    font-size: var(--fs-label);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 0.5rem 1rem;
+  }
+  .media-ph-label::before {
+    content: '▦';
+    display: block;
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    color: var(--border);
+  }
+</style>

@@ -1,0 +1,79 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import T from '../components/T.astro';
+import Cta from '../components/Cta.astro';
+import GhostNumber from '../components/GhostNumber.astro';
+import PixelField from '../components/PixelField.astro';
+---
+
+<BaseLayout
+  path="/goals"
+  title="Goals"
+  description="İsmail Özyurt on where this is going — building things that work end-to-end, and figuring out what shape that takes long-term."
+  descriptionTr="İsmail Özyurt'un bu işin nereye gittiğine dair düşünceleri — bir fikri baştan sona gerçek bir ürüne dönüştürmek ve bunun uzun vadede alacağı şekil."
+>
+  <header class="page-head section ghost-host">
+    <GhostNumber n="01" />
+    <PixelField count={14} />
+    <div class="container">
+      <span class="section-label"><T en="Goals" tr="Hedefler" /></span>
+      <h1><T en="Where this is going" tr="Bu nereye gidiyor" /></h1>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container goals-narrow">
+      <blockquote class="goals-lead quote-block">
+        <T
+          en="I care about building things that work end-to-end — from an idea to something people actually use. That's what draws me to Ceviz Biyoteknoloji, to research, and to every project I take on. I'm still figuring out exactly what shape that takes long-term, but I know I want to keep building, leading, and learning how great products and teams come together."
+          tr="Beni asıl motive eden şey, bir fikri baştan sona gerçek bir ürüne dönüştürmek — insanların gerçekten kullandığı bir şeye. Ceviz Biyoteknoloji'de, araştırmalarımda ve üstlendiğim her projede beni çeken şey bu. Bunun uzun vadede tam olarak nasıl bir şekil alacağını hâlâ keşfediyorum, ama inşa etmeye, liderlik etmeye ve harika ürünlerin/ekiplerin nasıl bir araya geldiğini öğrenmeye devam etmek istediğimi biliyorum."
+        />
+      </blockquote>
+
+      <p class="goals-pull">
+        <T en="Build. Lead. Learn." tr="İnşa et. Liderlik et. Öğren." />
+      </p>
+
+      <div class="goals-cta">
+        <Cta href="/projects" variant="primary" cursor>
+          <T en="See what I'm building" tr="Ne inşa ettiğime bak" />
+        </Cta>
+        <Cta href="/contact" variant="secondary">
+          <T en="Get in touch" tr="İletişime geç" />
+        </Cta>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-head { border-top: none; padding-bottom: var(--space-lg); }
+  .goals-narrow { max-width: 780px; }
+
+  .goals-lead {
+    font-family: var(--font-body);
+    font-size: clamp(1.15rem, 1.8vw, 1.5rem);
+    line-height: 1.5;
+    color: var(--text-heading);
+    padding-left: clamp(1.25rem, 2.5vw, 2rem);
+  }
+
+  .goals-pull {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: -0.01em;
+    margin-top: var(--space-2xl);
+    max-width: none;
+  }
+
+  .goals-cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    margin-top: var(--space-2xl);
+    padding-top: var(--space-lg);
+    border-top: 1px solid var(--border-faint);
+  }
+</style>

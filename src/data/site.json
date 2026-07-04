@@ -1,0 +1,33 @@
+{
+  "name": "İsmail Özyurt",
+  "domain": "ozyurt.dev",
+  "role": {
+    "en": "Computer Engineering student & Developer at Ceviz Biyoteknoloji",
+    "tr": "Bilgisayar Mühendisliği öğrencisi & Ceviz Biyoteknoloji'de geliştirici"
+  },
+  "location": {
+    "en": "Kütahya, Türkiye",
+    "tr": "Kütahya, Türkiye"
+  },
+  "email": "ismailozyurt96@gmail.com",
+  "phone": "+90 538 634 94 34",
+  "linkedin": "https://www.linkedin.com/in/ismail-özyurt-49613b289",
+  "linkedinLabel": "linkedin.com/in/ismail-özyurt",
+  "github": "https://github.com/theiozyurt",
+  "githubLabel": "github.com/theiozyurt",
+  "cevizSite": "https://cevizbiotech.com",
+  "cevizSiteLabel": "cevizbiotech.com",
+  "description": {
+    "en": "İsmail Özyurt — Computer Engineering student at Kütahya Health Sciences University, Developer & Partner at Ceviz Biyoteknoloji.",
+    "tr": "İsmail Özyurt — Kütahya Sağlık Bilimleri Üniversitesi'nde Bilgisayar Mühendisliği okuyor, Ceviz Biyoteknoloji'de geliştirici ve ortak olarak çalışıyor."
+  },
+  "nav": [
+    { "href": "/", "en": "Home", "tr": "Ana Sayfa" },
+    { "href": "/experience", "en": "Experience", "tr": "Deneyim" },
+    { "href": "/projects", "en": "Projects", "tr": "Projeler" },
+    { "href": "/leadership", "en": "Leadership", "tr": "Liderlik" },
+    { "href": "/goals", "en": "Goals", "tr": "Hedefler" },
+    { "href": "/cv", "en": "CV", "tr": "CV" },
+    { "href": "/contact", "en": "Contact", "tr": "İletişim" }
+  ]
+}

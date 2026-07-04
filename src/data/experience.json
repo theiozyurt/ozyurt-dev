@@ -1,0 +1,82 @@
+[
+  {
+    "id": "ceviz",
+    "period": { "en": "2025 — Present", "tr": "2025 — Devam ediyor" },
+    "role": { "en": "Developer & Partner", "tr": "Developer & Partner" },
+    "org": "Ceviz Biyoteknoloji A.Ş.",
+    "kind": { "en": "Biotech startup · TÜBİTAK-funded", "tr": "Biyoteknoloji girişimi · TÜBİTAK destekli" },
+    "summary": {
+      "en": "Sole developer and project partner (with Emirhan Bozoğlan) at a TÜBİTAK 1501-funded biotech startup building a B2B platform that connects physicians and engineers for 3D implant and prosthetic design.",
+      "tr": "TÜBİTAK 1501 destekli, hekimler ile mühendisleri 3D implant ve protez tasarımı için buluşturan B2B platform geliştiren biyoteknoloji girişiminde tek geliştirici ve proje ortağı (Emirhan Bozoğlan ile)."
+    },
+    "points": [
+      {
+        "en": "Ship and maintain two products: Ceviz App (physician–engineer B2B platform, Flutter/Firebase) and Ceviz Viewer & Converter (a 30+ format 3D viewer & converter planned as a standalone product).",
+        "tr": "İki ürünü geliştirip sürdürüyorum: Ceviz App (hekim–mühendis B2B platformu, Flutter/Firebase) ve Ceviz Viewer & Converter (30+ format destekli, bağımsız ürün olarak planlanan 3D görüntüleyici/dönüştürücü)."
+      },
+      {
+        "en": "Designed and implemented a DICOM anonymization pipeline in Python on Firebase (europe-west3) for KVKK/GDPR compliance on sensitive CT/MRI imaging.",
+        "tr": "Hassas BT/MR görüntüleri için KVKK/GDPR uyumu sağlayan, Firebase (europe-west3) üzerinde Python ile DICOM anonimleştirme hattı tasarlayıp geliştirdim."
+      },
+      {
+        "en": "Hand-coded the brand website in HTML5/CSS3 with a focus on performance and SEO, and shipped the mobile app to Google Play (App Store review in progress).",
+        "tr": "Marka web sitesini performans ve SEO odağıyla HTML5/CSS3 ile elle kodladım; mobil uygulamayı Google Play'de yayınladım (App Store incelemesi sürüyor)."
+      }
+    ],
+    "tags": ["Flutter", "Firebase", "Python", "DICOM", "KVKK/GDPR"],
+    "link": "/projects/ceviz",
+    "linkLabel": { "en": "Read the case study", "tr": "Vaka çalışmasını oku" }
+  },
+  {
+    "id": "ml-research",
+    "period": { "en": "2026 — Present", "tr": "2026 — Devam ediyor" },
+    "role": { "en": "Algorithm Development Lead", "tr": "Algoritma Geliştirme Lideri" },
+    "org": { "en": "International ML Research Project", "tr": "Uluslararası ML Araştırma Projesi" },
+    "kind": { "en": "Academic research", "tr": "Akademik araştırma" },
+    "summary": {
+      "en": "Leading algorithm development on an international machine learning project, joined at the invitation of Assoc. Prof. Dr. Bahar Çelik.",
+      "tr": "Doç. Dr. Bahar Çelik'in davetiyle dahil olduğum uluslararası bir makine öğrenmesi projesinde algoritma geliştirme liderliği yürütüyorum."
+    },
+    "points": [],
+    "tags": ["Machine Learning", "Python", "Research"]
+  },
+  {
+    "id": "gurok",
+    "period": { "en": "Jul — Aug 2026", "tr": "Tem — Ağu 2026" },
+    "role": { "en": "Software Development Intern", "tr": "Yazılım Geliştirme Stajyeri" },
+    "org": "Gürok Group",
+    "kind": { "en": "Internship", "tr": "Staj" },
+    "summary": {
+      "en": "Summer software development internship at Gürok Group, one of Kütahya's largest industrial groups.",
+      "tr": "Kütahya'nın en büyük sanayi gruplarından Gürok Group'ta yaz dönemi yazılım geliştirme stajı."
+    },
+    "points": [],
+    "tags": []
+  },
+  {
+    "id": "gural",
+    "period": { "en": "2025", "tr": "2025" },
+    "role": { "en": "Software Developer Intern", "tr": "Yazılım Geliştirme Stajyeri" },
+    "org": { "en": "Güral Porselen, Kütahya", "tr": "Güral Porselen, Kütahya" },
+    "kind": { "en": "Internship", "tr": "Staj" },
+    "summary": {
+      "en": "Summer internship at one of Turkey's largest ceramics and porcelain manufacturers. Worked end-to-end on enterprise mobile app development with Flutter, Firebase and Figma — from UI design to backend service integration.",
+      "tr": "Türkiye'nin en büyük seramik ve porselen üreticilerinden birinde yaz stajı. Flutter, Firebase ve Figma ile kurumsal mobil uygulama geliştirmede UI tasarımından backend servis entegrasyonuna kadar uçtan uca çalıştım."
+    },
+    "points": [],
+    "tags": ["Flutter", "Firebase", "Figma"]
+  },
+  {
+    "id": "salerno",
+    "period": { "en": "2024", "tr": "2024" },
+    "role": { "en": "Erasmus+ Research Intern", "tr": "Erasmus+ Araştırma Stajyeri" },
+    "org": { "en": "University of Salerno, Italy", "tr": "Salerno Üniversitesi, İtalya" },
+    "kind": { "en": "Prior research experience", "tr": "Geçmiş araştırma deneyimi" },
+    "summary": {
+      "en": "Spent 3 months in 2024 on the \"Real-Time Face Tracking with Head-Mounted Displays\" project, researching computer vision and extended reality (XR), and authored the project's technical report.",
+      "tr": "2024'te 3 ay boyunca \"Real-Time Face Tracking with Head-Mounted Displays\" projesinde bilgisayarlı görü ve genişletilmiş gerçeklik (XR) üzerine araştırma yaptım ve projenin teknik raporunu yazdım."
+    },
+    "points": [],
+    "tags": ["Computer Vision", "XR", "Research"]
+  }
+]

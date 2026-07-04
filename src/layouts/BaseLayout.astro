@@ -1,0 +1,156 @@
+---
+import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import Splash from '../components/Splash.astro';
+import site from '../data/site.json';
+
+interface Props {
+  title?: string;
+  description?: string;
+  descriptionTr?: string;
+  path?: string;
+}
+
+const {
+  title,
+  description = site.description.en,
+  descriptionTr = site.description.tr,
+  path = '',
+} = Astro.props;
+
+const pageTitle = title ? `${title} — ${site.name}` : `${site.name} — ${site.role.en}`;
+const canonical = new URL(path, Astro.site ?? 'https://ozyurt.dev').href;
+const ogImage = new URL('/og.svg', Astro.site ?? 'https://ozyurt.dev').href;
+---
+
+<!doctype html>
+<html lang="en" data-lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content={site.name} />
+    <link rel="canonical" href={canonical} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="tr_TR" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&family=Geist+Mono:wght@400;500&family=Manrope:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Structured data -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Person',
+      name: site.name,
+      url: 'https://ozyurt.dev',
+      email: `mailto:${site.email}`,
+      jobTitle: site.role.en,
+      address: { '@type': 'PostalAddress', addressLocality: 'Kütahya', addressCountry: 'TR' },
+      sameAs: [site.linkedin],
+    })} />
+
+    <!-- Language: set from storage before paint to avoid flash -->
+    <script is:inline>
+      (function () {
+        try {
+          var stored = localStorage.getItem('lang');
+          var lang = stored === 'tr' || stored === 'en' ? stored : 'en';
+          document.documentElement.setAttribute('data-lang', lang);
+          document.documentElement.setAttribute('lang', lang);
+        } catch (e) {}
+      })();
+    </script>
+
+    <!-- Splash: yalnızca ilk ziyaret + reduced-motion değilse. Boyamadan önce karar ver. -->
+    <script is:inline>
+      (function () {
+        var show = false;
+        try {
+          var seen = sessionStorage.getItem('splashShown') === 'true';
+          var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          show = !seen && !reduce;
+        } catch (e) { show = false; }
+        document.documentElement.setAttribute('data-splash', show ? 'on' : 'off');
+      })();
+    </script>
+  </head>
+  <body>
+    <Splash />
+    <a class="skip-link" href="#main">Skip to content</a>
+    <Nav path={path} />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+
+    <script is:inline>
+      // Dil geçişi — data-lang attribute + localStorage
+      document.addEventListener('click', function (e) {
+        var btn = e.target.closest('[data-lang-set]');
+        if (!btn) return;
+        var lang = btn.getAttribute('data-lang-set');
+        document.documentElement.setAttribute('data-lang', lang);
+        document.documentElement.setAttribute('lang', lang);
+        try { localStorage.setItem('lang', lang); } catch (e) {}
+        document.querySelectorAll('[data-lang-set]').forEach(function (b) {
+          b.setAttribute('aria-pressed', b.getAttribute('data-lang-set') === lang ? 'true' : 'false');
+        });
+      });
+      // İlk yükte toggle durumunu senkronla
+      (function () {
+        var lang = document.documentElement.getAttribute('data-lang') || 'en';
+        document.querySelectorAll('[data-lang-set]').forEach(function (b) {
+          b.setAttribute('aria-pressed', b.getAttribute('data-lang-set') === lang ? 'true' : 'false');
+        });
+      })();
+    </script>
+
+    <script is:inline>
+      // Pixel twinkle — nokta konumları bir kez üretilir (saf CSS animasyon)
+      (function () {
+        var fields = document.querySelectorAll('.pixel-field');
+        fields.forEach(function (field) {
+          var count = parseInt(field.getAttribute('data-count') || '14', 10);
+          if (isNaN(count)) count = 14;
+          count = Math.max(12, Math.min(20, count));
+          var frag = document.createDocumentFragment();
+          for (var i = 0; i < count; i++) {
+            var dot = document.createElement('div');
+            dot.className = 'pixel-dot';
+            var size = 2 + Math.floor(Math.random() * 3); // 2–4px
+            dot.style.width = size + 'px';
+            dot.style.height = size + 'px';
+            dot.style.top = (Math.random() * 100).toFixed(2) + '%';
+            dot.style.left = (Math.random() * 100).toFixed(2) + '%';
+            dot.style.animationDelay = (Math.random() * 3).toFixed(2) + 's';
+            frag.appendChild(dot);
+          }
+          field.appendChild(frag);
+        });
+      })();
+    </script>
+  </body>
+</html>

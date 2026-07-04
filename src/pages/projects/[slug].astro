@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import T from '../../components/T.astro';
+import Cta from '../../components/Cta.astro';
+import projects from '../../data/projects.json';
+
+export function getStaticPaths() {
+  return projects.map((p) => ({
+    params: { slug: p.slug },
+    props: { project: p },
+  }));
+}
+
+const { project } = Astro.props;
+const bi = (v: any) => (typeof v === 'string' ? { en: v, tr: v } : v);
+---
+
+<BaseLayout
+  path={`/projects/${project.slug}`}
+  title={project.title.en}
+  description={project.summary.en}
+>
+  <header class="proj-head section">
+    <div class="container">
+      <a href="/projects" class="back-link mono">← <T en="All projects" tr="Tüm projeler" /></a>
+      <span class="mono proj-period"><T t={bi(project.period)} /></span>
+      <h1 class="proj-title"><T t={bi(project.title)} /></h1>
+      <p class="proj-award mono"><T t={bi(project.award)} /></p>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container proj-narrow">
+      <p class="proj-summary"><T t={bi(project.summary)} /></p>
+      {project.tags && project.tags.length > 0 && (
+        <ul class="proj-tags">
+          {project.tags.map((t: string) => <li class="tag tag--ghost">{t}</li>)}
+        </ul>
+      )}
+    </div>
+  </section>
+
+  <section class="section section--darker">
+    <div class="container cta-band">
+      <Cta href="/projects" variant="secondary"><T en="Back to projects" tr="Projelere dön" /></Cta>
+      <Cta href="/contact" variant="primary" cursor><T en="Get in touch" tr="İletişime geç" /></Cta>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .proj-head { border-top: none; padding-bottom: var(--space-lg); }
+  .back-link { display: inline-block; margin-bottom: var(--space-lg); color: var(--text-muted); }
+  .back-link:hover { color: var(--accent); }
+  .proj-period { display: block; margin-bottom: var(--space-sm); }
+  .proj-title { font-size: var(--fs-display); margin-bottom: var(--space-sm); }
+  .proj-award { color: var(--accent); }
+  .proj-narrow { max-width: 720px; }
+  .proj-summary { font-size: 1.2rem; color: var(--text-body); }
+  .proj-tags { list-style: none; display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: var(--space-lg); }
+  .cta-band { display: flex; gap: var(--space-md); flex-wrap: wrap; }
+</style>

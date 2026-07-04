@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import T from '../components/T.astro';
+import Cta from '../components/Cta.astro';
+---
+
+<BaseLayout path="/404" title="Not found">
+  <section class="section notfound">
+    <div class="container">
+      <span class="section-label">404</span>
+      <h1><T en="This page took a different path." tr="Bu sayfa başka bir yola saptı." /></h1>
+      <p class="notfound-lead">
+        <T
+          en="The page you're after doesn't exist — or moved. Everything else is still one click away."
+          tr="Aradığın sayfa yok — ya da taşındı. Geri kalan her şey bir tık uzağında."
+        />
+      </p>
+      <div class="notfound-cta">
+        <Cta href="/" variant="primary" cursor><T en="Back home" tr="Ana sayfaya dön" /></Cta>
+        <Cta href="/projects" variant="secondary"><T en="See projects" tr="Projelere bak" /></Cta>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .notfound { border-top: none; padding-block: var(--space-3xl); }
+  .notfound h1 { font-size: var(--fs-display); max-width: 16ch; }
+  .notfound-lead { color: var(--text-body); font-size: 1.2rem; margin-top: var(--space-md); max-width: 48ch; }
+  .notfound-cta { display: flex; gap: var(--space-md); flex-wrap: wrap; margin-top: var(--space-xl); }
+</style>

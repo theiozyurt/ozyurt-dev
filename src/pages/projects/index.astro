@@ -1,0 +1,146 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import T from '../../components/T.astro';
+import GhostNumber from '../../components/GhostNumber.astro';
+import PixelField from '../../components/PixelField.astro';
+import projects from '../../data/projects.json';
+
+const bi = (v: any) => (typeof v === 'string' ? { en: v, tr: v } : v);
+---
+
+<BaseLayout
+  path="/projects"
+  title="Projects"
+  description="Selected projects by İsmail Özyurt — Ceviz Biyoteknoloji (case study), Birth Adventure, Motivasyon Adam and more."
+>
+  <header class="page-head section ghost-host">
+    <GhostNumber n="01" />
+    <PixelField count={14} />
+    <div class="container">
+      <span class="section-label"><T en="Projects" tr="Projeler" /></span>
+      <h1><T en="Things I've shipped and built." tr="Yayınladığım ve inşa ettiğim şeyler." /></h1>
+    </div>
+  </header>
+
+  <!-- Ceviz — öne çıkan case study -->
+  <section class="section">
+    <div class="container">
+      <a href="/projects/ceviz" class="featured">
+        <div class="featured-meta">
+          <span class="tag"><T en="Featured case study" tr="Öne çıkan vaka çalışması" /></span>
+          <span class="mono featured-period">2025 — <T en="Present" tr="Devam ediyor" /></span>
+        </div>
+        <h2 class="featured-title">Ceviz Biyoteknoloji</h2>
+        <p class="featured-lead">
+          <T
+            en="A TÜBİTAK-funded biotech startup where I'm the sole developer and a project partner. Two products, one DICOM anonymization pipeline, and a KVKK/GDPR-compliant path from CT/MRI to 3D implant design."
+            tr="Tek geliştiricisi ve proje ortağı olduğum, TÜBİTAK destekli bir biyoteknoloji girişimi. İki ürün, bir DICOM anonimleştirme hattı ve BT/MR'dan 3D implant tasarımına KVKK/GDPR uyumlu bir yol."
+          />
+        </p>
+        <div class="featured-tags">
+          {['Flutter', 'Firebase', 'Python', 'DICOM', 'KVKK/GDPR'].map((t) => (
+            <span class="tag tag--ghost">{t}</span>
+          ))}
+        </div>
+        <span class="featured-cta">
+          <span class="cta-bracket">[</span>
+          <span class="featured-cta-label"><T en="Read the full case study" tr="Tam vaka çalışmasını oku" /></span>
+          <span class="cta-bracket">]</span><span class="cta-cursor" aria-hidden="true">_</span>
+        </span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Diğer projeler -->
+  <section class="section section--darker ghost-host">
+    <GhostNumber n="02" />
+    <div class="container">
+      <span class="section-label"><T en="More projects" tr="Diğer projeler" /></span>
+      <div class="project-list">
+        {projects.map((p) => (
+          <article class="proj-row">
+            <div class="proj-head">
+              <h3 class="proj-title"><T t={bi(p.title)} /></h3>
+              <span class="mono proj-period"><T t={bi(p.period)} /></span>
+            </div>
+            <p class="proj-award mono"><T t={bi(p.award)} /></p>
+            <p class="proj-summary"><T t={bi(p.summary)} /></p>
+            {p.tags && p.tags.length > 0 && (
+              <ul class="proj-tags">
+                {p.tags.map((t) => <li class="tag tag--ghost">{t}</li>)}
+              </ul>
+            )}
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-head { border-top: none; padding-bottom: var(--space-lg); }
+
+  .featured {
+    display: block;
+    border: 1px solid var(--border);
+    border-left: 2px solid var(--accent);
+    padding: var(--space-xl);
+    transition: border-color var(--dur) var(--ease), background var(--dur) var(--ease);
+  }
+  .featured:hover {
+    background: var(--bg-primary-darker);
+    border-color: var(--accent);
+  }
+  .featured-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+    flex-wrap: wrap;
+  }
+  .featured-title { font-size: var(--fs-h1); color: var(--text-heading); margin-bottom: var(--space-sm); }
+  .featured-lead { color: var(--text-body); font-size: 1.1rem; max-width: 64ch; }
+  .featured-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: var(--space-md); }
+  .featured-cta {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.4ch;
+    margin-top: var(--space-lg);
+    font-family: var(--font-mono);
+    font-size: 14px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .featured-cta .cta-bracket { color: var(--text-muted); transition: color var(--dur) var(--ease); }
+  .featured-cta .cta-cursor { color: var(--accent); animation: blink 1s step-start infinite; }
+  .featured:hover .featured-cta .cta-bracket { color: var(--accent); }
+
+  .project-list { border-top: 1px solid var(--border); }
+  .proj-row {
+    padding: var(--space-xl) 0;
+    border-bottom: 1px solid var(--border-faint);
+  }
+  .proj-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+  }
+  .proj-title { font-size: var(--fs-h2); }
+  .proj-award { color: var(--accent); margin-top: 0.35rem; }
+  .proj-summary { color: var(--text-body); margin-top: var(--space-sm); }
+  .proj-tags {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: var(--space-md);
+  }
+
+  @media (max-width: 720px) {
+    .featured { padding: var(--space-lg); }
+  }
+</style>

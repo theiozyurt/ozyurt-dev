@@ -1,0 +1,37 @@
+---
+/**
+ * Section başlıklarının arkasında büyük, soluk, dekoratif rakam.
+ * Konteynerine `position: relative; overflow: hidden` verilmeli,
+ * içerik ise `position: relative; z-index: 1` ile üstte kalmalı.
+ *
+ * <GhostNumber n="01" />  ya da  <GhostNumber n="02" align="left" />
+ */
+interface Props {
+  n: string | number;
+  align?: 'left' | 'right';
+}
+const { n, align = 'right' } = Astro.props;
+---
+<span class:list={['section-ghost-number', `ghost-${align}`]} aria-hidden="true">{n}</span>
+
+<style>
+  .section-ghost-number {
+    position: absolute;
+    top: -0.15em;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(84px, 15vw, 150px);
+    line-height: 1;
+    /* Zeminden çok az farklı, her iki lacivert tonunda da soluk kalır */
+    color: color-mix(in srgb, var(--text-muted) 13%, transparent);
+    z-index: 0;
+    pointer-events: none;
+    user-select: none;
+  }
+  .ghost-right { right: 0; }
+  .ghost-left { left: 0; }
+
+  @media (max-width: 768px) {
+    .section-ghost-number { font-size: 60px; }
+  }
+</style>

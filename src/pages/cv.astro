@@ -1,0 +1,220 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import T from '../components/T.astro';
+import Cta from '../components/Cta.astro';
+import GhostNumber from '../components/GhostNumber.astro';
+import site from '../data/site.json';
+import cv from '../data/cv.json';
+import experience from '../data/experience.json';
+import leadership from '../data/leadership.json';
+
+const bi = (v: any) => (typeof v === 'string' ? { en: v, tr: v } : v);
+---
+
+<BaseLayout
+  path="/cv"
+  title="CV"
+  description="Curriculum vitae of İsmail Özyurt — third-year Computer Engineering student, Developer & Partner at Ceviz Biyoteknoloji."
+>
+  <header class="page-head section ghost-host">
+    <GhostNumber n="01" />
+    <div class="container cv-head">
+      <div>
+        <span class="section-label"><T en="CV" tr="Özgeçmiş" /></span>
+        <h1>İsmail Özyurt</h1>
+        <p class="cv-role mono">
+          <T
+            en="Third-year Computer Engineering student · Software Developer"
+            tr="Üçüncü sınıf Bilgisayar Mühendisliği öğrencisi · Yazılım Geliştirici"
+          />
+        </p>
+        <p class="cv-contact mono">
+          {site.phone} · {site.email} · Kütahya, TR
+        </p>
+      </div>
+      <Cta as="button" type="button" variant="secondary" id="print-cv" class="no-print">
+        <T en="Print / Save as PDF" tr="Yazdır / PDF olarak kaydet" />
+      </Cta>
+    </div>
+  </header>
+
+  <!-- Summary -->
+  <section class="section cv-section">
+    <div class="container">
+      <span class="section-label"><T en="Summary" tr="Özet" /></span>
+      <p class="cv-summary"><T t={bi(cv.summary)} /></p>
+    </div>
+  </section>
+
+  <!-- Experience -->
+  <section class="section cv-section">
+    <div class="container">
+      <span class="section-label"><T en="Experience" tr="Deneyim" /></span>
+      <div class="cv-list">
+        {experience.map((item) => (
+          <div class="cv-entry">
+            <div class="cv-entry-head">
+              <span class="cv-entry-title">
+                <T t={bi(item.role)} /> — <T t={bi(item.org)} />
+              </span>
+              <span class="mono cv-entry-date"><T t={bi(item.period)} /></span>
+            </div>
+            <p class="cv-entry-desc"><T t={bi(item.summary)} /></p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Education -->
+  <section class="section cv-section">
+    <div class="container">
+      <span class="section-label"><T en="Education" tr="Eğitim" /></span>
+      <div class="cv-list">
+        {cv.education.map((e) => (
+          <div class="cv-entry">
+            <div class="cv-entry-head">
+              <span class="cv-entry-title"><T t={bi(e.degree)} /> — <T t={bi(e.school)} /></span>
+              <span class="mono cv-entry-date"><T t={bi(e.period)} /></span>
+            </div>
+            {e.note.en && <p class="cv-entry-desc"><T t={bi(e.note)} /></p>}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Leadership -->
+  <section class="section cv-section">
+    <div class="container">
+      <span class="section-label"><T en="Leadership & Community" tr="Liderlik & Topluluk" /></span>
+      <div class="cv-list">
+        {leadership.map((item) => (
+          <div class="cv-entry">
+            <div class="cv-entry-head">
+              <span class="cv-entry-title"><T t={bi(item.role)} /> — <T t={bi(item.org)} /></span>
+              <span class="mono cv-entry-date"><T t={bi(item.period)} /></span>
+            </div>
+            <p class="cv-entry-desc"><T t={bi(item.summary)} /></p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section class="section cv-section">
+    <div class="container">
+      <span class="section-label"><T en="Technical Skills" tr="Teknik Beceriler" /></span>
+      <dl class="cv-skills">
+        {cv.skills.map((s) => (
+          <div class="cv-skill">
+            <dt><T t={bi(s.group)} /></dt>
+            <dd><T t={bi(s.items)} /></dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </section>
+
+  <!-- Languages & Certifications -->
+  <section class="section cv-section">
+    <div class="container cv-two-col">
+      <div>
+        <span class="section-label"><T en="Languages" tr="Diller" /></span>
+        <ul class="cv-plain">
+          {cv.languages.map((l) => (
+            <li><strong><T t={bi(l.lang)} /></strong> — <T t={bi(l.level)} /></li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <span class="section-label"><T en="Certifications" tr="Sertifikalar" /></span>
+        <ul class="cv-plain">
+          {cv.certifications.map((c) => (
+            <li><T t={bi(c)} /></li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-head { border-top: none; padding-bottom: var(--space-lg); }
+  .cv-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--space-lg);
+    flex-wrap: wrap;
+  }
+  .cv-role { margin-top: var(--space-sm); color: var(--accent); }
+  .cv-contact { margin-top: 0.4rem; }
+
+  .cv-section { padding-block: var(--space-xl); }
+  .cv-summary { font-size: 1.15rem; color: var(--text-body); max-width: 70ch; }
+
+  .cv-list { display: flex; flex-direction: column; }
+  .cv-entry {
+    padding: var(--space-md) 0;
+    border-top: 1px solid var(--border-faint);
+  }
+  .cv-entry:first-child { border-top: none; }
+  .cv-entry-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+  }
+  .cv-entry-title {
+    font-family: var(--font-body);
+    font-weight: 600;
+    color: var(--text-heading);
+    font-size: 1.05rem;
+  }
+  .cv-entry-desc { color: var(--text-body); margin-top: 0.4rem; max-width: 72ch; }
+
+  .cv-skills { display: flex; flex-direction: column; }
+  .cv-skill {
+    display: grid;
+    grid-template-columns: 14rem 1fr;
+    gap: var(--space-md);
+    padding: var(--space-sm) 0;
+    border-top: 1px solid var(--border-faint);
+  }
+  .cv-skill:first-child { border-top: none; }
+  .cv-skill dt { font-family: var(--font-mono); font-size: var(--fs-small); letter-spacing: 0.06em; color: var(--text-heading); text-transform: uppercase; }
+  .cv-skill dd { color: var(--text-body); }
+
+  .cv-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-xl); }
+  .cv-plain { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+  .cv-plain li { color: var(--text-body); }
+
+  @media (max-width: 720px) {
+    .cv-skill { grid-template-columns: 1fr; gap: 0.25rem; }
+    .cv-two-col { grid-template-columns: 1fr; gap: var(--space-lg); }
+  }
+
+  /* Print — temiz, baskıya uygun PDF */
+  @media print {
+    :global(.site-nav),
+    :global(.site-footer),
+    :global(.skip-link),
+    .no-print { display: none !important; }
+    :global(body) { background: #fff; color: #1a1a1a; }
+    :global(h1), :global(h2), :global(h3), .cv-entry-title, strong { color: #000; }
+    .cv-role, .cv-contact, .section-label, .cv-entry-date, .cv-skill dt { color: #444; }
+    .cv-summary, .cv-entry-desc, .cv-skill dd, .cv-plain li { color: #222; }
+    :global(.section) { border-color: #ccc; padding-block: 1rem; }
+    .section-label::before { background: #888; }
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    var btn = document.getElementById('print-cv');
+    if (btn) btn.addEventListener('click', function () { window.print(); });
+  })();
+</script>

@@ -1,0 +1,24 @@
+[
+  {
+    "slug": "birth-adventure",
+    "title": { "en": "Birth Adventure", "tr": "Birth Adventure" },
+    "period": { "en": "2025", "tr": "2025" },
+    "award": { "en": "Bronze Medal — 1IDEA 1WORLD International Competition", "tr": "Bronz Madalya — 1IDEA 1WORLD Uluslararası Yarışması" },
+    "summary": {
+      "en": "A bronze medal among 981 projects from 33 countries at the 1IDEA 1WORLD international innovation competition, organized by TÜMMİAD and Ankara Metropolitan Municipality. I played an active role in product design.",
+      "tr": "TÜMMİAD ve Ankara Büyükşehir Belediyesi tarafından düzenlenen 1IDEA 1WORLD uluslararası inovasyon yarışmasında 33 ülkeden 981 proje arasında bronz madalya. Ürün tasarımında aktif rol aldım."
+    },
+    "tags": ["Product design", "Innovation"]
+  },
+  {
+    "slug": "motivasyon-adam",
+    "title": { "en": "Motivasyon Adam", "tr": "Motivasyon Adam" },
+    "period": { "en": "2024", "tr": "2024" },
+    "award": { "en": "Rehabilitation Game — Dumlupınar University collaboration", "tr": "Rehabilitasyon Oyunu — Dumlupınar Üniversitesi iş birliği" },
+    "summary": {
+      "en": "Co-developed an interactive game that motivates physical-therapy patients during recovery, as part of the \"Adım Robot\" rehabilitation project.",
+      "tr": "\"Adım Robot\" rehabilitasyon projesi kapsamında, fizik tedavi hastalarını iyileşme sürecinde motive eden interaktif bir oyunu birlikte geliştirdim."
+    },
+    "tags": ["Game development", "Health"]
+  }
+]

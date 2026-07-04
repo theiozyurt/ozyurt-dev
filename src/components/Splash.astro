@@ -1,0 +1,126 @@
+---
+/**
+ * Boot-sequence splash — sadece oturumun ilk ziyaretinde.
+ * data-splash="on|off" BaseLayout head'inde (flaşsız) belirleniyor.
+ * reduced-motion / görülmüş / JS-yok durumlarında hiç boyanmaz.
+ * Bitince DOM'dan tamamen kaldırılır (SEO/SR engel görmez).
+ */
+---
+<div id="splash-screen" class="splash-backdrop" aria-hidden="true">
+  <div class="terminal-window">
+    <div class="terminal-titlebar">
+      <div class="terminal-dots">
+        <span class="dot dot-red"></span>
+        <span class="dot dot-yellow"></span>
+        <span class="dot dot-green"></span>
+      </div>
+      <div class="terminal-title">ismail@ozyurt — zsh — 80×24</div>
+    </div>
+    <div class="terminal-body">
+      <div id="splash-lines"></div>
+      <div class="ceviz-logo-reveal" id="ceviz-logo">
+        <img src="/images/ceviztek.png" alt="Ceviz Biyoteknoloji" class="ceviz-logo-img" />
+      </div>
+    </div>
+  </div>
+  <button class="splash-skip" id="splash-skip" type="button" tabindex="-1">
+    <span class="sk-bracket">[</span> SKIP <span class="sk-bracket">]</span>
+  </button>
+</div>
+
+<script is:inline>
+  (function () {
+    var splash = document.getElementById('splash-screen');
+    if (!splash) return;
+
+    // Görülmüş / reduced-motion / hata: gösterme, kaldır, işaretle.
+    if (document.documentElement.getAttribute('data-splash') !== 'on') {
+      if (splash.parentNode) splash.remove();
+      try { sessionStorage.setItem('splashShown', 'true'); } catch (e) {}
+      return;
+    }
+    try { sessionStorage.setItem('splashShown', 'true'); } catch (e) {}
+
+    var bootLines = [
+      'booting ismail-ozyurt.dev...',
+      'mounting: gurok_group — software internship',
+      'connecting: gural_porselen — mobile dev internship',
+      'importing: salerno_research — computer vision, 2024',
+      'compiling: ksbu — computer engineering, 3rd year',
+      'syncing: teknofest_topluluk + deneyap_mentor',
+      'loading: ceviz_biyoteknoloji — developer & partner',
+      'ready.',
+    ];
+    var bootLinesTR = [
+      'ismail-ozyurt.dev başlatılıyor...',
+      'mounting: gurok_group — yazılım stajı',
+      'connecting: gural_porselen — mobil geliştirme stajı',
+      'importing: salerno_research — görüntü işleme, 2024',
+      'compiling: ksbu — bilgisayar mühendisliği, 3. sınıf',
+      'syncing: teknofest_topluluğu + deneyap_mentörlüğü',
+      'loading: ceviz_biyoteknoloji — geliştirici & ortak',
+      'hazır.',
+    ];
+
+    var lines = document.documentElement.getAttribute('lang') === 'tr' ? bootLinesTR : bootLines;
+    var container = document.getElementById('splash-lines');
+    var skipBtn = document.getElementById('splash-skip');
+    var cevizLogo = document.getElementById('ceviz-logo');
+    var i = 0, finished = false, timer = null;
+
+    function finish() {
+      if (finished) return;
+      finished = true;
+      if (timer) clearTimeout(timer);
+      splash.classList.add('fade-out');
+      setTimeout(function () {
+        if (splash && splash.parentNode) splash.remove();
+      }, 400);
+    }
+
+    function showNext() {
+      if (i > 0) {
+        var prev = container.children[i - 1];
+        if (prev) {
+          prev.classList.remove('current');
+          prev.classList.add('done');
+          var pr = prev.querySelector('.sl-prompt');
+          if (pr) pr.textContent = '✓';
+          var cur = prev.querySelector('.splash-cursor');
+          if (cur) cur.parentNode.removeChild(cur);
+        }
+      }
+      if (i >= lines.length) {
+        timer = setTimeout(finish, 600);
+        return;
+      }
+      var el = document.createElement('div');
+      el.className = 'splash-line current';
+      var p = document.createElement('span');
+      p.className = 'sl-prompt';
+      p.textContent = '>';
+      var t = document.createElement('span');
+      t.className = 'sl-text';
+      t.textContent = lines[i];
+      // "ceviz" satırı yazılırken logo terminalin üstünden düşerek gelir
+      if (cevizLogo && !cevizLogo.classList.contains('dropped') && lines[i].indexOf('ceviz') !== -1) {
+        cevizLogo.classList.add('dropped');
+      }
+      var c = document.createElement('span');
+      c.className = 'splash-cursor';
+      c.textContent = '_';
+      el.appendChild(p);
+      el.appendChild(t);
+      el.appendChild(c);
+      container.appendChild(el);
+      i++;
+      timer = setTimeout(showNext, 450);
+    }
+
+    if (skipBtn) skipBtn.addEventListener('click', finish);
+    // Backstop: bir şey takılırsa 9sn sonra kesin kapat
+    setTimeout(finish, 9000);
+    // Logo önce fade-in yapsın, boot satırları ~300ms sonra başlasın
+    timer = setTimeout(showNext, 300);
+  })();
+</script>

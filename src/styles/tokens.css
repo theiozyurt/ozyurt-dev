@@ -1,0 +1,51 @@
+/* ============================================================
+   Design tokens — "Autumn Harvest"
+   Keskin köşeler, editorial his, imza rengi az kullanılır.
+   ============================================================ */
+
+:root {
+  /* --- Color palette — "Navy + Brass" --- */
+  --bg-primary: #0F1A2E;        /* Ana zemin — koyu lacivert */
+  --bg-primary-darker: #0A1220; /* Daha koyu bölüm zemini */
+  --text-heading: #EDEFF3;      /* Başlıklar — kırık beyaz */
+  --text-body: #7C8CA6;         /* Gövde/ikincil metin — soğuk mavi-gri */
+  --text-muted: #4C617F;        /* En düşük öncelik (tarih, etiket) */
+  --accent: #B08D4F;            /* İMZA rengi — pirinç/bronz, az kullan */
+  --accent-hover: #C6A05C;      /* Accent hover, sadece etkileşimde */
+  --border: #263A57;            /* Ayraç çizgileri */
+  --border-faint: #1A2740;      /* Daha ince/soluk ayraçlar */
+  --tag-bg: #3A537A;            /* Sadece küçük badge arka planı */
+  --tag-text: #EDEFF3;          /* Tag üzeri metin */
+
+  /* --- Typography --- */
+  --font-display: 'Pixelify Sans', ui-monospace, monospace; /* Başlıklar */
+  --font-mono: 'Geist Mono', ui-monospace, monospace;        /* Etiket, meta, nav, CTA */
+  --font-body: 'Manrope', system-ui, -apple-system, sans-serif; /* Gövde */
+
+  /* --- Spacing scale --- */
+  --space-2xs: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1.25rem;
+  --space-lg: 2rem;
+  --space-xl: 3.5rem;
+  --space-2xl: 5.5rem;
+  --space-3xl: 8rem;
+
+  /* --- Layout --- */
+  --max-width: 1180px;
+  --gutter: clamp(1.25rem, 5vw, 4rem);
+
+  /* --- Type scale (fluid) --- */
+  --fs-display: clamp(2.6rem, 6vw, 4.75rem);
+  --fs-h1: clamp(2.1rem, 4.5vw, 3.4rem);
+  --fs-h2: clamp(1.6rem, 3vw, 2.35rem);
+  --fs-h3: clamp(1.25rem, 2vw, 1.55rem);
+  --fs-body: clamp(1rem, 1.05vw, 1.12rem);
+  --fs-small: 0.8125rem;
+  --fs-label: 0.72rem;
+
+  /* --- Motion --- */
+  --ease: cubic-bezier(0.2, 0.6, 0.2, 1);
+  --dur: 180ms;
+}

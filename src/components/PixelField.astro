@@ -1,0 +1,15 @@
+---
+/**
+ * Seyrek "pixel twinkle" arka plan katmanı.
+ * Noktalar client-side üretilir (BaseLayout'taki global script).
+ * Konteyneri `position: relative; overflow: hidden` olmalı (ör. .ghost-host / .hero),
+ * içerik ise z-index:1 ile üstte kalmalı.
+ *
+ * <PixelField count={14} />   (12–20 arası kırpılır)
+ */
+interface Props {
+  count?: number;
+}
+const { count = 14 } = Astro.props;
+---
+<div class="pixel-field" data-count={count} aria-hidden="true"></div>

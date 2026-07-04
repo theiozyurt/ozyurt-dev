@@ -1,0 +1,17 @@
+---
+/**
+ * Çift dilli inline metin bileşeni.
+ * İki dili de DOM'a basar; aktif dili CSS (html[data-lang]) gösterir.
+ * Kullanım:  <T en="Hello" tr="Merhaba" />
+ * ya da bir alan objesiyle:  <T t={item.title} />  ({ en, tr })
+ */
+interface Props {
+  en?: string;
+  tr?: string;
+  t?: { en: string; tr: string };
+}
+const { en, tr, t } = Astro.props;
+const enText = t?.en ?? en ?? '';
+const trText = t?.tr ?? tr ?? '';
+---
+<span data-lang="en">{enText}</span><span data-lang="tr">{trText}</span>

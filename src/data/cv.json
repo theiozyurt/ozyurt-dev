@@ -1,0 +1,51 @@
+{
+  "summary": {
+    "en": "Third-year Computer Engineering student at Kütahya Health Sciences University. Developer & Partner at Ceviz Biyoteknoloji (backed by TÜBİTAK 1501), working on a B2B health-technology platform. Experienced in Flutter/Firebase mobile development, GDPR/KVKK compliance, and international research.",
+    "tr": "Kütahya Sağlık Bilimleri Üniversitesi'nde 3. sınıf Bilgisayar Mühendisliği öğrencisi. Ceviz Biyoteknoloji'de (TÜBİTAK 1501 destekli) geliştirici ve ortak olarak B2B bir sağlık teknolojisi platformu üzerinde çalışıyor. Flutter/Firebase mobil geliştirme, GDPR/KVKK uyumluluğu ve uluslararası araştırma deneyimine sahip."
+  },
+  "education": [
+    {
+      "period": { "en": "2023 — Present", "tr": "2023 — Devam ediyor" },
+      "degree": { "en": "B.Sc. Computer Engineering", "tr": "Bilgisayar Mühendisliği (Lisans)" },
+      "school": { "en": "Kütahya Health Sciences University", "tr": "Kütahya Sağlık Bilimleri Üniversitesi" },
+      "note": { "en": "Third-year student. Admitted as the top-ranked student in the department.", "tr": "Üçüncü sınıf öğrencisi. Bölüme birincilikle giriş yaptı." }
+    },
+    {
+      "period": { "en": "2023 — Frozen", "tr": "2023 — Donduruldu" },
+      "degree": { "en": "A.A.S. Foreign Trade", "tr": "Dış Ticaret (Ön Lisans)" },
+      "school": { "en": "Anadolu University (Distance)", "tr": "Anadolu Üniversitesi (Açıköğretim)" },
+      "note": { "en": "", "tr": "" }
+    }
+  ],
+  "skills": [
+    {
+      "group": { "en": "Mobile Development", "tr": "Mobil Geliştirme" },
+      "items": "Flutter, Dart, GetX, Firebase (Firestore, Auth, Cloud Functions, Storage), Figma, App Store & Google Play publishing"
+    },
+    {
+      "group": { "en": "Programming", "tr": "Programlama" },
+      "items": "Python, Java, Dart"
+    },
+    {
+      "group": { "en": "Domains", "tr": "Alanlar" },
+      "items": "AI/ML, Computer Vision, Extended Reality (XR), KVKK/GDPR Compliance"
+    },
+    {
+      "group": { "en": "Soft Skills", "tr": "Kişisel Yetkinlikler" },
+      "items": { "en": "Project management, team leadership, technical documentation, mentoring", "tr": "Proje yönetimi, ekip liderliği, teknik dokümantasyon, mentorluk" }
+    }
+  ],
+  "languages": [
+    { "lang": { "en": "Turkish", "tr": "Türkçe" }, "level": { "en": "Native", "tr": "Ana dil" } },
+    { "lang": { "en": "English", "tr": "İngilizce" }, "level": { "en": "C2 — WLA Certified", "tr": "C2 — WLA Sertifikalı" } },
+    { "lang": { "en": "Italian", "tr": "İtalyanca" }, "level": { "en": "A1", "tr": "A1" } }
+  ],
+  "certifications": [
+    { "en": "Complete Flutter Bootcamp with Dart (2025)", "tr": "Complete Flutter Bootcamp with Dart (2025)" },
+    { "en": "WLA English Certificate — C2 Level (2024)", "tr": "WLA İngilizce Sertifikası — C2 Seviye (2024)" },
+    { "en": "Career Essentials in Generative AI — Microsoft & LinkedIn (2024)", "tr": "Career Essentials in Generative AI — Microsoft & LinkedIn (2024)" },
+    { "en": "Data Science & Analytics — HP LIFE (2024)", "tr": "Data Science & Analytics — HP LIFE (2024)" },
+    { "en": "Strategic Planning — HP LIFE (2024)", "tr": "Strategic Planning — HP LIFE (2024)" },
+    { "en": "Financial Literacy Level 1 — SPL (2024)", "tr": "Financial Literacy Level 1 — SPL (2024)" }
+  ]
+}

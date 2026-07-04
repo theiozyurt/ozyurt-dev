@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <rect width="1200" height="630" fill="#0F1A2E"/>
+  <line x1="80" y1="150" x2="140" y2="150" stroke="#B08D4F" stroke-width="3"/>
+  <text x="150" y="158" font-family="'JetBrains Mono', monospace" font-size="24" letter-spacing="6" fill="#4C617F">KÜTAHYA, TR — BUILDING TOWARD FOUNDER</text>
+  <text x="80" y="300" font-family="Georgia, 'Playfair Display', serif" font-size="96" fill="#EDEFF3">İsmail Özyurt</text>
+  <text x="80" y="380" font-family="Georgia, 'Playfair Display', serif" font-size="40" fill="#7C8CA6" font-style="italic">My goal was never to be known as an engineer</text>
+  <text x="80" y="432" font-family="Georgia, 'Playfair Display', serif" font-size="40" fill="#7C8CA6" font-style="italic">or a researcher — it's to build my own company.</text>
+  <line x1="80" y1="520" x2="1120" y2="520" stroke="#263A57" stroke-width="1"/>
+  <text x="80" y="565" font-family="'JetBrains Mono', monospace" font-size="22" letter-spacing="3" fill="#B08D4F">ozyurt.dev</text>
+  <text x="1120" y="565" font-family="'JetBrains Mono', monospace" font-size="22" letter-spacing="3" fill="#4C617F" text-anchor="end">DEVELOPER &amp; PARTNER · CEVIZ BIYOTEKNOLOJI</text>
+</svg>

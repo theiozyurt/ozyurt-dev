@@ -1,0 +1,119 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import T from '../components/T.astro';
+import GhostNumber from '../components/GhostNumber.astro';
+import PixelField from '../components/PixelField.astro';
+import MediaPlaceholder from '../components/MediaPlaceholder.astro';
+import leadership from '../data/leadership.json';
+
+const bi = (v: any) => (typeof v === 'string' ? { en: v, tr: v } : v);
+---
+
+<BaseLayout
+  path="/leadership"
+  title="Leadership"
+  description="Community & leadership by İsmail Özyurt — founding president of KSBÜ Teknofest Club, Deneyap mentor, T3 Foundation scholar, and ÜNİDES project coordinator."
+>
+  <header class="page-head section ghost-host">
+    <GhostNumber n="01" />
+    <PixelField count={14} />
+    <div class="container">
+      <span class="section-label"><T en="Leadership" tr="Liderlik" /></span>
+      <h1><T en="Community, at a realistic scale." tr="Topluluk, gerçekçi bir ölçekte." /></h1>
+      <p class="page-lead">
+        <T
+          en="No inflated titles — just roles I actually hold and the concrete things they've produced."
+          tr="Abartılı unvanlar yok — gerçekten üstlendiğim roller ve ürettikleri somut işler."
+        />
+      </p>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container">
+      <div class="lead-list">
+        {leadership.map((item) => (
+          <article class="lead-item">
+            <div class="lead-side">
+              <span class="mono lead-period"><T t={bi(item.period)} /></span>
+            </div>
+            <div class="lead-body">
+              <h2 class="lead-org"><T t={bi(item.org)} /></h2>
+              <span class="lead-role mono"><T t={bi(item.role)} /></span>
+              <p class="lead-summary"><T t={bi(item.summary)} /></p>
+              {item.points && item.points.length > 0 && (
+                <ul class="lead-points">
+                  {item.points.map((p) => (
+                    <li><T t={bi(p)} /></li>
+                  ))}
+                </ul>
+              )}
+              {item.id === 'teknofest-club' && (
+                <div class="lead-gallery">
+                  <MediaPlaceholder src="/images/leadership/deu-izmir.jpg" alt="Milli Teknoloji Zirvesi, DEÜ İzmir" label="Milli Teknoloji Zirvesi — DEÜ İzmir" ratio="4 / 3" />
+                  <MediaPlaceholder src="/images/leadership/gokturk-tohumlari.jpg" alt="GökTürk Tohumları — Gök-Yeşil" label="GökTürk Tohumları — Gök-Yeşil" ratio="4 / 3" />
+                  <MediaPlaceholder src="/images/leadership/aizanoi.jpg" alt="Aizanoi gezisi" label="Aizanoi" ratio="4 / 3" />
+                </div>
+              )}
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-head { border-top: none; padding-bottom: var(--space-lg); }
+  .page-lead { color: var(--text-body); font-size: 1.15rem; margin-top: var(--space-md); max-width: 58ch; }
+
+  .lead-gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+    margin-top: var(--space-lg);
+  }
+  @media (max-width: 640px) {
+    .lead-gallery { grid-template-columns: 1fr; }
+  }
+
+  .lead-list { border-top: 1px solid var(--border); }
+  .lead-item {
+    display: grid;
+    grid-template-columns: 10rem 1fr;
+    gap: var(--space-lg);
+    padding: var(--space-xl) 0;
+    border-bottom: 1px solid var(--border-faint);
+  }
+  .lead-period { display: block; padding-top: 0.3rem; }
+  .lead-org { font-size: var(--fs-h3); }
+  .lead-role {
+    display: block;
+    color: var(--accent);
+    margin: 0.3rem 0 var(--space-sm);
+  }
+  .lead-summary { color: var(--text-body); }
+  .lead-points {
+    list-style: none;
+    margin-top: var(--space-md);
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .lead-points li {
+    position: relative;
+    padding-left: 1.25rem;
+    color: var(--text-body);
+    max-width: 64ch;
+  }
+  .lead-points li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+  }
+
+  @media (max-width: 720px) {
+    .lead-item { grid-template-columns: 1fr; gap: var(--space-xs); padding: var(--space-lg) 0; }
+  }
+</style>

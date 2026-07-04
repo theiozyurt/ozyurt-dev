@@ -1,0 +1,149 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import T from '../components/T.astro';
+import Cta from '../components/Cta.astro';
+import GhostNumber from '../components/GhostNumber.astro';
+import PixelField from '../components/PixelField.astro';
+import experience from '../data/experience.json';
+
+// String ya da {en,tr} olabilen alanları normalize et.
+const bi = (v: any) => (typeof v === 'string' ? { en: v, tr: v } : v);
+---
+
+<BaseLayout
+  path="/experience"
+  title="Experience"
+  description="İsmail Özyurt's experience — Ceviz Biyoteknoloji, international ML research, Gürok Group and Güral Porselen internships, and prior computer-vision research at the University of Salerno."
+>
+  <header class="page-head section ghost-host">
+    <GhostNumber n="01" />
+    <PixelField count={14} />
+    <div class="container">
+      <span class="section-label"><T en="Experience" tr="Deneyim" /></span>
+      <h1><T en="A track record, built on purpose." tr="Bilinçle inşa edilmiş bir geçmiş." /></h1>
+      <p class="page-lead">
+        <T
+          en="Chronological, most recent first — role, organization, dates, and concrete outcomes."
+          tr="Kronolojik, en yeniden eskiye — rol, kurum, tarih ve somut çıktılar."
+        />
+      </p>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container">
+      <ol class="timeline">
+        {experience.map((item) => (
+          <li class="tl-item">
+            <div class="tl-period">
+              <span class="mono tl-year"><T t={bi(item.period)} /></span>
+            </div>
+            <div class="tl-body">
+              <div class="tl-heading">
+                <h2 class="tl-role"><T t={bi(item.role)} /></h2>
+                <span class="tl-org"><T t={bi(item.org)} /></span>
+                <span class="tl-kind mono"><T t={bi(item.kind)} /></span>
+              </div>
+              <p class="tl-summary"><T t={bi(item.summary)} /></p>
+              {item.points && item.points.length > 0 && (
+                <ul class="tl-points">
+                  {item.points.map((p) => (
+                    <li><T t={bi(p)} /></li>
+                  ))}
+                </ul>
+              )}
+              {item.tags && item.tags.length > 0 && (
+                <ul class="tl-tags" aria-label="Tools">
+                  {item.tags.map((t) => <li class="tag tag--ghost">{t}</li>)}
+                </ul>
+              )}
+              {item.link && (
+                <Cta href={item.link} variant="secondary" class="tl-link">
+                  <T t={bi(item.linkLabel)} />
+                </Cta>
+              )}
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-head { border-top: none; padding-bottom: var(--space-lg); }
+  .page-lead { color: var(--text-body); font-size: 1.15rem; margin-top: var(--space-md); max-width: 56ch; }
+
+  .timeline {
+    list-style: none;
+    border-top: 1px solid var(--border);
+  }
+  .tl-item {
+    display: grid;
+    grid-template-columns: 10rem 1fr;
+    gap: var(--space-lg);
+    padding: var(--space-xl) 0;
+    border-bottom: 1px solid var(--border-faint);
+  }
+  .tl-period { position: relative; padding-left: 1.15rem; }
+  .tl-year { display: block; padding-top: 0.3rem; }
+  .tl-period::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.62rem;
+    width: 7px;
+    height: 7px;
+    background: var(--accent);
+  }
+
+  .tl-heading {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.4rem 0.9rem;
+    margin-bottom: var(--space-sm);
+  }
+  .tl-role { font-size: var(--fs-h3); }
+  .tl-org {
+    font-family: var(--font-body);
+    font-weight: 500;
+    color: var(--text-heading);
+  }
+  .tl-kind { display: block; width: 100%; }
+  .tl-summary { color: var(--text-body); }
+  .tl-points {
+    list-style: none;
+    margin-top: var(--space-md);
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .tl-points li {
+    position: relative;
+    padding-left: 1.25rem;
+    color: var(--text-body);
+    max-width: 64ch;
+  }
+  .tl-points li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+  }
+  .tl-tags {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: var(--space-md);
+  }
+  .tl-link {
+    margin-top: var(--space-md);
+  }
+
+  @media (max-width: 720px) {
+    .tl-item { grid-template-columns: 1fr; gap: var(--space-xs); padding: var(--space-lg) 0; }
+    .tl-period::before { display: none; }
+  }
+</style>

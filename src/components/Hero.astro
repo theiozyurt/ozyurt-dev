@@ -1,0 +1,290 @@
+---
+import T from './T.astro';
+import Cta from './Cta.astro';
+import GhostNumber from './GhostNumber.astro';
+import PixelField from './PixelField.astro';
+---
+
+<section class="hero">
+  <GhostNumber n="01" />
+  <PixelField count={16} />
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-content">
+        <h1 class="hero-headline">
+          <T
+            en="Documenting my whole journey here."
+            tr="Tüm yolculuğumu burada belgeliyorum."
+          />
+        </h1>
+
+        <div class="hero-typewriter" aria-hidden="true">
+          <span class="tw-prompt">&gt;</span>
+          <span class="tw-text" id="tw-text"></span><span class="tw-cursor">_</span>
+        </div>
+
+        <p class="hero-overview">
+          <T
+            en="Flutter, Firebase and Python — building products that ship, not just prototypes. Currently developing a DICOM anonymization pipeline and leading algorithm design for an international ML research project."
+            tr="Flutter, Firebase ve Python ile çalışıyorum — prototip değil, gerçekten kullanılan ürünler geliştiriyorum. Şu an bir DICOM anonimleştirme sistemi üzerinde çalışıyor, uluslararası bir ML araştırma projesinde algoritma tasarımını yönetiyorum."
+          />
+        </p>
+
+        <div class="hero-cta">
+          <Cta href="/projects" variant="primary" cursor>
+            <T en="See my work" tr="Çalışmalarıma bak" />
+          </Cta>
+          <Cta href="/contact" variant="secondary">
+            <T en="Get in touch" tr="İletişime geç" />
+          </Cta>
+        </div>
+      </div>
+
+      <div class="hero-photo">
+        <span class="hero-photo-label" aria-hidden="true">İÖ</span>
+        <img
+          src="/images/portrait.jpg"
+          alt="İsmail Özyurt"
+          width="420"
+          height="420"
+          loading="eager"
+          onerror="this.remove()"
+        />
+      </div>
+    </div>
+
+    <div class="hero-strip">
+      <div class="strip-item">
+        <span class="strip-label"><T en="now" tr="şu an" /></span>
+        <span class="strip-title">Ceviz Biyoteknoloji</span>
+        <span class="strip-sub"><T en="Developer & Partner" tr="Geliştirici & Ortak" /></span>
+      </div>
+      <div class="strip-item">
+        <span class="strip-label"><T en="before" tr="öncesinde" /></span>
+        <span class="strip-title"><T en="University of Salerno" tr="Salerno Üniversitesi" /></span>
+        <span class="strip-sub"><T en="Computer vision, 2024" tr="Görüntü işleme, 2024" /></span>
+      </div>
+      <a href="/goals" class="strip-item strip-item-link">
+        <span class="strip-label"><T en="ahead" tr="ilerisi" /></span>
+        <span class="strip-title"><T en="See where this is going" tr="Bunun nereye gittiğini gör" /></span>
+        <span class="strip-sub">→ <T en="Goals" tr="Hedefler" /></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    overflow: hidden;
+    padding-block: clamp(3rem, 7vw, 6rem) var(--space-2xl);
+  }
+  .hero > .container {
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: center;
+    margin-bottom: var(--space-2xl);
+  }
+
+  .hero-headline {
+    font-family: var(--font-display);
+    font-size: clamp(1.85rem, 3.6vw, 3rem);
+    line-height: 1.16;
+    color: var(--text-heading);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    max-width: 20ch;
+    border-left: 2px solid var(--accent);
+    padding-left: clamp(1rem, 2vw, 1.5rem);
+    margin-bottom: var(--space-md);
+  }
+
+  .hero-typewriter {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    letter-spacing: 0.02em;
+    color: var(--text-body);
+    margin: var(--space-md) 0 var(--space-lg);
+    min-height: 1.4em;
+  }
+  .tw-prompt { color: var(--accent); margin-right: 8px; }
+  .tw-cursor {
+    color: var(--accent);
+    animation: blink 1s step-start infinite;
+  }
+
+  .hero-overview {
+    font-family: var(--font-body);
+    font-size: clamp(0.95rem, 1.1vw, 1.02rem);
+    color: var(--text-body);
+    max-width: 52ch;
+    line-height: 1.6;
+    margin-bottom: var(--space-xl);
+  }
+
+  .hero-cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+  }
+
+  /* --- Portre / placeholder --- YUVARLAK (bilinçli border-radius istisnası) --- */
+  .hero-photo {
+    position: relative;
+    width: 100%;
+    max-width: 420px;
+    aspect-ratio: 1 / 1;
+    margin-inline: auto;
+  }
+  .hero-photo img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid var(--accent);
+    filter: grayscale(15%) contrast(1.05);
+    z-index: 1;
+  }
+  .hero-photo-label {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--bg-primary-darker);
+    border: 3px solid var(--accent);
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 8vw, 5rem);
+    color: color-mix(in srgb, var(--text-muted) 30%, transparent);
+    z-index: 0;
+    user-select: none;
+  }
+
+  /* --- Strip --- */
+  .hero-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .strip-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: var(--space-lg) var(--space-md) var(--space-lg) 0;
+    border-left: 1px solid var(--border);
+    padding-left: var(--space-md);
+  }
+  .strip-item:first-child {
+    border-left: none;
+    padding-left: 0;
+  }
+  .strip-label {
+    font-family: var(--font-mono);
+    font-size: var(--fs-label);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .strip-title {
+    font-family: var(--font-display);
+    font-size: var(--fs-h3);
+    color: var(--text-heading);
+    line-height: 1.15;
+  }
+  .strip-sub {
+    font-family: var(--font-mono);
+    font-size: var(--fs-small);
+    letter-spacing: 0.04em;
+    color: var(--text-muted);
+  }
+
+  /* Tıklanabilir strip kutusu (/goals) */
+  .strip-item-link {
+    transition: background var(--dur) var(--ease);
+  }
+  .strip-item-link .strip-sub { color: var(--accent); }
+  .strip-item-link:hover { background: var(--bg-primary-darker); }
+  .strip-item-link:hover .strip-title { color: var(--accent); }
+
+  @media (max-width: 900px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .hero-photo {
+      order: -1;
+      max-width: 260px;
+      margin-inline: 0;
+    }
+  }
+  @media (max-width: 768px) {
+    .hero-strip { grid-template-columns: 1fr; }
+    .strip-item {
+      border-left: none;
+      padding-left: 0;
+      border-top: 1px solid var(--border-faint);
+    }
+    .strip-item:first-child { border-top: none; }
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    var linesEN = [
+      'building at Ceviz Biyoteknoloji',
+      'researching computer vision at Salerno',
+      'leading algorithm design on an international ML project',
+    ];
+    var linesTR = [
+      "ceviz_biyoteknoloji'de geliştirme yapıyorum",
+      "salerno'da görüntü işleme araştırması yaptım (2024)",
+      'uluslararası bir ML projesinde algoritma tasarımına liderlik ediyorum',
+    ];
+    function pick() {
+      return document.documentElement.getAttribute('data-lang') === 'tr' ? linesTR : linesEN;
+    }
+    var lines = pick();
+    var el = document.getElementById('tw-text');
+    if (!el) return;
+
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) {
+      el.textContent = lines[0];
+      return;
+    }
+
+    var typeSpeed = 60, pauseMs = 1800, deleteSpeed = 30;
+    var lineIndex = 0, charIndex = 0, deleting = false;
+
+    function tick() {
+      var current = lines[lineIndex];
+      if (!deleting) {
+        el.textContent = current.slice(0, charIndex + 1);
+        charIndex++;
+        if (charIndex === current.length) {
+          deleting = true;
+          setTimeout(tick, pauseMs);
+          return;
+        }
+        setTimeout(tick, typeSpeed);
+      } else {
+        el.textContent = current.slice(0, charIndex - 1);
+        charIndex--;
+        if (charIndex === 0) {
+          deleting = false;
+          lines = pick(); // dil değiştiyse sonraki satır yeni dilde
+          lineIndex = (lineIndex + 1) % lines.length;
+        }
+        setTimeout(tick, deleteSpeed);
+      }
+    }
+    tick();
+  })();
+</script>
