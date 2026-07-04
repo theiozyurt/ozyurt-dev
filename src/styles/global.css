@@ -449,3 +449,53 @@ html:not([data-splash]) #splash-screen { display: none; }
 @media (max-width: 768px) {
   .terminal-body { font-size: 12px; padding: 16px 18px; min-height: 190px; }
 }
+
+/* ============================================================
+   Kart genişleme etkileşimi — /experience & /leadership listeleri
+   Masaüstü: :hover · Dokunmatik: JS ile .active (merkeze en yakın kart,
+   bkz. CardExpandScript.astro). Kompakt kart hover/aktif olunca büyür,
+   açıklaması uzar ve mini galeri önizlemesi belirir.
+   ============================================================ */
+.exp-item,
+.leadership-item {
+  transition: transform 0.3s var(--ease), background 0.3s var(--ease);
+}
+.exp-item .item-description,
+.leadership-item .item-description {
+  max-height: 4.8em;
+  overflow: hidden;
+  transition: max-height 0.4s var(--ease);
+}
+.item-gallery-preview {
+  display: none;
+  gap: 8px;
+  margin-top: var(--space-md);
+}
+.item-gallery-preview img {
+  width: 84px;
+  height: 84px;
+  object-fit: cover;
+  border: 1px solid var(--border);
+  filter: grayscale(15%);
+}
+.exp-item.active,
+.leadership-item.active { transform: scale(1.01); }
+.exp-item.active .item-description,
+.leadership-item.active .item-description { max-height: 400px; }
+.exp-item.active .item-gallery-preview,
+.leadership-item.active .item-gallery-preview { display: flex; }
+
+@media (hover: hover) {
+  .exp-item:hover,
+  .leadership-item:hover { transform: scale(1.01); }
+  .exp-item:hover .item-description,
+  .leadership-item:hover .item-description { max-height: 400px; }
+  .exp-item:hover .item-gallery-preview,
+  .leadership-item:hover .item-gallery-preview { display: flex; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .exp-item,
+  .leadership-item,
+  .exp-item .item-description,
+  .leadership-item .item-description { transition: none; }
+}

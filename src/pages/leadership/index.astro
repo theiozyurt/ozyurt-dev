@@ -4,6 +4,7 @@ import T from '../../components/T.astro';
 import Cta from '../../components/Cta.astro';
 import GhostNumber from '../../components/GhostNumber.astro';
 import PixelField from '../../components/PixelField.astro';
+import CardExpandScript from '../../components/CardExpandScript.astro';
 import leadership from '../../data/leadership.json';
 
 const bi = (v: any) => (typeof v === 'string' ? { en: v, tr: v } : v);
@@ -64,6 +65,8 @@ const bi = (v: any) => (typeof v === 'string' ? { en: v, tr: v } : v);
       </div>
     </div>
   </section>
+
+  <CardExpandScript />
 </BaseLayout>
 
 <style>
@@ -104,14 +107,6 @@ const bi = (v: any) => (typeof v === 'string' ? { en: v, tr: v } : v);
     position: absolute;
     left: 0;
     color: var(--accent);
-  }
-  .item-gallery-preview { display: none; }
-  .item-gallery-preview img {
-    width: 84px;
-    height: 84px;
-    object-fit: cover;
-    border: 1px solid var(--border);
-    filter: grayscale(15%);
   }
   .lead-link { margin-top: var(--space-md); }
 

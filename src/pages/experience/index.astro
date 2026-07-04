@@ -4,6 +4,7 @@ import T from '../../components/T.astro';
 import Cta from '../../components/Cta.astro';
 import GhostNumber from '../../components/GhostNumber.astro';
 import PixelField from '../../components/PixelField.astro';
+import CardExpandScript from '../../components/CardExpandScript.astro';
 import experience from '../../data/experience.json';
 
 // String ya da {en,tr} olabilen alanları normalize et.
@@ -76,6 +77,8 @@ const bi = (v: any) => (typeof v === 'string' ? { en: v, tr: v } : v);
       </ol>
     </div>
   </section>
+
+  <CardExpandScript />
 </BaseLayout>
 
 <style>
@@ -145,14 +148,6 @@ const bi = (v: any) => (typeof v === 'string' ? { en: v, tr: v } : v);
     flex-wrap: wrap;
     gap: 0.4rem;
     margin-top: var(--space-md);
-  }
-  .item-gallery-preview { display: none; }
-  .item-gallery-preview img {
-    width: 84px;
-    height: 84px;
-    object-fit: cover;
-    border: 1px solid var(--border);
-    filter: grayscale(15%);
   }
   .tl-link {
     margin-top: var(--space-md);
