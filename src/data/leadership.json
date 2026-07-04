@@ -1,6 +1,7 @@
 [
   {
     "id": "teknofest-club",
+    "slug": "teknofest-club",
     "period": { "en": "2024 — Present", "tr": "2024 — Devam ediyor" },
     "role": { "en": "Founding President", "tr": "Kurucu Başkan" },
     "org": { "en": "KSBÜ Teknofest Club", "tr": "KSBÜ Teknofest Topluluğu" },
@@ -17,10 +18,17 @@
         "en": "Supported the GökTürk Tohumları team's entry to the TEKNOFEST Project Presentation Semi-Final — the Gök-Yeşil solar greenhouse project (team ID 756376).",
         "tr": "GökTürk Tohumları takımının TEKNOFEST Proje Sunumu Yarı Final'ine katılımını destekledim — Gök-Yeşil solar sera projesi (takım ID 756376)."
       }
+    ],
+    "gallery": [
+      "/images/leadership/teknofest/1765551502316.jpeg",
+      "/images/leadership/teknofest/1778657700336.jpeg",
+      "/images/leadership/teknofest/7125F1FE-2C54-4877-9D3D-9B4CCD0B87FE_1_102_o.jpeg",
+      "/images/leadership/teknofest/IMG_0493.jpeg"
     ]
   },
   {
     "id": "deneyap",
+    "slug": "deneyap",
     "period": { "en": "2024 — Present", "tr": "2024 — Devam ediyor" },
     "role": { "en": "Mentor", "tr": "Mentor" },
     "org": { "en": "Deneyap Technology Workshops", "tr": "Deneyap Teknoloji Atölyeleri" },
@@ -28,10 +36,16 @@
       "en": "Technical mentor in Deneyap, a nationwide STEM program by the Ministry of Industry and Technology for gifted youth (ages 12–18). I guide students through hands-on projects and competition preparation in robotics, AI, software and electronics.",
       "tr": "Sanayi ve Teknoloji Bakanlığı'nın 12–18 yaş yetenekli gençlere yönelik ulusal STEM programı Deneyap'ta teknik mentor. Öğrencilere robotik, yapay zeka, yazılım ve elektronik alanlarında uygulamalı projeler ve yarışma hazırlığında rehberlik ediyorum."
     },
-    "points": []
+    "points": [],
+    "gallery": [
+      "/images/leadership/deneyap/10ba7e34-8737-43c3-8ea4-f9b8df8d183a.jpeg",
+      "/images/leadership/deneyap/1762091624025.jpeg",
+      "/images/leadership/deneyap/IMG_1064.jpeg"
+    ]
   },
   {
     "id": "t3",
+    "slug": "t3",
     "period": { "en": "2024 — Present", "tr": "2024 — Devam ediyor" },
     "role": { "en": "Scholar & Volunteer", "tr": "Bursiyer & Gönüllü" },
     "org": { "en": "T3 Foundation", "tr": "T3 Vakfı" },
@@ -39,10 +53,14 @@
       "en": "Two-time recipient of the T3 Foundation's \"Sen Geleceksin\" merit scholarship, and a volunteer contributor to the T3AI program bringing AI education to cities across Turkey.",
       "tr": "T3 Vakfı'nın \"Sen Geleceksin\" başarı bursunu iki kez aldım ve Türkiye genelinde yapay zeka eğitimi taşıyan T3AI programına gönüllü katkıda bulunuyorum."
     },
-    "points": []
+    "points": [],
+    "gallery": [
+      "/images/leadership/sen_geleceksin/1769163026590.jpeg"
+    ]
   },
   {
     "id": "unides",
+    "slug": "unides",
     "period": { "en": "2025", "tr": "2025" },
     "role": { "en": "Project Coordinator", "tr": "Proje Koordinatörü" },
     "org": { "en": "ÜNİDES — Ministry of Youth & Sports", "tr": "ÜNİDES — Gençlik ve Spor Bakanlığı" },
@@ -50,6 +68,7 @@
       "en": "Coordinated university-level community-service projects under ÜNİDES, a national grant program funding student-led social-impact initiatives. Managed the Digital Game Design and HealthNova AI program cycles.",
       "tr": "Öğrenci öncülüğündeki sosyal etki girişimlerini fonlayan ulusal hibe programı ÜNİDES kapsamında üniversite düzeyinde topluluk hizmeti projelerini koordine ettim. Digital Game Design ve HealthNova AI program döngülerini yönettim."
     },
-    "points": []
+    "points": [],
+    "gallery": []
   }
 ]

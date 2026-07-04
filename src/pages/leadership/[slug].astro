@@ -1,0 +1,83 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import T from '../../components/T.astro';
+import Cta from '../../components/Cta.astro';
+import GhostNumber from '../../components/GhostNumber.astro';
+import Gallery from '../../components/Gallery.astro';
+import leadership from '../../data/leadership.json';
+
+export function getStaticPaths() {
+  return leadership.map((item, i) => ({
+    params: { slug: item.slug },
+    props: { item, n: i + 1 },
+  }));
+}
+
+const { item, n } = Astro.props;
+const bi = (v: any) => (typeof v === 'string' ? { en: v, tr: v } : v);
+const org = bi(item.org);
+---
+
+<BaseLayout
+  path={`/leadership/${item.slug}`}
+  title={org.en}
+  description={bi(item.summary).en}
+>
+  <header class="lead-head section ghost-host">
+    <GhostNumber n={String(n).padStart(2, '0')} />
+    <div class="container">
+      <a href="/leadership" class="back-link mono">← <T en="Back to leadership" tr="Liderliğe dön" /></a>
+      <span class="mono lead-period"><T t={bi(item.period)} /></span>
+      <h1 class="lead-title"><T t={org} /></h1>
+      <p class="lead-role mono"><T t={bi(item.role)} /></p>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container lead-narrow">
+      <p class="lead-summary"><T t={bi(item.summary)} /></p>
+
+      {item.points && item.points.length > 0 && (
+        <ul class="lead-points">
+          {item.points.map((p) => (
+            <li><T t={bi(p)} /></li>
+          ))}
+        </ul>
+      )}
+
+      <Gallery images={item.gallery} />
+    </div>
+  </section>
+
+  <section class="section section--darker">
+    <div class="container cta-band">
+      <Cta href="/leadership" variant="secondary"><T en="Back to leadership" tr="Liderliğe dön" /></Cta>
+      <Cta href="/contact" variant="primary" cursor><T en="Get in touch" tr="İletişime geç" /></Cta>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .lead-head { border-top: none; padding-bottom: var(--space-lg); }
+  .back-link { display: inline-block; margin-bottom: var(--space-lg); color: var(--text-muted); }
+  .back-link:hover { color: var(--accent); }
+  .lead-period { display: block; margin-bottom: var(--space-sm); }
+  .lead-title { font-size: var(--fs-display); margin-bottom: var(--space-sm); }
+  .lead-role { color: var(--accent); }
+  .lead-narrow { max-width: 760px; }
+  .lead-summary { font-size: 1.2rem; color: var(--text-body); }
+  .lead-points {
+    list-style: none;
+    margin-top: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .lead-points li {
+    position: relative;
+    padding-left: 1.25rem;
+    color: var(--text-body);
+  }
+  .lead-points li::before { content: '—'; position: absolute; left: 0; color: var(--accent); }
+  .cta-band { display: flex; gap: var(--space-md); flex-wrap: wrap; }
+</style>
