@@ -32,14 +32,14 @@
     "period": { "en": "2025", "tr": "2025" },
     "award": { "en": "Bronze Medal — 1IDEA 1WORLD International Competition", "tr": "Bronz Madalya — 1IDEA 1WORLD Uluslararası Yarışması" },
     "summary": {
-      "en": "This game began as a concept for a master's student in our university's Midwifery department — designed around her thesis project. The game itself was never fully completed, but the prototype still won a bronze medal among 981 projects from 33 countries at the 1IDEA 1WORLD competition, organized by TÜMMİAD and Ankara Metropolitan Municipality. I played an active role in product design.",
-      "tr": "Bu oyun, üniversitemizin Ebelik bölümünden bir yüksek lisans öğrencisinin tez projesi için tasarlanan bir konsept olarak başladı. Oyunun kendisi hiçbir zaman tam olarak tamamlanmadı; yine de prototipi, TÜMMİAD ve Ankara Büyükşehir Belediyesi tarafından düzenlenen 1IDEA 1WORLD yarışmasında 33 ülkeden 981 proje arasında bronz madalya kazandı. Ürün tasarımında aktif rol aldım."
+      "en": "My friends and I designed this game for a master's student in our university's Midwifery department, around her thesis project. The game itself was never fully completed; even so, the prototype won a bronze medal among 981 projects from 33 countries at the 1IDEA 1WORLD competition, organized by TÜMMİAD and Ankara Metropolitan Municipality. I played an active role in product design.",
+      "tr": "Bu oyunu, üniversitemizin Ebelik bölümünden bir yüksek lisans öğrencisinin tez projesi için arkadaşlarımla birlikte tasarladık. Oyunun kendisi hiçbir zaman tam olarak tamamlanmadı; yine de prototip, TÜMMİAD ve Ankara Büyükşehir Belediyesi tarafından düzenlenen 1IDEA 1WORLD yarışmasında 33 ülkeden 981 proje arasında bronz madalya kazandı. Ürün tasarımında aktif rol aldım."
     },
     "tags": ["Product design", "Innovation"],
     "points": [
       {
-        "en": "Designed around a real academic thesis project in the Midwifery department — a rare cross-discipline collaboration.",
-        "tr": "Ebelik bölümündeki gerçek bir tez projesi etrafında tasarlandı — disiplinler arası, ender bir iş birliği."
+        "en": "Designed with friends around a real academic thesis project in the Midwifery department — a rare cross-discipline collaboration.",
+        "tr": "Ebelik bölümündeki gerçek bir tez projesi için arkadaşlarımla birlikte tasarladık — disiplinler arası, ender bir iş birliği."
       },
       {
         "en": "Won recognition despite being an unfinished prototype — proof the core concept resonated.",
@@ -60,8 +60,8 @@
     "tags": ["Game development", "Health"],
     "points": [
       {
-        "en": "Built in response to a real request from inside an active university rehabilitation project.",
-        "tr": "Aktif bir üniversite rehabilitasyon projesinden gelen gerçek bir talep üzerine geliştirdim."
+        "en": "Built with friends in response to a real request from inside an active university rehabilitation project.",
+        "tr": "Aktif bir üniversite rehabilitasyon projesinden gelen gerçek bir talep üzerine arkadaşlarımla birlikte geliştirdik."
       },
       {
         "en": "Not adopted due to budget constraints — an honest outcome, not a failure of the work itself.",
