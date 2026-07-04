@@ -1,5 +1,25 @@
 [
   {
+    "slug": "gural-personel-bilgi-sistemi",
+    "title": { "en": "Güral Porselen Personnel Information System", "tr": "Güral Porselen Personel Bilgi Sistemi" },
+    "period": { "en": "2025", "tr": "2025" },
+    "award": { "en": "Built during the Güral Porselen internship", "tr": "Güral Porselen stajı sırasında geliştirildi" },
+    "summary": {
+      "en": "A personnel information system mobile app built during my Güral Porselen internship — the first project that got me into mobile development. Developed end to end largely on my own, with very little AI assistance.",
+      "tr": "Güral Porselen stajım sırasında geliştirdiğim bir personel bilgi sistemi mobil uygulaması — beni mobil geliştirmeye başlatan ilk proje. Çok az yapay zeka desteğiyle, büyük ölçüde kendi başıma, uçtan uca geliştirdim."
+    },
+    "tags": ["Flutter", "Firebase", "Mobile"],
+    "gallery": [
+      "/images/projects/gural_porselen/1755007116081.jpeg",
+      "/images/projects/gural_porselen/1755007118728.jpeg",
+      "/images/projects/gural_porselen/1755007119004.jpeg",
+      "/images/projects/gural_porselen/1755007119708.jpeg",
+      "/images/projects/gural_porselen/1755007121268.jpeg",
+      "/images/projects/gural_porselen/1755007124248.jpeg"
+    ],
+    "repo": ""
+  },
+  {
     "slug": "birth-adventure",
     "title": { "en": "Birth Adventure", "tr": "Birth Adventure" },
     "period": { "en": "2025", "tr": "2025" },
@@ -8,7 +28,8 @@
       "en": "A bronze medal among 981 projects from 33 countries at the 1IDEA 1WORLD international innovation competition, organized by TÜMMİAD and Ankara Metropolitan Municipality. I played an active role in product design.",
       "tr": "TÜMMİAD ve Ankara Büyükşehir Belediyesi tarafından düzenlenen 1IDEA 1WORLD uluslararası inovasyon yarışmasında 33 ülkeden 981 proje arasında bronz madalya. Ürün tasarımında aktif rol aldım."
     },
-    "tags": ["Product design", "Innovation"]
+    "tags": ["Product design", "Innovation"],
+    "gallery": []
   },
   {
     "slug": "motivasyon-adam",
@@ -19,6 +40,7 @@
       "en": "Co-developed an interactive game that motivates physical-therapy patients during recovery, as part of the \"Adım Robot\" rehabilitation project.",
       "tr": "\"Adım Robot\" rehabilitasyon projesi kapsamında, fizik tedavi hastalarını iyileşme sürecinde motive eden interaktif bir oyunu birlikte geliştirdim."
     },
-    "tags": ["Game development", "Health"]
+    "tags": ["Game development", "Health"],
+    "gallery": []
   }
 ]

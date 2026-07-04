@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import T from '../../components/T.astro';
 import Cta from '../../components/Cta.astro';
+import Gallery from '../../components/Gallery.astro';
 import projects from '../../data/projects.json';
 
 export function getStaticPaths() {
@@ -37,6 +38,10 @@ const bi = (v: any) => (typeof v === 'string' ? { en: v, tr: v } : v);
           {project.tags.map((t: string) => <li class="tag tag--ghost">{t}</li>)}
         </ul>
       )}
+      {project.repo && (
+        <a href={project.repo} target="_blank" rel="noopener" class="proj-repo mono">[ <T en="VIEW REPO" tr="REPOYU GÖR" /> ]_</a>
+      )}
+      <Gallery images={project.gallery} />
     </div>
   </section>
 
@@ -58,5 +63,15 @@ const bi = (v: any) => (typeof v === 'string' ? { en: v, tr: v } : v);
   .proj-narrow { max-width: 720px; }
   .proj-summary { font-size: 1.2rem; color: var(--text-body); }
   .proj-tags { list-style: none; display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: var(--space-lg); }
+  .proj-repo {
+    display: inline-block;
+    margin-top: var(--space-lg);
+    padding: 0.6rem 0.9rem;
+    border: 1px solid var(--border);
+    color: var(--accent);
+    letter-spacing: 0.04em;
+    transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease);
+  }
+  .proj-repo:hover { background: var(--bg-primary-darker); border-color: var(--accent); }
   .cta-band { display: flex; gap: var(--space-md); flex-wrap: wrap; }
 </style>

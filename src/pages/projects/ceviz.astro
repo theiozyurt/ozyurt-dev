@@ -3,6 +3,17 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import T from '../../components/T.astro';
 import Cta from '../../components/Cta.astro';
 import MediaPlaceholder from '../../components/MediaPlaceholder.astro';
+import Gallery from '../../components/Gallery.astro';
+
+// Ürün kartlarındaki hero görseller dışında kalan ekran görüntüleri.
+const cevizShots = [
+  '/images/projects/ceviz/app/1781127255254.jpeg',
+  '/images/projects/ceviz/app/1781127259880.jpeg',
+  '/images/projects/ceviz/viewer_converter/IMG_1409.jpeg',
+  '/images/projects/ceviz/viewer_converter/IMG_1410.jpeg',
+  '/images/projects/ceviz/viewer_converter/IMG_1411.jpeg',
+  '/images/projects/ceviz/viewer_converter/IMG_1412.jpeg',
+];
 ---
 
 <BaseLayout
@@ -66,7 +77,7 @@ import MediaPlaceholder from '../../components/MediaPlaceholder.astro';
               tr="Hastaneleri ve hekimleri, 3D implant ve protez tasarımı için mühendislerle buluşturan bir platform. Flutter ve Firebase ile geliştirildi; hem Google Play hem App Store'da yayında."
             />
           </p>
-          <MediaPlaceholder src="/images/projects/ceviz-app.jpg" alt="Ceviz App" label="Ceviz App" ratio="16 / 10" />
+          <MediaPlaceholder src="/images/projects/ceviz/app/1781127254872.jpeg" alt="Ceviz App" label="Ceviz App" ratio="16 / 10" />
         </article>
         <article class="product">
           <span class="product-index">02</span>
@@ -78,9 +89,17 @@ import MediaPlaceholder from '../../components/MediaPlaceholder.astro';
               tr="30+ format destekleyen, bağımsız ürün olarak planlanan ve şu an test aşamasında olan ayrı bir 3D görüntüleyici ve dönüştürücü. Tıbbi ve 3D dosya formatlarının karmaşasını, bir klinisyen ya da mühendisin gerçekten açıp çalışabileceği bir şeye dönüştürüyor."
             />
           </p>
-          <MediaPlaceholder src="/images/projects/ceviz-viewer.jpg" alt="Ceviz Viewer & Converter" label="Ceviz Viewer & Converter" ratio="16 / 10" />
+          <MediaPlaceholder src="/images/projects/ceviz/viewer_converter/IMG_1408.jpeg" alt="Ceviz Viewer & Converter" label="Ceviz Viewer & Converter" ratio="16 / 10" />
         </article>
       </div>
+    </div>
+  </section>
+
+  <!-- Ekran görüntüleri -->
+  <section class="section">
+    <div class="container">
+      <span class="section-label"><T en="Screenshots" tr="Ekran görüntüleri" /></span>
+      <Gallery images={cevizShots} heading="[ SCREENSHOTS ]" />
     </div>
   </section>
 
