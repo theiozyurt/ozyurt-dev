@@ -457,11 +457,34 @@ html:not([data-splash]) #splash-screen { display: none; }
    açıklaması uzar ve mini galeri önizlemesi belirir.
    ============================================================ */
 .exp-item,
-.leadership-item {
+.leadership-item,
+.proj-row {
   position: relative;
   transform-origin: center;
-  transition: transform 0.4s var(--ease), background 0.4s var(--ease),
-    box-shadow 0.4s var(--ease), opacity 0.4s var(--ease), filter 0.4s var(--ease);
+  transition: transform 0.4s var(--ease), opacity 0.4s var(--ease),
+    filter 0.4s var(--ease);
+}
+/* Buzlu cam odak çerçevesi — kartın biraz dışına taşar, içeriğin arkasında
+   durur ve keskin köşeleri korur; sert/parlak 1px accent yerine yumuşak,
+   camsı bir panel. Metne yapışmasın diye yanlardan --space-sm dışa taşar. */
+.exp-item::before,
+.leadership-item::before,
+.proj-row::before {
+  content: '';
+  position: absolute;
+  inset: calc(-1 * var(--space-xs)) calc(-1 * var(--space-sm));
+  z-index: -1;
+  opacity: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.015));
+  border: 1px solid color-mix(in srgb, var(--accent) 32%, transparent);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 0 30px 2px rgba(176, 141, 79, 0.18),
+    0 18px 40px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: opacity 0.4s var(--ease);
 }
 .exp-item .item-description,
 .leadership-item .item-description {
@@ -490,18 +513,15 @@ html:not([data-splash]) #splash-screen { display: none; }
   transition: filter 0.3s var(--ease);
 }
 .item-gallery-preview .preview-shot:hover img { filter: grayscale(0%); }
-/* Spotlight/odak — aktif (dokunmatik) ya da hover'lanan kart belirgin
-   şekilde büyüyüp pirinç ışıltısıyla öne çıkar; listedeki diğer kartlar
-   kararıp geri çekilir. --accent = #B08D4F = rgb(176,141,79). */
+/* Spotlight/odak — aktif (dokunmatik) ya da hover'lanan kart hafifçe büyüyüp
+   camsı çerçevesiyle öne çıkar; listedeki diğer kartlar kararıp geri çekilir. */
 .exp-item.active,
 .leadership-item.active {
-  transform: scale(1.04);
+  transform: scale(1.03);
   z-index: 10;
-  box-shadow:
-    0 0 0 1px var(--accent),
-    0 0 24px 4px rgba(176, 141, 79, 0.35),
-    0 20px 40px rgba(0, 0, 0, 0.5);
 }
+.exp-item.active::before,
+.leadership-item.active::before { opacity: 1; }
 .exp-item.active .item-description,
 .leadership-item.active .item-description { max-height: 400px; }
 .exp-item.active .item-gallery-preview,
@@ -510,23 +530,23 @@ html:not([data-splash]) #splash-screen { display: none; }
 /* Aktif kart varken diğerleri kararsın (dokunmatikte .active üzerinden) */
 #exp-timeline:has(.exp-item.active) .exp-item:not(.active),
 #lead-list:has(.leadership-item.active) .leadership-item:not(.active) {
-  opacity: 0.35;
-  filter: brightness(0.5) blur(1px);
-  transform: scale(0.98);
+  opacity: 0.4;
+  filter: brightness(0.55) blur(1px);
+  transform: scale(0.985);
 }
 
 @media (hover: hover) {
   .exp-item:hover,
-  .leadership-item:hover {
-    transform: scale(1.04);
+  .leadership-item:hover,
+  .proj-row:hover {
+    transform: scale(1.03);
     z-index: 10;
-    box-shadow:
-      0 0 0 1px var(--accent),
-      0 0 24px 4px rgba(176, 141, 79, 0.35),
-      0 20px 40px rgba(0, 0, 0, 0.5);
     opacity: 1;
     filter: none;
   }
+  .exp-item:hover::before,
+  .leadership-item:hover::before,
+  .proj-row:hover::before { opacity: 1; }
   .exp-item:hover .item-description,
   .leadership-item:hover .item-description { max-height: 400px; }
   .exp-item:hover .item-gallery-preview,
@@ -534,15 +554,20 @@ html:not([data-splash]) #splash-screen { display: none; }
 
   /* Bir kart hover'lanınca listedeki diğerleri kararsın */
   #exp-timeline:has(.exp-item:hover) .exp-item:not(:hover),
-  #lead-list:has(.leadership-item:hover) .leadership-item:not(:hover) {
-    opacity: 0.35;
-    filter: brightness(0.5) blur(1px);
-    transform: scale(0.98);
+  #lead-list:has(.leadership-item:hover) .leadership-item:not(:hover),
+  .project-list:has(.proj-row:hover) .proj-row:not(:hover) {
+    opacity: 0.4;
+    filter: brightness(0.55) blur(1px);
+    transform: scale(0.985);
   }
 }
 @media (prefers-reduced-motion: reduce) {
   .exp-item,
   .leadership-item,
+  .proj-row,
+  .exp-item::before,
+  .leadership-item::before,
+  .proj-row::before,
   .exp-item .item-description,
   .leadership-item .item-description { transition: none; }
 }
