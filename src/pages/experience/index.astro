@@ -1,10 +1,10 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import T from '../components/T.astro';
-import Cta from '../components/Cta.astro';
-import GhostNumber from '../components/GhostNumber.astro';
-import PixelField from '../components/PixelField.astro';
-import experience from '../data/experience.json';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import T from '../../components/T.astro';
+import Cta from '../../components/Cta.astro';
+import GhostNumber from '../../components/GhostNumber.astro';
+import PixelField from '../../components/PixelField.astro';
+import experience from '../../data/experience.json';
 
 // String ya da {en,tr} olabilen alanları normalize et.
 const bi = (v: any) => (typeof v === 'string' ? { en: v, tr: v } : v);
@@ -32,39 +32,47 @@ const bi = (v: any) => (typeof v === 'string' ? { en: v, tr: v } : v);
 
   <section class="section">
     <div class="container">
-      <ol class="timeline">
-        {experience.map((item) => (
-          <li class="tl-item">
-            <div class="tl-period">
-              <span class="mono tl-year"><T t={bi(item.period)} /></span>
-            </div>
-            <div class="tl-body">
-              <div class="tl-heading">
-                <h2 class="tl-role"><T t={bi(item.role)} /></h2>
-                <span class="tl-org"><T t={bi(item.org)} /></span>
-                <span class="tl-kind mono"><T t={bi(item.kind)} /></span>
+      <ol class="timeline" id="exp-timeline">
+        {experience.map((item) => {
+          const href = item.link ?? `/experience/${item.slug}`;
+          return (
+            <li class="tl-item exp-item">
+              <div class="tl-period">
+                <span class="mono tl-year"><T t={bi(item.period)} /></span>
               </div>
-              <p class="tl-summary"><T t={bi(item.summary)} /></p>
-              {item.points && item.points.length > 0 && (
-                <ul class="tl-points">
-                  {item.points.map((p) => (
-                    <li><T t={bi(p)} /></li>
-                  ))}
-                </ul>
-              )}
-              {item.tags && item.tags.length > 0 && (
-                <ul class="tl-tags" aria-label="Tools">
-                  {item.tags.map((t) => <li class="tag tag--ghost">{t}</li>)}
-                </ul>
-              )}
-              {item.link && (
-                <Cta href={item.link} variant="secondary" class="tl-link">
-                  <T t={bi(item.linkLabel)} />
+              <div class="tl-body">
+                <div class="tl-heading">
+                  <h2 class="tl-role"><T t={bi(item.role)} /></h2>
+                  <span class="tl-org"><T t={bi(item.org)} /></span>
+                  <span class="tl-kind mono"><T t={bi(item.kind)} /></span>
+                </div>
+                <p class="tl-summary item-description"><T t={bi(item.summary)} /></p>
+                {item.points && item.points.length > 0 && (
+                  <ul class="tl-points">
+                    {item.points.map((p) => (
+                      <li><T t={bi(p)} /></li>
+                    ))}
+                  </ul>
+                )}
+                {item.tags && item.tags.length > 0 && (
+                  <ul class="tl-tags" aria-label="Tools">
+                    {item.tags.map((t) => <li class="tag tag--ghost">{t}</li>)}
+                  </ul>
+                )}
+                {item.gallery && item.gallery.length > 0 && (
+                  <div class="item-gallery-preview" aria-hidden="true">
+                    {item.gallery.slice(0, 3).map((img) => (
+                      <img src={img} alt="" loading="lazy" />
+                    ))}
+                  </div>
+                )}
+                <Cta href={href} variant="secondary" class="tl-link">
+                  {item.link ? <T t={bi(item.linkLabel)} /> : <T en="View details" tr="Detayları gör" />}
                 </Cta>
-              )}
-            </div>
-          </li>
-        ))}
+              </div>
+            </li>
+          );
+        })}
       </ol>
     </div>
   </section>
@@ -137,6 +145,14 @@ const bi = (v: any) => (typeof v === 'string' ? { en: v, tr: v } : v);
     flex-wrap: wrap;
     gap: 0.4rem;
     margin-top: var(--space-md);
+  }
+  .item-gallery-preview { display: none; }
+  .item-gallery-preview img {
+    width: 84px;
+    height: 84px;
+    object-fit: cover;
+    border: 1px solid var(--border);
+    filter: grayscale(15%);
   }
   .tl-link {
     margin-top: var(--space-md);

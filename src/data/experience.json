@@ -1,6 +1,7 @@
 [
   {
     "id": "ceviz",
+    "slug": "ceviz",
     "period": { "en": "2025 — Present", "tr": "2025 — Devam ediyor" },
     "role": { "en": "Developer & Partner", "tr": "Developer & Partner" },
     "org": "Ceviz Biyoteknoloji A.Ş.",
@@ -24,11 +25,13 @@
       }
     ],
     "tags": ["Flutter", "Firebase", "Python", "DICOM", "KVKK/GDPR"],
+    "gallery": [],
     "link": "/projects/ceviz",
     "linkLabel": { "en": "Read the case study", "tr": "Vaka çalışmasını oku" }
   },
   {
     "id": "ml-research",
+    "slug": "ml-research",
     "period": { "en": "2026 — Upcoming", "tr": "2026 — Yakında" },
     "role": { "en": "Algorithm Development Lead", "tr": "Algoritma Geliştirme Lideri" },
     "org": { "en": "International ML Research Project", "tr": "Uluslararası ML Araştırma Projesi" },
@@ -38,10 +41,12 @@
       "tr": "Doç. Dr. Bahar Çelik'in davetiyle uluslararası bir makine öğrenmesi araştırma projesine kabul edildim; algoritma geliştirmeye liderlik edeceğim. Çalışma yakında başlayacak."
     },
     "points": [],
-    "tags": ["Machine Learning", "Python", "Research"]
+    "tags": ["Machine Learning", "Python", "Research"],
+    "gallery": []
   },
   {
     "id": "gurok",
+    "slug": "gurok",
     "period": { "en": "Jul — Aug 2026", "tr": "Tem — Ağu 2026" },
     "role": { "en": "Software Development Intern", "tr": "Yazılım Geliştirme Stajyeri" },
     "org": "Gürok Group",
@@ -51,10 +56,12 @@
       "tr": "Büyük bir sanayi holdingi olan Gürok Group'ta yaz dönemi yazılım geliştirme stajı."
     },
     "points": [],
-    "tags": []
+    "tags": [],
+    "gallery": []
   },
   {
     "id": "gural",
+    "slug": "gural",
     "period": { "en": "2025", "tr": "2025" },
     "role": { "en": "Software Developer Intern", "tr": "Yazılım Geliştirme Stajyeri" },
     "org": { "en": "Güral Porselen, Kütahya", "tr": "Güral Porselen, Kütahya" },
@@ -64,10 +71,19 @@
       "tr": "Türkiye'nin en büyük seramik ve porselen üreticilerinden birinde yaz stajı. Flutter, Firebase ve Figma ile kurumsal mobil uygulama geliştirmede UI tasarımından backend servis entegrasyonuna kadar uçtan uca çalıştım."
     },
     "points": [],
-    "tags": ["Flutter", "Firebase", "Figma"]
+    "tags": ["Flutter", "Firebase", "Figma"],
+    "gallery": [
+      "/images/projects/gural_porselen/1755007116081.jpeg",
+      "/images/projects/gural_porselen/1755007118728.jpeg",
+      "/images/projects/gural_porselen/1755007119004.jpeg",
+      "/images/projects/gural_porselen/1755007119708.jpeg",
+      "/images/projects/gural_porselen/1755007121268.jpeg",
+      "/images/projects/gural_porselen/1755007124248.jpeg"
+    ]
   },
   {
     "id": "salerno",
+    "slug": "salerno",
     "period": { "en": "2024", "tr": "2024" },
     "role": { "en": "Erasmus+ Research Intern", "tr": "Erasmus+ Araştırma Stajyeri" },
     "org": { "en": "University of Salerno, Italy", "tr": "Salerno Üniversitesi, İtalya" },
@@ -77,6 +93,11 @@
       "tr": "2024'te 3 ay boyunca \"Real-Time Face Tracking with Head-Mounted Displays\" projesinde bilgisayarlı görü ve genişletilmiş gerçeklik (XR) üzerine araştırma yaptım ve projenin teknik raporunu yazdım."
     },
     "points": [],
-    "tags": ["Computer Vision", "XR", "Research"]
+    "tags": ["Computer Vision", "XR", "Research"],
+    "gallery": [],
+    "report": {
+      "href": "/documents/unisa/InternshipReport_only.pdf",
+      "label": { "en": "Download the internship report (PDF)", "tr": "Staj raporunu indir (PDF)" }
+    }
   }
 ]

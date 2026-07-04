@@ -1,0 +1,116 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import T from '../../components/T.astro';
+import Cta from '../../components/Cta.astro';
+import GhostNumber from '../../components/GhostNumber.astro';
+import Gallery from '../../components/Gallery.astro';
+import experience from '../../data/experience.json';
+
+export function getStaticPaths() {
+  // Kendi dış linki (ör. Ceviz vaka çalışması) olan girdiler ayrı detay
+  // sayfası üretmez; diğer tüm deneyimler /experience/[slug] alır.
+  return experience
+    .filter((item) => !item.link)
+    .map((item, i) => ({
+      params: { slug: item.slug },
+      props: { item, n: experience.indexOf(item) + 1 },
+    }));
+}
+
+const { item, n } = Astro.props;
+const bi = (v: any) => (typeof v === 'string' ? { en: v, tr: v } : v);
+const org = bi(item.org);
+---
+
+<BaseLayout
+  path={`/experience/${item.slug}`}
+  title={org.en}
+  description={bi(item.summary).en}
+>
+  <header class="exp-head section ghost-host">
+    <GhostNumber n={String(n).padStart(2, '0')} />
+    <div class="container">
+      <a href="/experience" class="back-link mono">← <T en="Back to experience" tr="Deneyimlere dön" /></a>
+      <span class="mono exp-period"><T t={bi(item.period)} /></span>
+      <h1 class="exp-title"><T t={org} /></h1>
+      <p class="exp-role mono"><T t={bi(item.role)} /> · <T t={bi(item.kind)} /></p>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container exp-narrow">
+      <p class="exp-summary"><T t={bi(item.summary)} /></p>
+
+      {item.points && item.points.length > 0 && (
+        <ul class="exp-points">
+          {item.points.map((p) => (
+            <li><T t={bi(p)} /></li>
+          ))}
+        </ul>
+      )}
+
+      {item.tags && item.tags.length > 0 && (
+        <ul class="exp-tags" aria-label="Tools">
+          {item.tags.map((t) => <li class="tag tag--ghost">{t}</li>)}
+        </ul>
+      )}
+
+      {item.report && (
+        <a href={item.report.href} download class="report-download mono">
+          [ <T t={bi(item.report.label)} /> ]_
+        </a>
+      )}
+
+      <Gallery images={item.gallery} />
+    </div>
+  </section>
+
+  <section class="section section--darker">
+    <div class="container cta-band">
+      <Cta href="/experience" variant="secondary"><T en="Back to experience" tr="Deneyime dön" /></Cta>
+      <Cta href="/contact" variant="primary" cursor><T en="Get in touch" tr="İletişime geç" /></Cta>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .exp-head { border-top: none; padding-bottom: var(--space-lg); }
+  .back-link { display: inline-block; margin-bottom: var(--space-lg); color: var(--text-muted); }
+  .back-link:hover { color: var(--accent); }
+  .exp-period { display: block; margin-bottom: var(--space-sm); }
+  .exp-title { font-size: var(--fs-display); margin-bottom: var(--space-sm); }
+  .exp-role { color: var(--accent); }
+  .exp-narrow { max-width: 760px; }
+  .exp-summary { font-size: 1.2rem; color: var(--text-body); }
+  .exp-points {
+    list-style: none;
+    margin-top: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .exp-points li {
+    position: relative;
+    padding-left: 1.25rem;
+    color: var(--text-body);
+  }
+  .exp-points li::before { content: '—'; position: absolute; left: 0; color: var(--accent); }
+  .exp-tags {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: var(--space-lg);
+  }
+  .report-download {
+    display: inline-block;
+    margin-top: var(--space-xl);
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border);
+    color: var(--accent);
+    letter-spacing: 0.06em;
+    transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease);
+  }
+  .report-download:hover { background: var(--bg-primary-darker); border-color: var(--accent); }
+  .cta-band { display: flex; gap: var(--space-md); flex-wrap: wrap; }
+</style>
