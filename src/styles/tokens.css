@@ -1,26 +1,50 @@
 /* ============================================================
-   Design tokens — "Autumn Harvest"
-   Keskin köşeler, editorial his, imza rengi az kullanılır.
+   Design tokens — Ceviz Biotech dili
+   Glassmorphism, koyu mod, mavi glow, yumuşak köşeler.
+   (DESIGN_SYSTEM_REALIGNMENT_ADDENDUM.md — Navy+Brass/pixel sisteminin yerine)
    ============================================================ */
 
 :root {
-  /* --- Color palette — "Navy + Brass" --- */
-  --bg-primary: #0F1A2E;        /* Ana zemin — koyu lacivert */
-  --bg-primary-darker: #0A1220; /* Daha koyu bölüm zemini */
-  --text-heading: #EDEFF3;      /* Başlıklar — kırık beyaz */
-  --text-body: #7C8CA6;         /* Gövde/ikincil metin — soğuk mavi-gri */
-  --text-muted: #4C617F;        /* En düşük öncelik (tarih, etiket) */
-  --accent: #B08D4F;            /* İMZA rengi — pirinç/bronz, az kullan */
-  --accent-hover: #C6A05C;      /* Accent hover, sadece etkileşimde */
-  --border: #263A57;            /* Ayraç çizgileri */
-  --border-faint: #1A2740;      /* Daha ince/soluk ayraçlar */
-  --tag-bg: #3A537A;            /* Sadece küçük badge arka planı */
-  --tag-text: #EDEFF3;          /* Tag üzeri metin */
+  /* --- Arka planlar --- */
+  --bg-primary: #06090F;          /* Ana zemin */
+  --bg-primary-darker: #0B111C;   /* Daha koyu bölüm zemini */
+  --bg-2: #11192A;                /* Üçüncü katman — kart arkası vb. */
+
+  /* --- Cam yüzeyler --- */
+  --surface: rgba(255, 255, 255, 0.035);
+  --surface-strong: rgba(255, 255, 255, 0.06);
+
+  /* --- Metin --- */
+  --text-heading: #F0F4FA;
+  --text-body: #A8B2C5;
+  --text-muted: #6B7488;
+
+  /* --- Vurgu — mavi aile (bronz DEĞİL) --- */
+  --accent: #6BB7FF;
+  --accent-soft: #88C7FF;
+  --accent-deep: #2C7FD9;
+  --accent-hover: #88C7FF;        /* geriye dönük uyum (eski --accent-hover referansları) */
+  --glow: 107, 183, 255;          /* RGB triplet — rgba(var(--glow), 0.3) gibi kullanılır */
+
+  /* --- Kenarlıklar --- */
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.16);  /* hover */
+  --border-faint: rgba(255, 255, 255, 0.05);
+
+  /* --- Etiketler --- */
+  --tag-bg: rgba(107, 183, 255, 0.12);
+  --tag-text: #F0F4FA;
+
+  /* --- Köşe yarıçapları --- */
+  --radius-sm: 8px;   /* butonlar, tag'ler, küçük öğeler */
+  --radius-md: 16px;  /* kartlar */
+  --radius-lg: 20px;  /* büyük yüzeyler */
 
   /* --- Typography --- */
-  --font-display: 'Pixelify Sans', ui-monospace, monospace; /* Başlıklar */
-  --font-mono: 'Geist Mono', ui-monospace, monospace;        /* Etiket, meta, nav, CTA */
-  --font-body: 'Manrope', system-ui, -apple-system, sans-serif; /* Gövde */
+  --font-display: 'Bricolage Grotesque', system-ui, sans-serif; /* Başlıklar */
+  --font-body: 'Manrope', system-ui, -apple-system, sans-serif; /* Gövde + etiketler */
+  --font-serif: 'Instrument Serif', Georgia, serif;             /* Opsiyonel dramatik vurgu */
+  --font-mono: 'Geist Mono', ui-monospace, monospace;           /* SADECE splash ekranı */
 
   /* --- Spacing scale --- */
   --space-2xs: 0.25rem;

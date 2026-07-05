@@ -1,12 +1,12 @@
 ---
 /**
- * Terminal-stili CTA:  [ LABEL ]_
- * Kutu/dolgu yok — köşeli parantez + opsiyonel yanıp sönen imleç.
+ * Buton — Ceviz buton dili (dolgu/gradient primary + camsı ghost secondary).
+ * Terminal parantez sistemi ([ LABEL ]_) emekli oldu (splash hariç).
  *
- * Link:    <Cta href="/projects" variant="primary" cursor><T en=".." tr=".." /></Cta>
+ * Link:    <Cta href="/projects" variant="primary"><T en=".." tr=".." /></Cta>
  * Buton:   <Cta as="button" type="submit" variant="primary"><T .. /></Cta>
  *
- * Kural: yanıp sönen imleç (cursor) yalnızca sayfadaki BİRİNCİL CTA'da.
+ * `cursor` prop'u artık görsel bir etki yaratmaz; geriye dönük uyum için tutuluyor.
  */
 interface Props {
   href?: string;
@@ -22,7 +22,6 @@ const {
   as = href ? 'a' : 'button',
   type = 'button',
   variant = 'primary',
-  cursor = false,
   id,
   class: className,
 } = Astro.props;
@@ -30,17 +29,7 @@ const {
 const cls = ['cta', `cta-${variant}`, className].filter(Boolean).join(' ');
 ---
 {as === 'button' ? (
-  <button type={type} class={cls} id={id}>
-    <span class="cta-bracket">[</span>
-    <span class="cta-label"><slot /></span>
-    <span class="cta-bracket">]</span>
-    {cursor && <span class="cta-cursor" aria-hidden="true">_</span>}
-  </button>
+  <button type={type} class={cls} id={id}><slot /></button>
 ) : (
-  <a href={href} class={cls} id={id}>
-    <span class="cta-bracket">[</span>
-    <span class="cta-label"><slot /></span>
-    <span class="cta-bracket">]</span>
-    {cursor && <span class="cta-cursor" aria-hidden="true">_</span>}
-  </a>
+  <a href={href} class={cls} id={id}><slot /></a>
 )}

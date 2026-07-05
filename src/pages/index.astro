@@ -114,18 +114,27 @@ import GhostNumber from '../components/GhostNumber.astro';
   .feature-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 0;
-    border-top: 1px solid var(--border);
+    gap: var(--space-md);
   }
   .feature {
-    padding: var(--space-lg) var(--space-lg) var(--space-lg) var(--space-lg);
-    border-left: 1px solid var(--border-faint);
+    padding: var(--space-lg);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     display: flex;
     flex-direction: column;
     gap: var(--space-sm);
+    transition: transform 0.25s var(--ease), background 0.25s var(--ease),
+      border-color 0.25s var(--ease), box-shadow 0.25s var(--ease);
   }
-  .feature:first-child { border-left: none; padding-left: 0; }
-  .feature:last-child { padding-right: 0; }
+  .feature:hover {
+    transform: translateY(-4px);
+    background: var(--surface-strong);
+    border-color: var(--border-strong);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  }
   .feature-index {
     font-family: var(--font-mono);
     font-size: var(--fs-label);
@@ -181,12 +190,6 @@ import GhostNumber from '../components/GhostNumber.astro';
 
   @media (max-width: 820px) {
     .feature-grid { grid-template-columns: 1fr; }
-    .feature {
-      border-left: none;
-      padding: var(--space-lg) 0;
-      border-top: 1px solid var(--border-faint);
-    }
-    .feature:first-child { border-top: none; }
     .directory { grid-template-columns: 1fr; gap: var(--space-lg); }
   }
 </style>

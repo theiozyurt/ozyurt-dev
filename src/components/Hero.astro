@@ -173,20 +173,20 @@ import PixelField from './PixelField.astro';
   .hero-strip {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
+    gap: var(--space-md);
   }
   .strip-item {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    padding: var(--space-lg) var(--space-md) var(--space-lg) 0;
-    border-left: 1px solid var(--border);
-    padding-left: var(--space-md);
-  }
-  .strip-item:first-child {
-    border-left: none;
-    padding-left: 0;
+    padding: var(--space-lg);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: transform 0.25s var(--ease), background 0.25s var(--ease),
+      border-color 0.25s var(--ease), box-shadow 0.25s var(--ease);
   }
   .strip-label {
     font-family: var(--font-mono);
@@ -209,11 +209,14 @@ import PixelField from './PixelField.astro';
   }
 
   /* Tıklanabilir strip kutusu (/goals) */
-  .strip-item-link {
-    transition: background var(--dur) var(--ease);
-  }
+  .strip-item-link { text-decoration: none; }
   .strip-item-link .strip-sub { color: var(--accent); }
-  .strip-item-link:hover { background: var(--bg-primary-darker); }
+  .strip-item-link:hover {
+    transform: translateY(-4px);
+    background: var(--surface-strong);
+    border-color: var(--border-strong);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  }
   .strip-item-link:hover .strip-title { color: var(--accent); }
 
   @media (max-width: 900px) {
@@ -226,12 +229,6 @@ import PixelField from './PixelField.astro';
   }
   @media (max-width: 768px) {
     .hero-strip { grid-template-columns: 1fr; }
-    .strip-item {
-      border-left: none;
-      padding-left: 0;
-      border-top: 1px solid var(--border-faint);
-    }
-    .strip-item:first-child { border-top: none; }
   }
 </style>
 

@@ -197,15 +197,14 @@ const converterShots = [
   .facts {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
+    gap: var(--space-md);
   }
   .fact {
-    padding: var(--space-lg) var(--space-md) var(--space-lg) 0;
-    border-left: 1px solid var(--border-faint);
-    padding-left: var(--space-md);
+    padding: var(--space-lg);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
   }
-  .fact:first-child { border-left: none; padding-left: 0; }
   .fact dt {
     text-transform: uppercase;
     letter-spacing: 0.14em;
@@ -217,18 +216,17 @@ const converterShots = [
   .products {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 0;
-    border-top: 1px solid var(--border);
+    gap: var(--space-md);
   }
   .product {
-    padding: var(--space-lg) var(--space-lg) var(--space-lg) var(--space-lg);
-    border-left: 1px solid var(--border-faint);
+    padding: var(--space-lg);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
     display: flex;
     flex-direction: column;
     gap: var(--space-sm);
   }
-  .product:first-child { border-left: none; padding-left: 0; }
-  .product:last-child { padding-right: 0; }
   .product-index { font-family: var(--font-mono); font-size: var(--fs-label); letter-spacing: 0.14em; color: var(--accent); }
   .product-name { font-size: var(--fs-h2); }
   .product p { color: var(--text-body); }
@@ -242,20 +240,26 @@ const converterShots = [
   .website-cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    border-top: 1px solid var(--border);
-    border-left: 1px solid var(--border);
+    gap: var(--space-md);
   }
   .website-card {
     display: flex;
     flex-direction: column;
     gap: 0.4rem;
     padding: var(--space-lg);
-    border-right: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
     text-decoration: none;
-    transition: background var(--dur) var(--ease);
+    transition: transform 0.25s var(--ease), background 0.25s var(--ease),
+      border-color 0.25s var(--ease), box-shadow 0.25s var(--ease);
   }
-  .website-card:hover { background: var(--bg-primary-darker); }
+  .website-card:hover {
+    transform: translateY(-4px);
+    background: var(--surface-strong);
+    border-color: var(--border-strong);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  }
   .website-label { font-family: var(--font-display); font-size: 1.15rem; color: var(--text-heading); }
   .website-url { font-size: var(--fs-label); color: var(--text-muted); }
   .website-desc { font-size: var(--fs-small); color: var(--text-body); }
@@ -278,14 +282,9 @@ const converterShots = [
 
   @media (max-width: 820px) {
     .facts { grid-template-columns: 1fr 1fr; }
-    .fact:nth-child(3) { border-left: none; padding-left: 0; }
     .products { grid-template-columns: 1fr; }
-    .product { border-left: none; padding: var(--space-lg) 0; border-top: 1px solid var(--border-faint); }
-    .product:first-child { border-top: none; }
   }
   @media (max-width: 480px) {
     .facts { grid-template-columns: 1fr; }
-    .fact { border-left: none; padding-left: 0; border-top: 1px solid var(--border-faint); }
-    .fact:first-child { border-top: none; }
   }
 </style>
