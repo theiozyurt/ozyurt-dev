@@ -1,11 +1,46 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
-  <rect width="1200" height="630" fill="#0F1A2E"/>
-  <line x1="80" y1="150" x2="140" y2="150" stroke="#B08D4F" stroke-width="3"/>
-  <text x="150" y="158" font-family="'JetBrains Mono', monospace" font-size="24" letter-spacing="6" fill="#4C617F">KÜTAHYA, TR — BUILDING TOWARD FOUNDER</text>
-  <text x="80" y="300" font-family="Georgia, 'Playfair Display', serif" font-size="96" fill="#EDEFF3">İsmail Özyurt</text>
-  <text x="80" y="380" font-family="Georgia, 'Playfair Display', serif" font-size="40" fill="#7C8CA6" font-style="italic">My goal was never to be known as an engineer</text>
-  <text x="80" y="432" font-family="Georgia, 'Playfair Display', serif" font-size="40" fill="#7C8CA6" font-style="italic">or a researcher — it's to build my own company.</text>
-  <line x1="80" y1="520" x2="1120" y2="520" stroke="#263A57" stroke-width="1"/>
-  <text x="80" y="565" font-family="'JetBrains Mono', monospace" font-size="22" letter-spacing="3" fill="#B08D4F">ozyurt.dev</text>
-  <text x="1120" y="565" font-family="'JetBrains Mono', monospace" font-size="22" letter-spacing="3" fill="#4C617F" text-anchor="end">DEVELOPER &amp; PARTNER · CEVIZ BIYOTEKNOLOJI</text>
+  <defs>
+    <linearGradient id="og-bg" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#06090F"/>
+      <stop offset="1" stop-color="#0B111C"/>
+    </linearGradient>
+    <linearGradient id="og-ring" x1="90" y1="195" x2="330" y2="435" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#B7DCFF"/>
+      <stop offset="0.5" stop-color="#6BB7FF"/>
+      <stop offset="1" stop-color="#2C7FD9"/>
+    </linearGradient>
+    <radialGradient id="og-node" cx="0.42" cy="0.35" r="0.75">
+      <stop offset="0" stop-color="#EAF4FF"/>
+      <stop offset="1" stop-color="#6BB7FF"/>
+    </radialGradient>
+    <radialGradient id="og-halo" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#6BB7FF" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#6BB7FF" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="og-glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge>
+        <feMergeNode in="b"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#og-bg)"/>
+  <circle cx="210" cy="315" r="230" fill="url(#og-halo)"/>
+
+  <!-- Ozyurt "O" isareti -->
+  <g filter="url(#og-glow)">
+    <path d="M254.95 203.74 A 120 120 0 1 1 165.05 203.74" fill="none" stroke="url(#og-ring)" stroke-width="22" stroke-linecap="round"/>
+    <circle cx="210" cy="195" r="28" fill="url(#og-node)"/>
+  </g>
+
+  <!-- Sozcuk markasi + alt baslik -->
+  <text x="450" y="288" font-family="Helvetica, Arial, sans-serif" font-size="96" font-weight="700" fill="#EDEFF3">İsmail Özyurt</text>
+  <text x="452" y="352" font-family="Helvetica, Arial, sans-serif" font-size="34" fill="#8FA0BB">Developer &amp; partner · Ceviz Biyoteknoloji</text>
+  <text x="452" y="404" font-family="Helvetica, Arial, sans-serif" font-size="30" fill="#6B7C97">Building, and documenting the journey along the way.</text>
+
+  <line x1="80" y1="520" x2="1120" y2="520" stroke="#1B2434" stroke-width="1"/>
+  <text x="80" y="566" font-family="Helvetica, Arial, sans-serif" font-size="24" font-weight="600" letter-spacing="1" fill="#6BB7FF">ozyurt.dev</text>
+  <text x="1120" y="566" font-family="Helvetica, Arial, sans-serif" font-size="22" letter-spacing="1" fill="#5A6B85" text-anchor="end">Kütahya, Türkiye · Bilgisayar Mühendisliği</text>
 </svg>

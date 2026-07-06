@@ -114,12 +114,18 @@ const bi = (v: any) => (typeof v === 'string' ? { en: v, tr: v } : v);
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    margin-top: var(--space-lg);
+    margin-top: var(--space-xl);
+    padding: 10px 20px;
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+    border: 1px solid var(--border);
     font-family: var(--font-body);
     font-weight: 600;
     font-size: 14px;
     color: var(--accent);
+    transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease);
   }
+  .featured:hover .featured-cta { background: var(--surface-strong); border-color: var(--border-strong); }
   .featured:hover .featured-cta .cta-arrow { transform: translateX(4px); }
 
   .project-list {
@@ -140,12 +146,18 @@ const bi = (v: any) => (typeof v === 'string' ? { en: v, tr: v } : v);
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
-    margin-top: var(--space-md);
+    margin-top: var(--space-lg);
+    padding: 10px 20px;
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+    border: 1px solid var(--border);
     font-family: var(--font-body);
     font-weight: 600;
     font-size: 14px;
     color: var(--accent);
+    transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease);
   }
+  .proj-row:hover .proj-more { background: var(--surface-strong); border-color: var(--border-strong); }
   .proj-row:hover .proj-more .cta-arrow { transform: translateX(4px); }
   .proj-head {
     display: flex;
