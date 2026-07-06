@@ -9,17 +9,14 @@
       <stop offset="0.5" stop-color="#6BB7FF"/>
       <stop offset="1" stop-color="#2C7FD9"/>
     </linearGradient>
-    <radialGradient id="og-node" cx="0.42" cy="0.35" r="0.75">
-      <stop offset="0" stop-color="#EAF4FF"/>
-      <stop offset="1" stop-color="#6BB7FF"/>
-    </radialGradient>
     <radialGradient id="og-halo" cx="0.5" cy="0.5" r="0.5">
-      <stop offset="0" stop-color="#6BB7FF" stop-opacity="0.22"/>
+      <stop offset="0" stop-color="#6BB7FF" stop-opacity="0.28"/>
       <stop offset="1" stop-color="#6BB7FF" stop-opacity="0"/>
     </radialGradient>
-    <filter id="og-glow" x="-30%" y="-30%" width="160%" height="160%">
-      <feGaussianBlur stdDeviation="6" result="b"/>
+    <filter id="og-glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="9" result="b"/>
       <feMerge>
+        <feMergeNode in="b"/>
         <feMergeNode in="b"/>
         <feMergeNode in="SourceGraphic"/>
       </feMerge>
@@ -27,13 +24,10 @@
   </defs>
 
   <rect width="1200" height="630" fill="url(#og-bg)"/>
-  <circle cx="210" cy="315" r="230" fill="url(#og-halo)"/>
+  <circle cx="210" cy="315" r="235" fill="url(#og-halo)"/>
 
-  <!-- Ozyurt "O" isareti -->
-  <g filter="url(#og-glow)">
-    <path d="M254.95 203.74 A 120 120 0 1 1 165.05 203.74" fill="none" stroke="url(#og-ring)" stroke-width="22" stroke-linecap="round"/>
-    <circle cx="210" cy="195" r="28" fill="url(#og-node)"/>
-  </g>
+  <!-- Ozyurt "O" isareti — ust-sagda acik gradyan halka -->
+  <path d="M318.76 264.29 A 120 120 0 1 1 260.71 206.24" fill="none" stroke="url(#og-ring)" stroke-width="20" stroke-linecap="round" filter="url(#og-glow)"/>
 
   <!-- Sozcuk markasi + alt baslik -->
   <text x="450" y="288" font-family="Helvetica, Arial, sans-serif" font-size="96" font-weight="700" fill="#EDEFF3">İsmail Özyurt</text>

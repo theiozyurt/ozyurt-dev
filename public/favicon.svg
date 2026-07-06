@@ -1,25 +1,19 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
   <defs>
-    <linearGradient id="fv-ring" x1="12" y1="7" x2="53" y2="58" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#B7DCFF"/>
-      <stop offset="0.5" stop-color="#6BB7FF"/>
+    <linearGradient id="fv-ring" x1="11" y1="8" x2="53" y2="56" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#CDE7FF"/>
+      <stop offset="0.45" stop-color="#6BB7FF"/>
       <stop offset="1" stop-color="#2C7FD9"/>
     </linearGradient>
-    <radialGradient id="fv-node" cx="0.42" cy="0.35" r="0.75">
-      <stop offset="0" stop-color="#EAF4FF"/>
-      <stop offset="1" stop-color="#6BB7FF"/>
-    </radialGradient>
-    <filter id="fv-glow" x="-40%" y="-40%" width="180%" height="180%">
-      <feGaussianBlur stdDeviation="2" result="b"/>
+    <filter id="fv-glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="2.6" result="b"/>
       <feMerge>
+        <feMergeNode in="b"/>
         <feMergeNode in="b"/>
         <feMergeNode in="SourceGraphic"/>
       </feMerge>
     </filter>
   </defs>
   <rect width="64" height="64" rx="14" fill="#0B111C"/>
-  <g filter="url(#fv-glow)">
-    <path d="M40.1 11.97 A 21.6 21.6 0 1 1 23.9 11.97" fill="none" stroke="url(#fv-ring)" stroke-width="6.4" stroke-linecap="round"/>
-    <circle cx="32" cy="10.4" r="5.4" fill="url(#fv-node)"/>
-  </g>
+  <path d="M51.58 22.86 A 21.6 21.6 0 1 1 41.12 12.43" fill="none" stroke="url(#fv-ring)" stroke-width="8" stroke-linecap="round" filter="url(#fv-glow)"/>
 </svg>

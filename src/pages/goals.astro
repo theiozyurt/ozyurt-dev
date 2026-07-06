@@ -22,7 +22,8 @@ import PixelField from '../components/PixelField.astro';
   </header>
 
   <section class="section">
-    <div class="container goals-narrow">
+    <div class="container">
+      <div class="goals-body">
       <blockquote class="goals-lead quote-block">
         <T
           en="I care about building things that work end-to-end — from an idea to something people actually use. That's what draws me to Ceviz Biyoteknoloji, to research, and to every project I take on. I'm still figuring out exactly where it leads long-term, but I know I want to keep building, leading, and learning what makes good products and teams work."
@@ -42,20 +43,20 @@ import PixelField from '../components/PixelField.astro';
           <T en="Get in touch" tr="İletişime geç" />
         </Cta>
       </div>
+      </div>
     </div>
   </section>
 </BaseLayout>
 
 <style>
   .page-head { border-top: none; padding-bottom: var(--space-lg); }
-  .goals-narrow { max-width: 780px; }
+  .goals-body { max-width: 760px; }
 
   .goals-lead {
     font-family: var(--font-body);
     font-size: clamp(1.15rem, 1.8vw, 1.5rem);
     line-height: 1.5;
     color: var(--text-heading);
-    padding-left: clamp(1.25rem, 2.5vw, 2rem);
   }
 
   .goals-pull {
@@ -64,7 +65,7 @@ import PixelField from '../components/PixelField.astro';
     font-weight: 600;
     color: var(--accent);
     letter-spacing: -0.01em;
-    margin-top: var(--space-2xl);
+    margin-top: var(--space-xl);
     max-width: none;
   }
 
@@ -72,8 +73,6 @@ import PixelField from '../components/PixelField.astro';
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-md);
-    margin-top: var(--space-2xl);
-    padding-top: var(--space-lg);
-    border-top: 1px solid var(--border-faint);
+    margin-top: var(--space-xl);
   }
 </style>
