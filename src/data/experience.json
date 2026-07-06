@@ -27,7 +27,7 @@
     "tags": ["Flutter", "Firebase", "Python", "DICOM", "KVKK/GDPR"],
     "gallery": [],
     "link": "/projects/ceviz",
-    "linkLabel": { "en": "Read the case study", "tr": "Vaka çalışmasını oku" }
+    "linkLabel": { "en": "Read the case study", "tr": "Nasıl geliştirdiğimi oku" }
   },
   {
     "id": "ml-research",
