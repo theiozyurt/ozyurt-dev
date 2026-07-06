@@ -145,19 +145,19 @@ const converterShots = [
           <span class="website-label"><T en="Main site" tr="Ana site" /></span>
           <span class="website-url mono">cevizbiotech.com</span>
           <span class="website-desc"><T en="Brand & showcase site" tr="Marka ve tanıtım sitesi" /></span>
-          <span class="website-cta mono">[ <T en="VISIT" tr="SİTEYİ GÖR" /> ]_</span>
+          <span class="website-cta"><T en="Visit" tr="Siteyi gör" /> <span class="cta-arrow" aria-hidden="true">→</span></span>
         </a>
         <a href="https://cevizbiotech.com/app" target="_blank" rel="noopener" class="website-card">
           <span class="website-label">Ceviz App</span>
           <span class="website-url mono">cevizbiotech.com/app</span>
           <span class="website-desc"><T en="Physician–engineer B2B platform, web showcase" tr="Hekim-mühendis B2B platformu, web tanıtımı" /></span>
-          <span class="website-cta mono">[ <T en="VISIT" tr="SİTEYİ GÖR" /> ]_</span>
+          <span class="website-cta"><T en="Visit" tr="Siteyi gör" /> <span class="cta-arrow" aria-hidden="true">→</span></span>
         </a>
         <a href="https://cevizbiotech.com/viewer" target="_blank" rel="noopener" class="website-card">
           <span class="website-label">Ceviz Viewer & Converter</span>
           <span class="website-url mono">cevizbiotech.com/viewer</span>
           <span class="website-desc"><T en="3D viewer/converter, web showcase" tr="3D görüntüleyici/dönüştürücü, web tanıtımı" /></span>
-          <span class="website-cta mono">[ <T en="VISIT" tr="SİTEYİ GÖR" /> ]_</span>
+          <span class="website-cta"><T en="Visit" tr="Siteyi gör" /> <span class="cta-arrow" aria-hidden="true">→</span></span>
         </a>
       </div>
     </div>
@@ -227,7 +227,7 @@ const converterShots = [
     flex-direction: column;
     gap: var(--space-sm);
   }
-  .product-index { font-family: var(--font-mono); font-size: var(--fs-label); letter-spacing: 0.14em; color: var(--accent); }
+  .product-index { font-family: var(--font-body); font-size: var(--fs-label); letter-spacing: 0.14em; color: var(--accent); }
   .product-name { font-size: var(--fs-h2); }
   .product p { color: var(--text-body); }
 
@@ -264,11 +264,15 @@ const converterShots = [
   .website-url { font-size: var(--fs-label); color: var(--text-muted); }
   .website-desc { font-size: var(--fs-small); color: var(--text-body); }
   .website-cta {
-    margin-top: var(--space-xs);
-    font-size: var(--fs-label);
-    letter-spacing: 0.08em;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: var(--space-sm);
+    font-weight: 600;
+    font-size: 14px;
     color: var(--accent);
   }
+  .website-card:hover .website-cta .cta-arrow { transform: translateX(4px); }
 
   .cta-band {
     display: flex;

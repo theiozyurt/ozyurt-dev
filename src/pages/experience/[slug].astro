@@ -56,8 +56,8 @@ const org = bi(item.org);
       )}
 
       {item.report && (
-        <a href={item.report.href} download class="report-download mono">
-          [ <T t={bi(item.report.label)} /> ]_
+        <a href={item.report.href} download class="report-download">
+          <T t={bi(item.report.label)} />
         </a>
       )}
 
@@ -103,14 +103,18 @@ const org = bi(item.org);
     margin-top: var(--space-lg);
   }
   .report-download {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
     margin-top: var(--space-xl);
-    padding: 0.75rem 1rem;
+    padding: 12px 24px;
+    border-radius: var(--radius-sm);
+    background: var(--surface);
     border: 1px solid var(--border);
+    font-weight: 600;
+    font-size: 14px;
     color: var(--accent);
-    letter-spacing: 0.06em;
     transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease);
   }
-  .report-download:hover { background: var(--bg-primary-darker); border-color: var(--accent); }
+  .report-download:hover { background: var(--surface-strong); border-color: var(--border-strong); }
   .cta-band { display: flex; gap: var(--space-md); flex-wrap: wrap; }
 </style>

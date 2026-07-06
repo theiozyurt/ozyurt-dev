@@ -19,7 +19,6 @@ import PixelField from './PixelField.astro';
         </h1>
 
         <div class="hero-typewriter" aria-hidden="true">
-          <span class="tw-prompt">&gt;</span>
           <span class="tw-text" id="tw-text"></span><span class="tw-cursor">_</span>
         </div>
 
@@ -106,7 +105,7 @@ import PixelField from './PixelField.astro';
   }
 
   .hero-typewriter {
-    font-family: var(--font-mono);
+    font-family: var(--font-body);
     font-size: 14px;
     letter-spacing: 0.02em;
     color: var(--text-body);
@@ -189,7 +188,7 @@ import PixelField from './PixelField.astro';
       border-color 0.25s var(--ease), box-shadow 0.25s var(--ease);
   }
   .strip-label {
-    font-family: var(--font-mono);
+    font-family: var(--font-body);
     font-size: var(--fs-label);
     letter-spacing: 0.14em;
     text-transform: uppercase;
@@ -202,7 +201,7 @@ import PixelField from './PixelField.astro';
     line-height: 1.15;
   }
   .strip-sub {
-    font-family: var(--font-mono);
+    font-family: var(--font-body);
     font-size: var(--fs-small);
     letter-spacing: 0.04em;
     color: var(--text-muted);

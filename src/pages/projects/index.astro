@@ -43,9 +43,8 @@ const bi = (v: any) => (typeof v === 'string' ? { en: v, tr: v } : v);
           ))}
         </div>
         <span class="featured-cta">
-          <span class="cta-bracket">[</span>
-          <span class="featured-cta-label"><T en="Read the full case study" tr="Tam vaka çalışmasını oku" /></span>
-          <span class="cta-bracket">]</span><span class="cta-cursor" aria-hidden="true">_</span>
+          <T en="Read the full case study" tr="Tam vaka çalışmasını oku" />
+          <span class="cta-arrow" aria-hidden="true">→</span>
         </span>
       </a>
     </div>
@@ -70,7 +69,7 @@ const bi = (v: any) => (typeof v === 'string' ? { en: v, tr: v } : v);
                 {p.tags.map((t) => <li class="tag tag--ghost">{t}</li>)}
               </ul>
             )}
-            <span class="proj-more mono">[ <T en="VIEW PROJECT" tr="PROJEYİ GÖR" /> ]_</span>
+            <span class="proj-more"><T en="View project" tr="Projeyi gör" /> <span class="cta-arrow" aria-hidden="true">→</span></span>
           </a>
         ))}
       </div>
@@ -113,18 +112,15 @@ const bi = (v: any) => (typeof v === 'string' ? { en: v, tr: v } : v);
   .featured-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: var(--space-md); }
   .featured-cta {
     display: inline-flex;
-    align-items: baseline;
-    gap: 0.4ch;
+    align-items: center;
+    gap: 0.5rem;
     margin-top: var(--space-lg);
-    font-family: var(--font-mono);
+    font-family: var(--font-body);
+    font-weight: 600;
     font-size: 14px;
-    letter-spacing: 0.03em;
-    text-transform: uppercase;
     color: var(--accent);
   }
-  .featured-cta .cta-bracket { color: var(--text-muted); transition: color var(--dur) var(--ease); }
-  .featured-cta .cta-cursor { color: var(--accent); animation: blink 1s step-start infinite; }
-  .featured:hover .featured-cta .cta-bracket { color: var(--accent); }
+  .featured:hover .featured-cta .cta-arrow { transform: translateX(4px); }
 
   .project-list {
     display: flex;
@@ -141,12 +137,16 @@ const bi = (v: any) => (typeof v === 'string' ? { en: v, tr: v } : v);
     -webkit-backdrop-filter: blur(8px);
   }
   .proj-more {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
     margin-top: var(--space-md);
+    font-family: var(--font-body);
+    font-weight: 600;
     font-size: 14px;
-    letter-spacing: 0.03em;
     color: var(--accent);
   }
+  .proj-row:hover .proj-more .cta-arrow { transform: translateX(4px); }
   .proj-head {
     display: flex;
     align-items: baseline;

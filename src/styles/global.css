@@ -201,6 +201,12 @@ strong { color: var(--text-heading); font-weight: 500; }
 
 .cta[aria-busy='true'] { cursor: progress; opacity: 0.8; }
 
+/* Metin-bağlantı CTA'larındaki ok — hover'da hafifçe kayar */
+.cta-arrow {
+  display: inline-block;
+  transition: transform var(--dur) var(--ease);
+}
+
 /* ============================================================
    Tags / badges — sadece küçük alan
    ============================================================ */
@@ -284,7 +290,7 @@ html[data-lang="tr"] [data-lang="en"] { display: none; }
   background: var(--accent);
   color: var(--bg-primary-darker);
   padding: 0.6rem 1rem;
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--fs-small);
   z-index: 200;
 }
@@ -339,7 +345,7 @@ html:not([data-splash]) #splash-screen { display: none; }
   border: 1px solid #3a3a3a; /* hafif gri kenarlık */
   overflow: visible; /* logo terminalin üstünden gelebilsin diye kırpma yok */
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
-  font-family: var(--font-mono);
+  font-family: var(--font-mono); /* terminal görünümü — mono yalnızca burada kalır */
 }
 .terminal-titlebar {
   background: #2d2d2d;
@@ -450,7 +456,7 @@ html:not([data-splash]) #splash-screen { display: none; }
   border: none;
   padding: 0;
   cursor: pointer;
-  font-family: var(--font-mono);
+  font-family: var(--font-mono); /* splash içi — terminal mono */
   font-size: 12px;
   letter-spacing: 0.08em;
   color: #6a6a6a;

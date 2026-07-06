@@ -54,7 +54,7 @@ const bi = (v: any) => (typeof v === 'string' ? { en: v, tr: v } : v);
         </ul>
       )}
       {project.repo && (
-        <a href={project.repo} target="_blank" rel="noopener" class="proj-repo mono">[ <T en="VIEW REPO" tr="REPOYU GÖR" /> ]_</a>
+        <a href={project.repo} target="_blank" rel="noopener" class="proj-repo"><T en="View repo" tr="Repoyu gör" /> <span class="cta-arrow" aria-hidden="true">→</span></a>
       )}
       <Gallery images={project.gallery} />
     </div>
@@ -95,14 +95,20 @@ const bi = (v: any) => (typeof v === 'string' ? { en: v, tr: v } : v);
   .proj-mentor a { color: var(--accent); }
   .proj-tags { list-style: none; display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: var(--space-lg); }
   .proj-repo {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
     margin-top: var(--space-lg);
-    padding: 0.6rem 0.9rem;
+    padding: 12px 24px;
+    border-radius: var(--radius-sm);
+    background: var(--surface);
     border: 1px solid var(--border);
+    font-weight: 600;
+    font-size: 14px;
     color: var(--accent);
-    letter-spacing: 0.04em;
     transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease);
   }
-  .proj-repo:hover { background: var(--bg-primary-darker); border-color: var(--accent); }
+  .proj-repo:hover { background: var(--surface-strong); border-color: var(--border-strong); }
+  .proj-repo:hover .cta-arrow { transform: translateX(4px); }
   .cta-band { display: flex; gap: var(--space-md); flex-wrap: wrap; }
 </style>
