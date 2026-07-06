@@ -207,6 +207,25 @@ strong { color: var(--text-heading); font-weight: 500; }
   transition: transform var(--dur) var(--ease);
 }
 
+/* Liste kartı CTA'sı — Projeler'deki .proj-more ile aynı dil (camsı pill +
+   accent metin + kayan ok). Kendi üzerinde hover eden bağlantılar için. */
+.list-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 10px 20px;
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--accent);
+  transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+.list-cta:hover { background: var(--surface-strong); border-color: var(--border-strong); }
+.list-cta:hover .cta-arrow { transform: translateX(4px); }
+
 /* ============================================================
    Tags / badges — sadece küçük alan
    ============================================================ */

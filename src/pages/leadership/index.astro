@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import T from '../../components/T.astro';
-import Cta from '../../components/Cta.astro';
 import GhostNumber from '../../components/GhostNumber.astro';
 import PixelField from '../../components/PixelField.astro';
 import CardExpandScript from '../../components/CardExpandScript.astro';
@@ -58,9 +57,10 @@ const bi = (v: any) => (typeof v === 'string' ? { en: v, tr: v } : v);
                   ))}
                 </div>
               )}
-              <Cta href={`/leadership/${item.slug}`} variant="secondary" class="lead-link">
+              <a href={`/leadership/${item.slug}`} class="lead-link list-cta">
                 <T en="View details" tr="Detayları gör" />
-              </Cta>
+                <span class="cta-arrow" aria-hidden="true">→</span>
+              </a>
             </div>
           </article>
         ))}
