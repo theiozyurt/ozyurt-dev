@@ -11,12 +11,15 @@ import PixelField from './PixelField.astro';
   <div class="container">
     <div class="hero-grid">
       <div class="hero-content">
-        <h1 class="hero-headline">
-          <T
-            en="This is where I document my journey."
-            tr="Yolculuğumu burada belgeliyorum."
-          />
-        </h1>
+        <div class="hero-intro">
+          <p class="hero-name">İsmail Özyurt</p>
+          <h1 class="hero-headline">
+            <T
+              en="This is where I document my journey."
+              tr="Yolculuğumu burada belgeliyorum."
+            />
+          </h1>
+        </div>
 
         <div class="hero-typewriter" aria-hidden="true">
           <span class="tw-text" id="tw-text"></span><span class="tw-cursor">_</span>
@@ -91,6 +94,19 @@ import PixelField from './PixelField.astro';
     margin-bottom: var(--space-2xl);
   }
 
+  .hero-intro {
+    border-left: 2px solid var(--accent);
+    padding-left: clamp(1rem, 2vw, 1.5rem);
+    margin-bottom: var(--space-md);
+  }
+  .hero-name {
+    font-family: var(--font-display);
+    font-size: clamp(1rem, 1.4vw, 1.15rem);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    color: var(--accent);
+    margin-bottom: 0.7rem;
+  }
   .hero-headline {
     font-family: var(--font-display);
     font-size: clamp(1.85rem, 3.6vw, 3rem);
@@ -99,9 +115,6 @@ import PixelField from './PixelField.astro';
     font-weight: 600;
     letter-spacing: -0.01em;
     max-width: 20ch;
-    border-left: 2px solid var(--accent);
-    padding-left: clamp(1rem, 2vw, 1.5rem);
-    margin-bottom: var(--space-md);
   }
 
   .hero-typewriter {
