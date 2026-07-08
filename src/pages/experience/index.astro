@@ -3,7 +3,6 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import T from '../../components/T.astro';
 import GhostNumber from '../../components/GhostNumber.astro';
 import PixelField from '../../components/PixelField.astro';
-import CardExpandScript from '../../components/CardExpandScript.astro';
 import experience from '../../data/experience.json';
 
 // String ya da {en,tr} olabilen alanları normalize et.
@@ -79,8 +78,6 @@ const bi = (v: any) => (typeof v === 'string' ? { en: v, tr: v } : v);
       </ol>
     </div>
   </section>
-
-  <CardExpandScript />
 </BaseLayout>
 
 <style>
