@@ -497,15 +497,19 @@ html:not([data-splash]) #splash-screen { display: none; }
 
 /* ============================================================
    /experience · /leadership · /projects liste kartları
-   İçerik her zaman tam gösterilir — sonradan büyüme/açılma ya da
-   scroll ile tetiklenen hareket yok. Galeri önizlemesi her zaman
-   görünür. Sadece bağlantı olan proje kartında (proj-row) yumuşak,
-   yer değiştirmesiz bir hover geri bildirimi kalır.
+   Hover/aktif olunca kart bir BÜTÜN olarak öne çıkar (yukarı kalkar +
+   mavi glow) ve diğer kartlar bulanıklaşır — spotlight etkisi korunur.
+   Ancak içerik HER ZAMAN tam gösterilir: yazı uzamaz, galeri hep
+   görünür, layout kaymaz. Dokunmatikte merkeze en yakın kart .active
+   olur (bkz. CardExpandScript.astro).
    ============================================================ */
 .exp-item,
 .leadership-item,
 .proj-row {
   position: relative;
+  transition: transform 0.3s var(--ease), background 0.3s var(--ease),
+    border-color 0.3s var(--ease), box-shadow 0.3s var(--ease),
+    opacity 0.3s var(--ease), filter 0.3s var(--ease);
 }
 .item-gallery-preview {
   display: flex;
@@ -532,12 +536,49 @@ html:not([data-splash]) #splash-screen { display: none; }
 }
 .item-gallery-preview .preview-shot:hover img { filter: grayscale(0%); }
 
+/* Spotlight/odak — aktif (dokunmatik) ya da hover'lanan kart öne çıkar
+   (yukarı kalkar + mavi glow), diğer kartlar geri çekilir. İçerik
+   büyümez; yalnızca kart bir bütün olarak vurgulanır. */
+.exp-item.active,
+.leadership-item.active,
+.proj-row.active {
+  transform: translateY(-4px);
+  z-index: 10;
+  background: var(--surface-strong);
+  border-color: var(--border-strong);
+  box-shadow:
+    0 0 0 1px rgba(var(--glow), 0.4),
+    0 0 28px 2px rgba(var(--glow), 0.28),
+    0 20px 40px rgba(0, 0, 0, 0.45);
+}
+#exp-timeline:has(.exp-item.active) .exp-item:not(.active),
+#lead-list:has(.leadership-item.active) .leadership-item:not(.active) {
+  opacity: 0.45;
+  filter: brightness(0.7);
+}
+
 @media (hover: hover) {
-  .proj-row {
-    transition: background 0.25s var(--ease), border-color 0.25s var(--ease);
-  }
+  .exp-item:hover,
+  .leadership-item:hover,
   .proj-row:hover {
+    transform: translateY(-4px);
+    z-index: 10;
     background: var(--surface-strong);
     border-color: var(--border-strong);
+    box-shadow:
+      0 0 0 1px rgba(var(--glow), 0.4),
+      0 0 28px 2px rgba(var(--glow), 0.28),
+      0 20px 40px rgba(0, 0, 0, 0.45);
   }
+  #exp-timeline:has(.exp-item:hover) .exp-item:not(:hover),
+  #lead-list:has(.leadership-item:hover) .leadership-item:not(:hover),
+  .project-list:has(.proj-row:hover) .proj-row:not(:hover) {
+    opacity: 0.45;
+    filter: brightness(0.7);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .exp-item,
+  .leadership-item,
+  .proj-row { transition: none; }
 }

@@ -1,0 +1,46 @@
+---
+/**
+ * /experience ve /leadership listelerindeki kartlar için mobil/dokunmatik
+ * "scroll-center" spotlight'ı. Hover destekleyen cihazlarda CSS :hover
+ * yeterli olduğundan burada hiçbir şey yapılmaz; dokunmatikte, viewport'un
+ * ortasına en yakın kart .active olur (öne çıkar + glow, diğerleri bulanık)
+ * ve kaydırma ile değişir. İçerik büyümez — yalnızca odak/spotlight değişir.
+ */
+---
+<script is:inline>
+  (function () {
+    if (window.matchMedia && window.matchMedia('(hover: hover)').matches) return;
+    var cards = Array.prototype.slice.call(
+      document.querySelectorAll('.exp-item, .leadership-item')
+    );
+    if (!cards.length) return;
+
+    var ticking = false;
+    function update() {
+      ticking = false;
+      var mid = window.innerHeight / 2;
+      var best = null,
+        bestDist = Infinity;
+      for (var i = 0; i < cards.length; i++) {
+        var r = cards[i].getBoundingClientRect();
+        var dist = Math.abs(r.top + r.height / 2 - mid);
+        if (dist < bestDist) {
+          bestDist = dist;
+          best = cards[i];
+        }
+      }
+      for (var j = 0; j < cards.length; j++) {
+        cards[j].classList.toggle('active', cards[j] === best);
+      }
+    }
+    function onScroll() {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    update();
+  })();
+</script>
