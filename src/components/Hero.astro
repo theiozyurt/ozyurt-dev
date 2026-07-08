@@ -3,6 +3,7 @@ import T from './T.astro';
 import Cta from './Cta.astro';
 import GhostNumber from './GhostNumber.astro';
 import PixelField from './PixelField.astro';
+import DnaHelix from './DnaHelix.astro';
 ---
 
 <section class="hero">
@@ -56,7 +57,8 @@ import PixelField from './PixelField.astro';
     </div>
 
     <div class="hero-strip">
-      <div class="strip-item">
+      <div class="strip-item dna-host">
+        <DnaHelix />
         <span class="strip-label"><T en="now" tr="şu an" /></span>
         <span class="strip-title">Ceviz Biyoteknoloji</span>
         <span class="strip-sub"><T en="Developer & Partner" tr="Geliştirici & Ortak" /></span>

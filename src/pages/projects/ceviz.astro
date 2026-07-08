@@ -4,6 +4,7 @@ import T from '../../components/T.astro';
 import Cta from '../../components/Cta.astro';
 import MediaPlaceholder from '../../components/MediaPlaceholder.astro';
 import Gallery from '../../components/Gallery.astro';
+import DnaHelix from '../../components/DnaHelix.astro';
 
 // Ürün kartlarındaki splash görselleri dışında kalan ekran görüntüleri,
 // her ürün için ayrı galeriler halinde.
@@ -24,6 +25,8 @@ const converterShots = [
   title="Ceviz Biyoteknoloji"
   description="Case study: Ceviz Biyoteknoloji — a TÜBİTAK-funded biotech startup where İsmail Özyurt is Developer & Partner. Ceviz App, Ceviz Viewer & Converter, and a KVKK/GDPR DICOM anonymization pipeline."
 >
+  <DnaHelix variant="page" />
+
   <header class="case-head section">
     <div class="container">
       <a href="/projects" class="back-link mono">← <T en="All projects" tr="Tüm projeler" /></a>
@@ -66,7 +69,7 @@ const converterShots = [
   </section>
 
   <!-- İki ürün -->
-  <section class="section section--darker">
+  <section class="section section--darker ceviz-darker">
     <div class="container">
       <span class="section-label"><T en="Two products" tr="İki ürün" /></span>
       <div class="products">
@@ -163,7 +166,7 @@ const converterShots = [
     </div>
   </section>
 
-  <section class="section section--darker">
+  <section class="section section--darker ceviz-darker">
     <div class="container cta-band">
       <h2><T en="Want the rest of the story?" tr="Hikâyenin devamını ister misin?" /></h2>
       <div class="cta-actions">
@@ -176,6 +179,8 @@ const converterShots = [
 
 <style>
   .case-head { border-top: none; padding-bottom: var(--space-lg); }
+  /* DNA arka planı bölümlerin altından geçebilsin diye koyu bölümler hafif şeffaf */
+  .ceviz-darker { background: color-mix(in srgb, var(--bg-primary-darker) 80%, transparent); }
   .back-link { display: inline-block; margin-bottom: var(--space-lg); color: var(--text-muted); }
   .back-link:hover { color: var(--accent); }
   .case-eyebrow {

@@ -1,0 +1,174 @@
+---
+/**
+ * DNA çift sarmal arka planı — Ceviz Biotech web sitesinden taşındı
+ * (docs/DNA-HELIX-BACKGROUND.md). Mouse'a tepki veren, canvas tabanlı
+ * dönen/dalgalanan helix.
+ *
+ * variant="card" → kart içi yoğun motif (host'un position:relative + .dna-host
+ *   olması gerekir; canvas absolute, içerik üstte).
+ * variant="page" → tam ekran sabit arka plan (fullscreen).
+ *
+ * Tek bir modül script'i (Astro bunu sayfa başına bir kez bundle eder) tüm
+ * [data-dna-helix] canvas'larını bulup başlatır. accent varsayılanı
+ * 107,183,255 = sitenin --glow/--accent değeri.
+ */
+interface Props {
+  variant?: 'card' | 'page';
+  class?: string;
+}
+const { variant = 'card', class: className } = Astro.props;
+---
+
+<canvas
+  class:list={['dna-helix', `dna-helix--${variant}`, className]}
+  data-dna-helix={variant}
+  aria-hidden="true"></canvas>
+
+<script>
+  function createHelix(canvas: HTMLCanvasElement, options: Record<string, any>) {
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    const o = Object.assign(
+      {
+        fullscreen: false,
+        strandSpacing: 130,
+        helixAmplitude: 28,
+        helixFrequency: 0.028,
+        pointSpacing: 22,
+        rungInterval: 2,
+        mouseRadius: 140,
+        accent: '107, 183, 255',
+        baseAlpha: 0.18,
+        baseSize: 0.9,
+        speed: 0.4,
+        scrollReact: true,
+      },
+      options || {}
+    );
+
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let mouse = { x: -1000, y: -1000 };
+    let particles: any[] = [];
+
+    function dims() {
+      if (o.fullscreen) return { w: window.innerWidth, h: window.innerHeight };
+      const r = canvas.getBoundingClientRect();
+      return { w: Math.max(1, Math.round(r.width)), h: Math.max(1, Math.round(r.height)) };
+    }
+
+    function createParticles() {
+      particles = [];
+      for (let cx = -o.strandSpacing; cx < canvas.width + o.strandSpacing; cx += o.strandSpacing) {
+        for (let y = -o.pointSpacing; y < canvas.height + o.pointSpacing; y += o.pointSpacing) {
+          particles.push({ cx, baseY: y, phase: 0, x: cx, y });
+          particles.push({ cx, baseY: y, phase: Math.PI, x: cx, y });
+        }
+      }
+    }
+
+    function resize() {
+      const d = dims();
+      canvas.width = d.w;
+      canvas.height = d.h;
+      createParticles();
+    }
+
+    function frame() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const time = performance.now() * 0.001;
+      const scrollOffset = o.scrollReact ? window.scrollY * 0.005 : 0;
+
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
+        const angle = p.baseY * o.helixFrequency + time * o.speed + p.phase + scrollOffset;
+        p.x = p.cx + Math.sin(angle) * o.helixAmplitude;
+        p.y = p.baseY;
+
+        const dx = mouse.x - p.x;
+        const dy = mouse.y - p.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        let alpha = o.baseAlpha;
+        let size = o.baseSize;
+
+        if (dist < o.mouseRadius) {
+          const force = 1 - dist / o.mouseRadius;
+          alpha = o.baseAlpha + force * 0.7;
+          size = o.baseSize + force * 1.8;
+          p.x -= dx * force * 0.3;
+          p.y -= dy * force * 0.3;
+        }
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${o.accent}, ${alpha})`;
+        ctx.fill();
+
+        if (i % 2 === 0 && i + 1 < particles.length) {
+          const partner = particles[i + 1];
+          const rowIndex = Math.floor((p.baseY + canvas.height) / o.pointSpacing);
+          if (rowIndex % o.rungInterval === 0) {
+            const midX = (p.x + partner.x) / 2;
+            const midY = (p.y + partner.y) / 2;
+            const mDist = Math.hypot(mouse.x - midX, mouse.y - midY);
+            let rungAlpha = 0.06;
+            if (mDist < o.mouseRadius) rungAlpha = 0.06 + (1 - mDist / o.mouseRadius) * 0.25;
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(partner.x, partner.y);
+            ctx.strokeStyle = `rgba(${o.accent}, ${rungAlpha})`;
+            ctx.lineWidth = 0.6;
+            ctx.stroke();
+          }
+        }
+      }
+
+      if (!reduce) requestAnimationFrame(frame);
+    }
+
+    window.addEventListener('resize', resize, { passive: true });
+    window.addEventListener(
+      'mousemove',
+      (e) => {
+        const r = o.fullscreen ? { left: 0, top: 0 } : canvas.getBoundingClientRect();
+        mouse.x = e.clientX - r.left;
+        mouse.y = e.clientY - r.top;
+      },
+      { passive: true }
+    );
+    window.addEventListener('mouseleave', () => {
+      mouse.x = -1000;
+      mouse.y = -1000;
+    });
+
+    resize();
+    frame();
+  }
+
+  function initDnaHelix() {
+    const canvases = document.querySelectorAll<HTMLCanvasElement>('canvas[data-dna-helix]');
+    canvases.forEach((canvas) => {
+      if (canvas.dataset.dnaInit) return;
+      canvas.dataset.dnaInit = '1';
+      const variant = canvas.getAttribute('data-dna-helix');
+      if (variant === 'page') {
+        createHelix(canvas, { fullscreen: true, scrollReact: true });
+      } else {
+        createHelix(canvas, {
+          strandSpacing: 64,
+          pointSpacing: 14,
+          helixAmplitude: 15,
+          helixFrequency: 0.05,
+          rungInterval: 2,
+          mouseRadius: 120,
+          baseAlpha: 0.24,
+          baseSize: 0.8,
+          speed: 0.5,
+          scrollReact: false,
+        });
+      }
+    });
+  }
+
+  initDnaHelix();
+</script>

@@ -4,6 +4,7 @@ import Hero from '../components/Hero.astro';
 import T from '../components/T.astro';
 import Cta from '../components/Cta.astro';
 import GhostNumber from '../components/GhostNumber.astro';
+import DnaHelix from '../components/DnaHelix.astro';
 ---
 
 <BaseLayout path="/">
@@ -18,7 +19,8 @@ import GhostNumber from '../components/GhostNumber.astro';
       </span>
 
       <div class="feature-grid">
-        <article class="feature">
+        <article class="feature dna-host">
+          <DnaHelix />
           <span class="feature-index">01</span>
           <h2 class="feature-title">Ceviz Biyoteknoloji</h2>
           <p class="feature-lead mono"><T en="Developer & Partner · Now" tr="Developer & Partner · Şimdi" /></p>
