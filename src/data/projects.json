@@ -96,8 +96,12 @@
         "tr": "Üç yaklaşım denedim: dlib donanım uyumsuzluğu yüzünden çalışmadı; OpenCV Python tarafında yüzleri başarıyla tespit etti ama Unity/Unreal ile senkronize etmeye çalıştığımda ciddi performans ve uyumluluk sorunları çıktı; VGG Face kâğıt üzerinde en güçlüsüydü ama aynı entegrasyon sorunları onu da pratikte kullanılamaz hale getirdi."
       },
       {
-        "en": "Concluded honestly that it wasn't feasible then — the Varjo SDK didn't support face tracking directly, expert resources were limited, and EU research and data constraints applied. Getting an early, clear answer to \"why doesn't this work\" is a result too.",
-        "tr": "Varjo SDK'sinin yüz takibini doğrudan desteklememesi, sınırlı uzmanlık kaynakları ve AB'nin bu alandaki araştırma/veri kısıtları nedeniyle o dönem için fizibil olmadığına dürüstçe karar verdim. \"Bu neden çalışmıyor\" sorusuna erken ve net bir cevap bulmak da bir sonuçtur."
+        "en": "Concluded it wasn't feasible then — the Varjo SDK didn't support face tracking directly, expert resources were limited, and EU research and data constraints applied. Together with my mentors, we answered \"why doesn't this work\" clearly and laid the groundwork for future studies.",
+        "tr": "Varjo SDK'sinin yüz takibini doğrudan desteklememesi, sınırlı uzmanlık kaynakları ve AB'nin bu alandaki araştırma/veri kısıtları nedeniyle projenin o dönem için fizibil olmadığı sonucuna vardık. Mentorlarımla birlikte \"bu neden çalışmıyor\" sorusuna net bir cevap verdik ve gelecek çalışmalara zemin hazırladık."
+      },
+      {
+        "en": "My thanks to Prof. Alessandro Naddeo, Dr. Carlotta Fontana, PhD researcher Alfonso Magliano, and the whole team.",
+        "tr": "Prof. Alessandro Naddeo'ya, Dr. Carlotta Fontana'ya, doktora araştırmacısı Alfonso Magliano'ya ve tüm ekibe teşekkür ederim."
       }
     ],
     "gallery": [],
