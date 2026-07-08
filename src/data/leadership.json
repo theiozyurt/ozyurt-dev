@@ -6,17 +6,21 @@
     "role": { "en": "Founding President", "tr": "Kurucu Başkan" },
     "org": { "en": "KSBÜ Teknofest Club", "tr": "KSBÜ Teknofest Topluluğu" },
     "summary": {
-      "en": "Founded and lead a student club at Kütahya Health Sciences University. It's young and still finding its feet — but there's real work behind it.",
-      "tr": "Kütahya Sağlık Bilimleri Üniversitesi'nde bir öğrenci topluluğu kurdum ve yönetiyorum. Henüz yeni ve tanınırlığı sınırlı — ama arkasında gerçek işler var."
+      "en": "I founded and lead the TEKNOFEST club at Kütahya Health Sciences University. TEKNOFEST is Turkey's largest aerospace and technology festival — a nationwide set of competitions run by the T3 Foundation and the Ministry of Industry and Technology — and our club is the university's way into it. It's young, but there's real work behind it.",
+      "tr": "Kütahya Sağlık Bilimleri Üniversitesi'nde TEKNOFEST topluluğunu kurdum ve yönetiyorum. TEKNOFEST, T3 Vakfı ve Sanayi ve Teknoloji Bakanlığı'nın yürüttüğü, Türkiye'nin en büyük havacılık, uzay ve teknoloji festivali; ülke genelindeki yarışmalarıyla on binlerce genci buluşturuyor. Topluluğumuz da üniversitenin bu festivale açılan kapısı — henüz genç, ama arkasında gerçek işler var."
     },
     "points": [
       {
-        "en": "Organized a trip to the Milli Teknoloji Zirvesi at DEÜ İzmir with 38 participants.",
-        "tr": "DEÜ İzmir'deki Milli Teknoloji Zirvesi'ne 38 katılımcıyla bir gezi düzenledim."
+        "en": "In our first year we organized events like Take-Off and the Milli Teknoloji Zirvesi.",
+        "tr": "Kurulduğumuz ilk yıl Take-Off ve Milli Teknoloji Zirvesi gibi etkinlikler düzenledik."
       },
       {
-        "en": "Supported the GökTürk Tohumları team's entry to the TEKNOFEST Project Presentation Semi-Final — the Gök-Yeşil solar greenhouse project (team ID 756376).",
-        "tr": "GökTürk Tohumları takımının TEKNOFEST Proje Sunumu Yarı Final'ine katılımını destekledim — Gök-Yeşil solar sera projesi (takım ID 756376)."
+        "en": "Grew the number of teams from our university competing at TEKNOFEST from 11 to 32.",
+        "tr": "Üniversitemizden TEKNOFEST'e katılan takım sayısını 11'den 32'ye çıkardık."
+      },
+      {
+        "en": "Took it beyond campus: as part of the \"Göklerden Köylere\" ÜNİDES project, we ran model-rocket sessions for kids at village schools and launched rockets with them.",
+        "tr": "Kampüsle sınırlı kalmadık: \"Göklerden Köylere\" ÜNİDES projesi kapsamında köy okullarındaki çocuklara model roket sunumları yapıp onlarla birlikte roket uçurduk."
       }
     ],
     "gallery": [
@@ -33,8 +37,8 @@
     "role": { "en": "Mentor", "tr": "Mentor" },
     "org": { "en": "Deneyap Technology Workshops", "tr": "Deneyap Teknoloji Atölyeleri" },
     "summary": {
-      "en": "Technical mentor in Deneyap, a nationwide STEM program by the Ministry of Industry and Technology for gifted youth (ages 12–18). I guide students through hands-on projects and competition preparation in robotics, AI, software and electronics.",
-      "tr": "Sanayi ve Teknoloji Bakanlığı'nın 12–18 yaş yetenekli gençlere yönelik ulusal STEM programı Deneyap'ta teknik mentor. Öğrencilere robotik, yapay zeka, yazılım ve elektronik alanlarında uygulamalı projeler ve yarışma hazırlığında rehberlik ediyorum."
+      "en": "Technical mentor at Deneyap Technology Workshops — a nationwide STEM program for gifted youth (ages 12–18), run mainly by the T3 Foundation together with TÜBİTAK and the Ministry of Industry and Technology. I guide students through hands-on projects and competition prep in robotics, AI, software and electronics.",
+      "tr": "Deneyap Teknoloji Atölyeleri'nde teknik mentorum — 12–18 yaş yetenekli gençlere yönelik, ağırlıkla T3 Vakfı'nın; TÜBİTAK ve Sanayi ve Teknoloji Bakanlığı ile birlikte yürüttüğü ulusal bir STEM programı. Öğrencilere robotik, yapay zeka, yazılım ve elektronik alanlarında uygulamalı projeler ve yarışma hazırlığında rehberlik ediyorum."
     },
     "points": [
       {
