@@ -78,6 +78,16 @@ import GhostNumber from '../components/GhostNumber.astro';
             tr="Hepsi bir arada."
           />
         </h2>
+        <figure class="intro-photo">
+          <img
+            src="/images/selcuk_bayraktar.jpeg"
+            alt="İsmail Özyurt, Selçuk Bayraktar'a Teknofest Kulübü plaketini takdim ederken"
+            width="760"
+            height="900"
+            loading="lazy"
+          />
+          <figcaption><T en="With Selçuk Bayraktar · TEKNOFEST" tr="Selçuk Bayraktar ile · TEKNOFEST" /></figcaption>
+        </figure>
       </div>
       <nav class="directory-links" aria-label="Sections">
         <a href="/experience" class="dir-row">
@@ -157,6 +167,24 @@ import GhostNumber from '../components/GhostNumber.astro';
     align-items: start;
   }
   .directory-intro h2 { max-width: 14ch; }
+  .intro-photo {
+    margin-top: var(--space-xl);
+    max-width: 360px;
+  }
+  .intro-photo img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+  }
+  .intro-photo figcaption {
+    margin-top: var(--space-sm);
+    font-family: var(--font-body);
+    font-size: var(--fs-small);
+    letter-spacing: 0.02em;
+    color: var(--text-muted);
+  }
   .directory-links {
     display: flex;
     flex-direction: column;
