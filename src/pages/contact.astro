@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import T from '../components/T.astro';
 import Cta from '../components/Cta.astro';
 import GhostNumber from '../components/GhostNumber.astro';
+import PageBackground from '../components/PageBackground.astro';
 import site from '../data/site.json';
 ---
 
@@ -11,6 +12,8 @@ import site from '../data/site.json';
   title="Contact"
   description="Get in touch with İsmail Özyurt — email, LinkedIn, or the contact form."
 >
+  <PageBackground motif="signal" />
+
   <header class="page-head section ghost-host">
     <GhostNumber n="01" />
     <div class="container">

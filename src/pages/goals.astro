@@ -4,6 +4,7 @@ import T from '../components/T.astro';
 import Cta from '../components/Cta.astro';
 import GhostNumber from '../components/GhostNumber.astro';
 import PixelField from '../components/PixelField.astro';
+import PageBackground from '../components/PageBackground.astro';
 ---
 
 <BaseLayout
@@ -12,6 +13,8 @@ import PixelField from '../components/PixelField.astro';
   description="İsmail Özyurt on where this is going — building things that work end-to-end, and figuring out what shape that takes long-term."
   descriptionTr="Bu işin nereye gittiğine dair düşüncelerim — bir fikri baştan sona gerçek bir ürüne dönüştürmek ve bunun uzun vadede alacağı şekil."
 >
+  <PageBackground motif="trail" />
+
   <header class="page-head section ghost-host">
     <GhostNumber n="01" />
     <PixelField count={14} />

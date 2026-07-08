@@ -4,6 +4,7 @@ import T from '../../components/T.astro';
 import GhostNumber from '../../components/GhostNumber.astro';
 import PixelField from '../../components/PixelField.astro';
 import DnaHelix from '../../components/DnaHelix.astro';
+import PageBackground from '../../components/PageBackground.astro';
 import projects from '../../data/projects.json';
 
 const bi = (v: any) => (typeof v === 'string' ? { en: v, tr: v } : v);
@@ -14,6 +15,8 @@ const bi = (v: any) => (typeof v === 'string' ? { en: v, tr: v } : v);
   title="Projects"
   description="Selected projects by İsmail Özyurt — Ceviz Biyoteknoloji (case study), Birth Adventure, Motivasyon Adam and more."
 >
+  <PageBackground motif="nodes" />
+
   <header class="page-head section ghost-host">
     <GhostNumber n="01" />
     <PixelField count={14} />

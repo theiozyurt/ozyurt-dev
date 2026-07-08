@@ -106,7 +106,9 @@ strong { color: var(--text-heading); font-weight: 500; }
 }
 
 .section--darker {
-  background: var(--bg-primary-darker);
+  /* Hafif şeffaf — sabit sayfa arka planı motifleri (page-bg / DNA helix)
+     bölümün altından görünebilsin */
+  background: color-mix(in srgb, var(--bg-primary-darker) 80%, transparent);
 }
 
 /* Ghost number barındıran bölüm/başlık: rakamı kırpar, içeriği üstte tutar */
@@ -205,6 +207,23 @@ strong { color: var(--text-heading); font-weight: 500; }
 .cta-arrow {
   display: inline-block;
   transition: transform var(--dur) var(--ease);
+}
+
+/* ============================================================
+   Sayfa bazlı tam ekran arka plan motifleri (PageBackground.astro ·
+   docs/background_animations/OZYURT-BACKGROUNDS-GUIDE.md)
+   ============================================================ */
+.page-bg {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -3; /* body::before/::after glow+noise katmanlarının da altında */
+  pointer-events: none;
+}
+@media print {
+  .page-bg,
+  .dna-helix { display: none; }
 }
 
 /* ============================================================

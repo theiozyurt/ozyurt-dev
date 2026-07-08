@@ -1,0 +1,639 @@
+---
+/**
+ * Sayfa bazlı tam ekran arka plan motifleri — docs/background_animations/
+ * kaynağından uyarlandı (OZYURT-BACKGROUNDS-GUIDE.md).
+ *
+ * Sayfa → motif eşleşmesi (guide'daki tablo):
+ *   compass → Ana Sayfa (pusula/rota — kişisel imza)
+ *   flight  → Deneyim (uçuş rotası şeritleri)
+ *   nodes   → Projeler (düğüm ağı)
+ *   trail   → Hedefler (yükselen kıvılcımlar)
+ *   grid    → CV (sessiz terminal ızgarası)
+ *   signal  → İletişim (radar pingleri; tıklayınca yeni ping)
+ *
+ * DNA helix BURADA YOK — o yalnızca Ceviz yüzeylerinde (DnaHelix.astro).
+ * Tüm motifler brass (176,141,79) kullanır; mavi Ceviz'in kimliğidir.
+ * prefers-reduced-motion: tek kare çizilir, döngü kurulmaz.
+ */
+interface Props {
+  motif: 'compass' | 'flight' | 'nodes' | 'trail' | 'grid' | 'signal';
+}
+const { motif } = Astro.props;
+---
+
+<canvas class="page-bg" data-page-bg={motif} aria-hidden="true"></canvas>
+
+<script>
+  type Opts = Record<string, any>;
+
+  function common(canvas: HTMLCanvasElement, o: Opts) {
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const mouse = { x: -1000, y: -1000 };
+    function dims() {
+      if (o.fullscreen) return { w: window.innerWidth, h: window.innerHeight };
+      const r = canvas.getBoundingClientRect();
+      return { w: Math.max(1, Math.round(r.width)), h: Math.max(1, Math.round(r.height)) };
+    }
+    window.addEventListener(
+      'mousemove',
+      (e) => {
+        const r = o.fullscreen ? { left: 0, top: 0 } : canvas.getBoundingClientRect();
+        mouse.x = e.clientX - r.left;
+        mouse.y = e.clientY - r.top;
+      },
+      { passive: true }
+    );
+    window.addEventListener('mouseleave', () => {
+      mouse.x = -1000;
+      mouse.y = -1000;
+    });
+    return { reduce, mouse, dims };
+  }
+
+  // ---- Pusula/Rota — Ana Sayfa kişisel imzası ----
+  function createCompassBearing(canvas: HTMLCanvasElement, options: Opts) {
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    const o = Object.assign(
+      {
+        fullscreen: false,
+        accent: '176, 141, 79',
+        dimAccent: '124, 140, 166',
+        dotSpacing: 46,
+        dotAlpha: 0.07,
+        twinkleChance: 0.0015,
+        routeCount: 4,
+        needleEase: 0.06,
+        sweepSpeed: 0.25,
+        mouseLineMaxDist: 420,
+        showBearingLabel: true,
+      },
+      options || {}
+    );
+    const { reduce, mouse, dims } = common(canvas, o);
+    let dots: any[] = [];
+    let routes: number[] = [];
+    let needleAngle = 0;
+    let sweepAngle = -Math.PI / 2;
+    let lastTime: number | null = null;
+
+    function resize() {
+      const d = dims();
+      canvas.width = d.w;
+      canvas.height = d.h;
+      dots = [];
+      for (let x = o.dotSpacing / 2; x < canvas.width; x += o.dotSpacing)
+        for (let y = o.dotSpacing / 2; y < canvas.height; y += o.dotSpacing)
+          dots.push({ x, y, flickerUntil: 0 });
+      routes = [];
+      for (let i = 0; i < o.routeCount; i++) routes.push(Math.random() * Math.PI * 2);
+    }
+
+    function center() {
+      return { x: canvas.width / 2, y: canvas.height / 2, r: Math.min(canvas.width, canvas.height) * 0.16 };
+    }
+
+    function frame(now: number) {
+      if (lastTime === null) lastTime = now;
+      const dt = Math.min((now - lastTime) / 1000, 0.05);
+      lastTime = now;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const c = center();
+
+      dots.forEach((d) => {
+        if (now > d.flickerUntil && Math.random() < o.twinkleChance)
+          d.flickerUntil = now + 500 + Math.random() * 600;
+        const alpha = now < d.flickerUntil ? o.dotAlpha * 3.5 : o.dotAlpha;
+        ctx.beginPath();
+        ctx.arc(d.x, d.y, 0.9, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${o.dimAccent}, ${alpha})`;
+        ctx.fill();
+      });
+
+      routes.forEach((a) => {
+        ctx.beginPath();
+        ctx.moveTo(c.x, c.y);
+        ctx.lineTo(c.x + Math.cos(a) * c.r * 4, c.y + Math.sin(a) * c.r * 4);
+        ctx.setLineDash([2, 10]);
+        ctx.strokeStyle = `rgba(${o.dimAccent}, 0.08)`;
+        ctx.lineWidth = 0.6;
+        ctx.stroke();
+        ctx.setLineDash([]);
+      });
+
+      sweepAngle += o.sweepSpeed * dt;
+      for (let i = 0; i < 14; i++) {
+        const a = sweepAngle - i * 0.05;
+        ctx.beginPath();
+        ctx.moveTo(c.x, c.y);
+        ctx.lineTo(c.x + Math.cos(a) * c.r, c.y + Math.sin(a) * c.r);
+        ctx.strokeStyle = `rgba(${o.accent}, ${0.14 * (1 - i / 14)})`;
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      }
+
+      const targetAngle = mouse.x > -500 ? Math.atan2(mouse.y - c.y, mouse.x - c.x) : sweepAngle;
+      let diff = targetAngle - needleAngle;
+      while (diff > Math.PI) diff -= Math.PI * 2;
+      while (diff < -Math.PI) diff += Math.PI * 2;
+      needleAngle += diff * o.needleEase;
+
+      // pusula gülü
+      ctx.beginPath();
+      ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(${o.accent}, 0.16)`;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+      for (let deg = 0; deg < 360; deg += 15) {
+        const a = (deg * Math.PI) / 180;
+        const isCardinal = deg % 90 === 0;
+        const inner = isCardinal ? c.r * 0.78 : c.r * 0.88;
+        ctx.beginPath();
+        ctx.moveTo(c.x + Math.cos(a) * inner, c.y + Math.sin(a) * inner);
+        ctx.lineTo(c.x + Math.cos(a) * c.r, c.y + Math.sin(a) * c.r);
+        ctx.strokeStyle = `rgba(${o.accent}, ${isCardinal ? 0.35 : 0.14})`;
+        ctx.lineWidth = isCardinal ? 1.2 : 0.7;
+        ctx.stroke();
+      }
+      ctx.font = '11px monospace';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillStyle = `rgba(${o.accent}, 0.4)`;
+      (
+        [
+          ['N', -Math.PI / 2],
+          ['E', 0],
+          ['S', Math.PI / 2],
+          ['W', Math.PI],
+        ] as [string, number][]
+      ).forEach(([label, a]) => {
+        ctx.fillText(label, c.x + Math.cos(a) * c.r * 0.66, c.y + Math.sin(a) * c.r * 0.66);
+      });
+
+      // mouse'a rota çizgisi + derece okuması
+      if (mouse.x > -500) {
+        const dx = mouse.x - c.x,
+          dy = mouse.y - c.y;
+        const dist = Math.min(Math.hypot(dx, dy), o.mouseLineMaxDist);
+        const angle = Math.atan2(dy, dx);
+        const x2 = c.x + Math.cos(angle) * dist;
+        const y2 = c.y + Math.sin(angle) * dist;
+        ctx.beginPath();
+        ctx.moveTo(c.x, c.y);
+        ctx.lineTo(x2, y2);
+        ctx.setLineDash([1, 6]);
+        ctx.strokeStyle = `rgba(${o.accent}, 0.25)`;
+        ctx.lineWidth = 0.8;
+        ctx.stroke();
+        ctx.setLineDash([]);
+        if (o.showBearingLabel) {
+          const deg = Math.round(((angle * 180) / Math.PI + 90 + 360) % 360);
+          ctx.font = '11px monospace';
+          ctx.textAlign = 'left';
+          ctx.fillStyle = `rgba(${o.accent}, 0.55)`;
+          ctx.fillText(`${String(deg).padStart(3, '0')}°`, x2 + 8, y2);
+        }
+      }
+
+      // ibre
+      ctx.beginPath();
+      ctx.moveTo(c.x, c.y);
+      ctx.lineTo(c.x + Math.cos(needleAngle) * c.r * 0.92, c.y + Math.sin(needleAngle) * c.r * 0.92);
+      ctx.strokeStyle = `rgba(${o.accent}, 0.85)`;
+      ctx.lineWidth = 1.6;
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(c.x, c.y);
+      ctx.lineTo(c.x - Math.cos(needleAngle) * c.r * 0.34, c.y - Math.sin(needleAngle) * c.r * 0.34);
+      ctx.strokeStyle = `rgba(${o.dimAccent}, 0.5)`;
+      ctx.lineWidth = 1.3;
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(c.x, c.y, 2.4, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${o.accent}, 0.9)`;
+      ctx.fill();
+
+      if (!reduce) requestAnimationFrame(frame);
+    }
+
+    window.addEventListener('resize', resize, { passive: true });
+    resize();
+    if (reduce) {
+      needleAngle = -Math.PI / 2; // tek kare: ibre kuzeye sabit
+      frame(performance.now());
+    } else {
+      requestAnimationFrame(frame);
+    }
+  }
+
+  // ---- Uçuş Rotası — Deneyim ----
+  function createFlightPath(canvas: HTMLCanvasElement, options: Opts) {
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    const o = Object.assign(
+      {
+        fullscreen: false,
+        laneCount: 6,
+        laneSpacing: null,
+        trailCount: 22,
+        speed: 0.6,
+        arcHeight: 26,
+        accent: '176, 141, 79',
+        baseAlpha: 0.16,
+        trailLength: 40,
+        mouseRadius: 150,
+        headSize: 1.4,
+      },
+      options || {}
+    );
+    const { reduce, mouse, dims } = common(canvas, o);
+    let lanes: any[] = [];
+
+    function resize() {
+      const d = dims();
+      canvas.width = d.w;
+      canvas.height = d.h;
+      lanes = [];
+      const spacing = o.laneSpacing || canvas.height / (o.laneCount + 1);
+      for (let i = 1; i <= o.laneCount; i++) {
+        const particles = [];
+        for (let j = 0; j < o.trailCount; j++)
+          particles.push({ t: Math.random(), seed: Math.random() * Math.PI * 2 });
+        lanes.push({ baseY: spacing * i, dir: i % 2 === 0 ? -1 : 1, particles });
+      }
+    }
+
+    function frame() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const time = performance.now() * 0.001;
+      lanes.forEach((lane) => {
+        lane.particles.forEach((p: any) => {
+          p.t += o.speed * 0.0006 * lane.dir;
+          if (p.t > 1) p.t = 0;
+          if (p.t < 0) p.t = 1;
+          const x = lane.dir > 0 ? p.t * canvas.width : (1 - p.t) * canvas.width;
+          const y = lane.baseY + Math.sin(x * 0.01 + p.seed + time * 0.2) * o.arcHeight;
+          const dist = Math.hypot(mouse.x - x, mouse.y - y);
+          let alpha = o.baseAlpha;
+          if (dist < o.mouseRadius) alpha = o.baseAlpha + (1 - dist / o.mouseRadius) * 0.6;
+          const tailX = x - lane.dir * o.trailLength;
+          const grad = ctx.createLinearGradient(tailX, y, x, y);
+          grad.addColorStop(0, `rgba(${o.accent}, 0)`);
+          grad.addColorStop(1, `rgba(${o.accent}, ${alpha})`);
+          ctx.strokeStyle = grad;
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(tailX, y);
+          ctx.lineTo(x, y);
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.arc(x, y, o.headSize, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${o.accent}, ${Math.min(alpha + 0.2, 1)})`;
+          ctx.fill();
+        });
+      });
+      if (!reduce) requestAnimationFrame(frame);
+    }
+
+    window.addEventListener('resize', resize, { passive: true });
+    resize();
+    frame();
+  }
+
+  // ---- Düğüm Ağı — Projeler ----
+  function createNodeNetwork(canvas: HTMLCanvasElement, options: Opts) {
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    const o = Object.assign(
+      {
+        fullscreen: false,
+        nodeCount: 60,
+        linkDistance: 140,
+        driftSpeed: 0.15,
+        accent: '176, 141, 79',
+        baseAlpha: 0.5,
+        linkAlpha: 0.12,
+        nodeSize: 1.6,
+        mouseRadius: 160,
+      },
+      options || {}
+    );
+    const { reduce, mouse, dims } = common(canvas, o);
+    let nodes: any[] = [];
+
+    function resize() {
+      const d = dims();
+      canvas.width = d.w;
+      canvas.height = d.h;
+      const count = Math.round((o.nodeCount * (canvas.width * canvas.height)) / (1400 * 800));
+      nodes = [];
+      for (let i = 0; i < Math.max(count, 12); i++) {
+        nodes.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          vx: (Math.random() - 0.5) * o.driftSpeed,
+          vy: (Math.random() - 0.5) * o.driftSpeed,
+        });
+      }
+    }
+
+    function frame() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      nodes.forEach((n) => {
+        n.x += n.vx;
+        n.y += n.vy;
+        if (n.x < 0 || n.x > canvas.width) n.vx *= -1;
+        if (n.y < 0 || n.y > canvas.height) n.vy *= -1;
+      });
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          const a = nodes[i],
+            b = nodes[j];
+          const dist = Math.hypot(a.x - b.x, a.y - b.y);
+          if (dist < o.linkDistance) {
+            const mDist = Math.hypot(mouse.x - (a.x + b.x) / 2, mouse.y - (a.y + b.y) / 2);
+            let alpha = o.linkAlpha * (1 - dist / o.linkDistance);
+            if (mDist < o.mouseRadius) alpha += (1 - mDist / o.mouseRadius) * 0.35;
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.strokeStyle = `rgba(${o.accent}, ${alpha})`;
+            ctx.lineWidth = 0.6;
+            ctx.stroke();
+          }
+        }
+      }
+      nodes.forEach((n) => {
+        const dist = Math.hypot(mouse.x - n.x, mouse.y - n.y);
+        let alpha = o.baseAlpha * 0.4;
+        let size = o.nodeSize;
+        if (dist < o.mouseRadius) {
+          const f = 1 - dist / o.mouseRadius;
+          alpha = o.baseAlpha * 0.4 + f * 0.5;
+          size = o.nodeSize + f * 1.6;
+        }
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${o.accent}, ${alpha})`;
+        ctx.fill();
+      });
+      if (!reduce) requestAnimationFrame(frame);
+    }
+
+    window.addEventListener('resize', resize, { passive: true });
+    resize();
+    frame();
+  }
+
+  // ---- Yükselen İz — Hedefler ----
+  function createAscendingTrail(canvas: HTMLCanvasElement, options: Opts) {
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    const o = Object.assign(
+      {
+        fullscreen: false,
+        particleCount: 70,
+        baseSpeed: 0.35,
+        drift: 18,
+        accent: '176, 141, 79',
+        baseAlpha: 0.22,
+        tailLength: 26,
+        mouseRadius: 130,
+        mouseBoost: 1.4,
+      },
+      options || {}
+    );
+    const { reduce, mouse, dims } = common(canvas, o);
+    let particles: any[] = [];
+
+    function spawn(p: any) {
+      p.x = Math.random() * canvas.width;
+      p.y = canvas.height + Math.random() * 40;
+      p.speed = o.baseSpeed * (0.6 + Math.random() * 0.8);
+      p.seed = Math.random() * Math.PI * 2;
+      p.size = 0.8 + Math.random() * 1.2;
+    }
+
+    function resize() {
+      const d = dims();
+      canvas.width = d.w;
+      canvas.height = d.h;
+      particles = [];
+      for (let i = 0; i < o.particleCount; i++) {
+        const p: any = {};
+        spawn(p);
+        p.y = Math.random() * canvas.height;
+        particles.push(p);
+      }
+    }
+
+    function frame() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const time = performance.now() * 0.001;
+      particles.forEach((p) => {
+        p.y -= p.speed;
+        p.x += Math.sin(time * 0.5 + p.seed) * o.drift * 0.02;
+        if (p.y < -20) spawn(p);
+        const dist = Math.hypot(mouse.x - p.x, mouse.y - p.y);
+        let alpha = o.baseAlpha;
+        let size = p.size;
+        if (dist < o.mouseRadius) {
+          const f = 1 - dist / o.mouseRadius;
+          alpha = o.baseAlpha + f * 0.6;
+          size = p.size + f * 1.5;
+          p.y -= p.speed * f * (o.mouseBoost - 1);
+        }
+        const grad = ctx.createLinearGradient(p.x, p.y + o.tailLength, p.x, p.y);
+        grad.addColorStop(0, `rgba(${o.accent}, 0)`);
+        grad.addColorStop(1, `rgba(${o.accent}, ${alpha})`);
+        ctx.strokeStyle = grad;
+        ctx.lineWidth = size * 0.8;
+        ctx.beginPath();
+        ctx.moveTo(p.x, p.y + o.tailLength);
+        ctx.lineTo(p.x, p.y);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${o.accent}, ${Math.min(alpha + 0.15, 1)})`;
+        ctx.fill();
+      });
+      if (!reduce) requestAnimationFrame(frame);
+    }
+
+    window.addEventListener('resize', resize, { passive: true });
+    resize();
+    frame();
+  }
+
+  // ---- Terminal Grid — CV (bilerek çok sessiz) ----
+  function createTerminalGrid(canvas: HTMLCanvasElement, options: Opts) {
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    const o = Object.assign(
+      {
+        fullscreen: false,
+        cellSize: 26,
+        accent: '176, 141, 79',
+        baseAlpha: 0.05,
+        flickerChance: 0.0025,
+        flickerAlpha: 0.4,
+        flickerDuration: 900,
+        chars: '01/_-.:[]#',
+        fontSize: 12,
+        mouseRadius: 110,
+      },
+      options || {}
+    );
+    const { reduce, mouse, dims } = common(canvas, o);
+    let cells: any[] = [];
+
+    function randomChar() {
+      return o.chars[Math.floor(Math.random() * o.chars.length)];
+    }
+
+    function resize() {
+      const d = dims();
+      canvas.width = d.w;
+      canvas.height = d.h;
+      cells = [];
+      const cols = Math.ceil(canvas.width / o.cellSize);
+      const rows = Math.ceil(canvas.height / o.cellSize);
+      for (let cx = 0; cx < cols; cx++)
+        for (let cy = 0; cy < rows; cy++)
+          cells.push({
+            x: cx * o.cellSize + o.cellSize / 2,
+            y: cy * o.cellSize + o.cellSize / 2,
+            char: randomChar(),
+            flickerUntil: 0,
+          });
+    }
+
+    function frame() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.font = `${o.fontSize}px monospace`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      const now = performance.now();
+      cells.forEach((c) => {
+        if (now > c.flickerUntil && Math.random() < o.flickerChance) {
+          c.flickerUntil = now + o.flickerDuration;
+          c.char = randomChar();
+        }
+        const dist = Math.hypot(mouse.x - c.x, mouse.y - c.y);
+        let alpha = o.baseAlpha;
+        if (now < c.flickerUntil) alpha = o.flickerAlpha;
+        if (dist < o.mouseRadius) alpha = Math.max(alpha, (1 - dist / o.mouseRadius) * 0.5);
+        ctx.fillStyle = `rgba(${o.accent}, ${alpha})`;
+        ctx.fillText(c.char, c.x, c.y);
+      });
+      if (!reduce) requestAnimationFrame(frame);
+    }
+
+    window.addEventListener('resize', resize, { passive: true });
+    resize();
+    frame();
+  }
+
+  // ---- Sinyal Dalgası — İletişim ----
+  function createSignalPulse(canvas: HTMLCanvasElement, options: Opts) {
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    const o = Object.assign(
+      {
+        fullscreen: false,
+        anchorCount: 4,
+        pulseInterval: 2200,
+        maxRadius: 260,
+        speed: 60,
+        accent: '176, 141, 79',
+        baseAlpha: 0.35,
+        lineWidth: 1,
+        mouseRadius: 150,
+        clickSpawn: true,
+      },
+      options || {}
+    );
+    const { reduce, mouse, dims } = common(canvas, o);
+    let anchors: any[] = [];
+    let pulses: any[] = [];
+
+    function resize() {
+      const d = dims();
+      canvas.width = d.w;
+      canvas.height = d.h;
+      anchors = [];
+      for (let i = 0; i < o.anchorCount; i++)
+        anchors.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          nextPulse: performance.now() + Math.random() * o.pulseInterval,
+        });
+    }
+
+    function spawnPulse(x: number, y: number) {
+      pulses.push({ x, y, r: 0, born: performance.now() });
+    }
+
+    function frame() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const now = performance.now();
+      anchors.forEach((a) => {
+        if (now > a.nextPulse) {
+          spawnPulse(a.x, a.y);
+          a.nextPulse = now + o.pulseInterval * (0.8 + Math.random() * 0.4);
+        }
+        ctx.beginPath();
+        ctx.arc(a.x, a.y, 1.6, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${o.accent}, ${o.baseAlpha})`;
+        ctx.fill();
+      });
+      pulses = pulses.filter((p) => {
+        p.r = ((now - p.born) / 1000) * o.speed;
+        if (p.r > o.maxRadius) return false;
+        const fade = 1 - p.r / o.maxRadius;
+        const dist = Math.hypot(mouse.x - p.x, mouse.y - p.y);
+        let alpha = o.baseAlpha * fade;
+        if (dist < o.mouseRadius) alpha += (1 - dist / o.mouseRadius) * 0.3 * fade;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.strokeStyle = `rgba(${o.accent}, ${alpha})`;
+        ctx.lineWidth = o.lineWidth;
+        ctx.stroke();
+        return true;
+      });
+      if (!reduce) requestAnimationFrame(frame);
+    }
+
+    if (o.clickSpawn && !reduce) {
+      // Canvas pointer-events:none olduğundan tıklama window'dan dinlenir.
+      window.addEventListener('click', () => {
+        if (mouse.x > -500) spawnPulse(mouse.x, mouse.y);
+      });
+    }
+
+    window.addEventListener('resize', resize, { passive: true });
+    resize();
+    frame();
+  }
+
+  function initPageBackgrounds() {
+    // Mobilde yoğunluğu düşür (guide'daki performans notu).
+    const mobile = window.innerWidth < 768;
+    const creators: Record<string, (c: HTMLCanvasElement) => void> = {
+      compass: (c) => createCompassBearing(c, { fullscreen: true }),
+      flight: (c) => createFlightPath(c, { fullscreen: true, laneCount: mobile ? 4 : 6 }),
+      nodes: (c) => createNodeNetwork(c, { fullscreen: true, nodeCount: mobile ? 40 : 60 }),
+      trail: (c) => createAscendingTrail(c, { fullscreen: true, particleCount: mobile ? 45 : 70 }),
+      grid: (c) => createTerminalGrid(c, { fullscreen: true, cellSize: mobile ? 34 : 26 }),
+      signal: (c) => createSignalPulse(c, { fullscreen: true }),
+    };
+    document.querySelectorAll<HTMLCanvasElement>('canvas[data-page-bg]').forEach((canvas) => {
+      if (canvas.dataset.bgInit) return;
+      canvas.dataset.bgInit = '1';
+      const motif = canvas.getAttribute('data-page-bg') || '';
+      creators[motif]?.(canvas);
+    });
+  }
+
+  initPageBackgrounds();
+</script>

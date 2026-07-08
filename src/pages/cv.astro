@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import T from '../components/T.astro';
 import Cta from '../components/Cta.astro';
 import GhostNumber from '../components/GhostNumber.astro';
+import PageBackground from '../components/PageBackground.astro';
 import site from '../data/site.json';
 import cv from '../data/cv.json';
 import experience from '../data/experience.json';
@@ -16,6 +17,8 @@ const bi = (v: any) => (typeof v === 'string' ? { en: v, tr: v } : v);
   title="CV"
   description="Curriculum vitae of İsmail Özyurt — third-year Computer Engineering student, Developer & Partner at Ceviz Biyoteknoloji."
 >
+  <PageBackground motif="grid" />
+
   <header class="page-head section ghost-host">
     <GhostNumber n="01" />
     <div class="container cv-head">
