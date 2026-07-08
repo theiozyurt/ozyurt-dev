@@ -8,7 +8,7 @@ farklı bir motif. Hepsi vanilla JS, bağımlılık yok.
 
 | Sayfa | Dosya | Motif | Accent |
 |---|---|---|---|
-| **Ana Sayfa** (kişisel imza) | `skyline-growth.js` | Yükselen Ufuk Çizgisi — altta yükselip yeniden şekillenen blok silüetleri, mouse yakınında büyüyen binalar, en yüksek binada yanıp sönen vinç ucu (compass-bearing.js'in yerini aldı; o dosya yedekte duruyor) | `176, 141, 79` (brass) |
+| **Ana Sayfa** (kişisel imza) | `brick-layers.js` | Duvar Katmanları — üç derinlikte, çok düşük opaklıkta yavaşça kayan tuğla dokusu (running-bond); mouse ön katmanı hafifçe aydınlatır. (compass-bearing.js ve skyline-growth.js denendi ve emekli edildi; dosyaları yedekte duruyor) | `176, 141, 79` (brass) |
 | Deneyim | `flight-path.js` | Uçuş Rotası — kayan, iz bırakan parçacık şeritleri | `176, 141, 79` |
 | Projeler | `node-network.js` | Düğüm Ağı — organik, birbirine bağlanan noktalar | `176, 141, 79` |
 | Hedefler | `ascending-trail.js` | Yükselen İz — aşağıdan yukarı süzülen kıvılcımlar | `176, 141, 79` |

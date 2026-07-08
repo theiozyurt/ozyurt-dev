@@ -4,7 +4,8 @@
  * kaynağından uyarlandı (OZYURT-BACKGROUNDS-GUIDE.md).
  *
  * Sayfa → motif eşleşmesi (guide'daki tablo):
- *   skyline → Ana Sayfa (yükselen ufuk çizgisi — kişisel imza; compass'ın yerini aldı)
+ *   bricks  → Ana Sayfa (üç katmanlı sessiz tuğla dokusu — kişisel imza v3)
+ *   skyline → (kullanım dışı; istenirse hazır)
  *   compass → (kullanım dışı; istenirse hazır)
  *   flight  → Deneyim (uçuş rotası şeritleri)
  *   nodes   → Projeler (düğüm ağı)
@@ -18,7 +19,16 @@
  * prefers-reduced-motion: tek kare çizilir, döngü kurulmaz.
  */
 interface Props {
-  motif: 'skyline' | 'compass' | 'flight' | 'nodes' | 'trail' | 'grid' | 'signal' | 'formation';
+  motif:
+    | 'bricks'
+    | 'skyline'
+    | 'compass'
+    | 'flight'
+    | 'nodes'
+    | 'trail'
+    | 'grid'
+    | 'signal'
+    | 'formation';
 }
 const { motif } = Astro.props;
 ---
@@ -50,6 +60,98 @@ const { motif } = Astro.props;
       mouse.y = -1000;
     });
     return { reduce, mouse, dims };
+  }
+
+  // ---- Duvar Katmanları — Ana Sayfa kişisel imzası (v3) ----
+  // Üç farklı derinlikte, çok düşük opaklıkta, yavaşça kayan tuğla duvar
+  // dokusu (running-bond örgü). İçerikle yarışmaz, sadece dokusal bir zemin.
+  // Mouse sadece en öndeki katmanı çok hafif aydınlatır.
+  function createBrickLayers(canvas: HTMLCanvasElement, options: Opts) {
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    const o = Object.assign(
+      {
+        fullscreen: false,
+        brickW: 96,
+        brickH: 34,
+        accent: '176, 141, 79',
+        mortar: '124, 140, 166',
+        mouseRadius: 260,
+        mouseBoost: 0.05,
+        layers: [
+          { scale: 0.75, alpha: 0.028, speedX: 0.006, speedY: 0 },
+          { scale: 1.0, alpha: 0.045, speedX: -0.004, speedY: 0.002 },
+          { scale: 1.35, alpha: 0.065, speedX: 0.002, speedY: -0.003 },
+        ],
+      },
+      options || {}
+    );
+    const { reduce, mouse, dims } = common(canvas, o);
+    let startTime: number | null = null;
+
+    function resize() {
+      const d = dims();
+      canvas.width = d.w;
+      canvas.height = d.h;
+    }
+
+    // Sabit, konuma bağlı sahte-rastgele değer (kaydırma sırasında tuğlalar
+    // titremesin diye satır/sütun indeksine göre deterministik hash).
+    function hash(row: number, col: number, layerIndex: number) {
+      const v = Math.sin(row * 12.9898 + col * 78.233 + layerIndex * 37.719) * 43758.5453;
+      return v - Math.floor(v);
+    }
+
+    function drawLayer(layer: any, layerIndex: number, time: number, isFront: boolean) {
+      const bw = o.brickW * layer.scale;
+      const bh = o.brickH * layer.scale;
+      const offsetX = time * layer.speedX * 60;
+      const offsetY = time * layer.speedY * 60;
+
+      const startCol = Math.floor(-offsetX / bw) - 2;
+      const endCol = Math.ceil((canvas.width - offsetX) / bw) + 2;
+      const startRow = Math.floor(-offsetY / bh) - 1;
+      const endRow = Math.ceil((canvas.height - offsetY) / bh) + 1;
+
+      for (let row = startRow; row <= endRow; row++) {
+        const rowShift = row % 2 !== 0 ? bw / 2 : 0; // running-bond örgü
+        for (let col = startCol; col <= endCol; col++) {
+          const x = col * bw + rowShift + offsetX;
+          const y = row * bh + offsetY;
+
+          const jitter = hash(row, col, layerIndex);
+          let alpha = layer.alpha * (0.6 + jitter * 0.8);
+
+          if (isFront && mouse.x > -500) {
+            const dist = Math.hypot(mouse.x - (x + bw / 2), mouse.y - (y + bh / 2));
+            if (dist < o.mouseRadius) alpha += (1 - dist / o.mouseRadius) * o.mouseBoost;
+          }
+
+          // çok hafif dolgu — "duvar" hissi için
+          ctx.fillStyle = `rgba(${o.mortar}, ${alpha * 0.5})`;
+          ctx.fillRect(x, y, bw - 1.5, bh - 1.5);
+
+          // ince derz (mortar) çizgisi
+          ctx.strokeStyle = `rgba(${o.mortar}, ${alpha})`;
+          ctx.lineWidth = 1;
+          ctx.strokeRect(x, y, bw - 1.5, bh - 1.5);
+        }
+      }
+    }
+
+    function frame(now: number) {
+      if (startTime === null) startTime = now;
+      const time = (now - startTime) / 1000;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      o.layers.forEach((layer: any, i: number) => {
+        drawLayer(layer, i, time, i === o.layers.length - 1);
+      });
+      if (!reduce) requestAnimationFrame(frame);
+    }
+
+    window.addEventListener('resize', resize, { passive: true });
+    resize();
+    frame(performance.now());
   }
 
   // ---- Yükselen Ufuk Çizgisi — Ana Sayfa kişisel imzası ----
@@ -890,6 +992,7 @@ const { motif } = Astro.props;
     // Mobilde yoğunluğu düşür (guide'daki performans notu).
     const mobile = window.innerWidth < 768;
     const creators: Record<string, (c: HTMLCanvasElement) => void> = {
+      bricks: (c) => createBrickLayers(c, { fullscreen: true, brickW: mobile ? 72 : 96 }),
       skyline: (c) => createSkylineGrowth(c, { fullscreen: true, barCount: mobile ? 26 : 42 }),
       compass: (c) => createCompassBearing(c, { fullscreen: true }),
       flight: (c) => createFlightPath(c, { fullscreen: true, laneCount: mobile ? 4 : 6 }),
