@@ -10,13 +10,14 @@
  *   trail   → Hedefler (yükselen kıvılcımlar)
  *   grid    → CV (sessiz terminal ızgarası)
  *   signal  → İletişim (radar pingleri; tıklayınca yeni ping)
+ *   formation → Liderlik (lideri V formasyonunda takip eden sürü)
  *
  * DNA helix BURADA YOK — o yalnızca Ceviz yüzeylerinde (DnaHelix.astro).
  * Tüm motifler brass (176,141,79) kullanır; mavi Ceviz'in kimliğidir.
  * prefers-reduced-motion: tek kare çizilir, döngü kurulmaz.
  */
 interface Props {
-  motif: 'compass' | 'flight' | 'nodes' | 'trail' | 'grid' | 'signal';
+  motif: 'compass' | 'flight' | 'nodes' | 'trail' | 'grid' | 'signal' | 'formation';
 }
 const { motif } = Astro.props;
 ---
@@ -616,6 +617,136 @@ const { motif } = Astro.props;
     frame();
   }
 
+  // ---- Uçuş Formasyonu — Liderlik ----
+  // Önde bir "lider" nokta (mouse varsa mouse, yoksa kendi başına dolaşır),
+  // arkasında geciktirilmiş tarihçeyle V formasyonunda takip eden noktalar.
+  // Birkaç takipçi diğerlerinden daha parlak (alt-lider / mentor hissi).
+  function createLeadershipFormation(canvas: HTMLCanvasElement, options: Opts) {
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    const o = Object.assign(
+      {
+        fullscreen: false,
+        followerCount: 26,
+        delayStep: 3,
+        lateralGap: 7,
+        subLeaderEvery: 6,
+        accent: '176, 141, 79',
+        dimAccent: '124, 140, 166',
+        baseAlpha: 0.5,
+        idleRadius: 0.22,
+        idleSpeed: 0.15,
+        leaderEase: 0.06,
+      },
+      options || {}
+    );
+    const { reduce, mouse, dims } = common(canvas, o);
+    const leader = { x: 0, y: 0 };
+    let history: { x: number; y: number }[] = [];
+    let followers: any[] = [];
+    let maxHistory = 1;
+
+    function resize() {
+      const d = dims();
+      canvas.width = d.w;
+      canvas.height = d.h;
+      leader.x = canvas.width / 2;
+      leader.y = canvas.height / 2;
+      followers = [];
+      maxHistory = o.followerCount * o.delayStep + 5;
+      history = new Array(maxHistory).fill(null).map(() => ({ x: leader.x, y: leader.y }));
+      for (let i = 0; i < o.followerCount; i++) {
+        const side = i % 2 === 0 ? 1 : -1;
+        const rank = Math.floor(i / 2);
+        followers.push({
+          delay: (i + 1) * o.delayStep,
+          offset: side * o.lateralGap * (rank + 1),
+          isSubLeader: (i + 1) % o.subLeaderEvery === 0,
+        });
+      }
+    }
+
+    function idleTarget(time: number) {
+      return {
+        x: canvas.width / 2 + Math.cos(time * o.idleSpeed) * canvas.width * o.idleRadius,
+        y: canvas.height / 2 + Math.sin(time * o.idleSpeed * 1.3) * canvas.height * o.idleRadius,
+      };
+    }
+
+    function frame() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const time = performance.now() * 0.001;
+
+      const target = mouse.x > -500 ? mouse : idleTarget(time);
+      leader.x += (target.x - leader.x) * o.leaderEase;
+      leader.y += (target.y - leader.y) * o.leaderEase;
+
+      history.push({ x: leader.x, y: leader.y });
+      if (history.length > maxHistory) history.shift();
+
+      const prev = history[Math.max(history.length - 4, 0)];
+      const leaderAngle = Math.atan2(leader.y - prev.y, leader.x - prev.x) || 0;
+
+      // lider ile ilk birkaç takipçi arasında ince "organizasyon" çizgileri
+      followers.slice(0, 6).forEach((f) => {
+        const p = history[Math.max(history.length - 1 - f.delay, 0)];
+        ctx.beginPath();
+        ctx.moveTo(leader.x, leader.y);
+        ctx.lineTo(p.x, p.y);
+        ctx.strokeStyle = `rgba(${o.dimAccent}, 0.06)`;
+        ctx.lineWidth = 0.5;
+        ctx.stroke();
+      });
+
+      followers.forEach((f) => {
+        const idx = Math.max(history.length - 1 - f.delay, 0);
+        const p = history[idx];
+        const p2 = history[Math.max(idx - 3, 0)];
+        const heading = Math.atan2(p.y - p2.y, p.x - p2.x) || leaderAngle;
+        const perpAngle = heading + Math.PI / 2;
+        const fx = p.x + Math.cos(perpAngle) * f.offset;
+        const fy = p.y + Math.sin(perpAngle) * f.offset;
+
+        const depthFade = 1 - (idx / maxHistory) * 0.5;
+        const alpha = (f.isSubLeader ? o.baseAlpha * 0.9 : o.baseAlpha * 0.45) * depthFade;
+        const size = f.isSubLeader ? 2.2 : 1.3;
+        const color = f.isSubLeader ? o.accent : o.dimAccent;
+
+        // basit üçgen — hareket yönüne bakan takipçi
+        ctx.save();
+        ctx.translate(fx, fy);
+        ctx.rotate(heading);
+        ctx.beginPath();
+        ctx.moveTo(size * 1.6, 0);
+        ctx.lineTo(-size, size * 0.9);
+        ctx.lineTo(-size, -size * 0.9);
+        ctx.closePath();
+        ctx.fillStyle = `rgba(${color}, ${alpha})`;
+        ctx.fill();
+        ctx.restore();
+      });
+
+      // lider noktası
+      ctx.save();
+      ctx.translate(leader.x, leader.y);
+      ctx.rotate(leaderAngle);
+      ctx.beginPath();
+      ctx.moveTo(4, 0);
+      ctx.lineTo(-2.5, 2.2);
+      ctx.lineTo(-2.5, -2.2);
+      ctx.closePath();
+      ctx.fillStyle = `rgba(${o.accent}, 0.9)`;
+      ctx.fill();
+      ctx.restore();
+
+      if (!reduce) requestAnimationFrame(frame);
+    }
+
+    window.addEventListener('resize', resize, { passive: true });
+    resize();
+    frame();
+  }
+
   function initPageBackgrounds() {
     // Mobilde yoğunluğu düşür (guide'daki performans notu).
     const mobile = window.innerWidth < 768;
@@ -626,6 +757,7 @@ const { motif } = Astro.props;
       trail: (c) => createAscendingTrail(c, { fullscreen: true, particleCount: mobile ? 45 : 70 }),
       grid: (c) => createTerminalGrid(c, { fullscreen: true, cellSize: mobile ? 34 : 26 }),
       signal: (c) => createSignalPulse(c, { fullscreen: true }),
+      formation: (c) => createLeadershipFormation(c, { fullscreen: true, followerCount: mobile ? 16 : 26 }),
     };
     document.querySelectorAll<HTMLCanvasElement>('canvas[data-page-bg]').forEach((canvas) => {
       if (canvas.dataset.bgInit) return;
