@@ -4,7 +4,8 @@
  * kaynağından uyarlandı (OZYURT-BACKGROUNDS-GUIDE.md).
  *
  * Sayfa → motif eşleşmesi (guide'daki tablo):
- *   compass → Ana Sayfa (pusula/rota — kişisel imza)
+ *   skyline → Ana Sayfa (yükselen ufuk çizgisi — kişisel imza; compass'ın yerini aldı)
+ *   compass → (kullanım dışı; istenirse hazır)
  *   flight  → Deneyim (uçuş rotası şeritleri)
  *   nodes   → Projeler (düğüm ağı)
  *   trail   → Hedefler (yükselen kıvılcımlar)
@@ -17,7 +18,7 @@
  * prefers-reduced-motion: tek kare çizilir, döngü kurulmaz.
  */
 interface Props {
-  motif: 'compass' | 'flight' | 'nodes' | 'trail' | 'grid' | 'signal' | 'formation';
+  motif: 'skyline' | 'compass' | 'flight' | 'nodes' | 'trail' | 'grid' | 'signal' | 'formation';
 }
 const { motif } = Astro.props;
 ---
@@ -49,6 +50,144 @@ const { motif } = Astro.props;
       mouse.y = -1000;
     });
     return { reduce, mouse, dims };
+  }
+
+  // ---- Yükselen Ufuk Çizgisi — Ana Sayfa kişisel imzası ----
+  // Alt kısımda yavaşça yükselip yeniden şekillenen soyut blok silüetleri —
+  // "sürekli inşa etme / büyüme" metaforu. Mouse yaklaşınca o bölgedeki
+  // binalar büyür; en yüksek binanın tepesinde yanıp sönen bir vinç ucu var.
+  function createSkylineGrowth(canvas: HTMLCanvasElement, options: Opts) {
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    const o = Object.assign(
+      {
+        fullscreen: false,
+        barCount: 42,
+        barGap: 3,
+        accent: '176, 141, 79',
+        dimAccent: '124, 140, 166',
+        fillAlpha: 0.1,
+        topLineAlpha: 0.4,
+        maxHeightRatio: 0.55,
+        minHeightRatio: 0.08,
+        mouseRadius: 220,
+        mouseBoostRatio: 0.22,
+        starCount: 70,
+        starAlpha: 0.08,
+        craneBlink: true,
+        craneRecalcMs: 2200,
+      },
+      options || {}
+    );
+    const { reduce, mouse, dims } = common(canvas, o);
+    let bars: any[] = [];
+    let stars: any[] = [];
+    let craneIndex = 0;
+    let lastCraneCheck = 0;
+
+    function resize() {
+      const d = dims();
+      canvas.width = d.w;
+      canvas.height = d.h;
+      bars = [];
+      const w = canvas.width / o.barCount;
+      for (let i = 0; i < o.barCount; i++) {
+        bars.push({
+          x: i * w,
+          w: w - o.barGap,
+          phase1: Math.random() * Math.PI * 2,
+          phase2: Math.random() * Math.PI * 2,
+          freq1: 0.06 + Math.random() * 0.05,
+          freq2: 0.02 + Math.random() * 0.03,
+          baseRatio: o.minHeightRatio + Math.random() * 0.15,
+        });
+      }
+      stars = [];
+      for (let i = 0; i < o.starCount; i++) {
+        stars.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height * 0.7,
+          flickerUntil: 0,
+        });
+      }
+    }
+
+    function barHeight(bar: any, time: number) {
+      const wobble =
+        (Math.sin(time * bar.freq1 + bar.phase1) + Math.sin(time * bar.freq2 + bar.phase2)) / 2;
+      const ratio = bar.baseRatio + (wobble * 0.5 + 0.5) * (o.maxHeightRatio - bar.baseRatio);
+      return Math.max(o.minHeightRatio, Math.min(o.maxHeightRatio, ratio)) * canvas.height;
+    }
+
+    function frame(now: number) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const time = now * 0.001;
+
+      stars.forEach((s) => {
+        if (now > s.flickerUntil && Math.random() < 0.0012)
+          s.flickerUntil = now + 400 + Math.random() * 500;
+        const alpha = now < s.flickerUntil ? o.starAlpha * 3 : o.starAlpha;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, 0.8, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${o.dimAccent}, ${alpha})`;
+        ctx.fill();
+      });
+
+      if (now - lastCraneCheck > o.craneRecalcMs) {
+        lastCraneCheck = now;
+        let maxH = -1;
+        bars.forEach((b, i) => {
+          const h = barHeight(b, time);
+          if (h > maxH) {
+            maxH = h;
+            craneIndex = i;
+          }
+        });
+      }
+
+      bars.forEach((bar, i) => {
+        let h = barHeight(bar, time);
+        const barCenterX = bar.x + bar.w / 2;
+        const dist = Math.abs(mouse.x - barCenterX);
+        if (mouse.x > -500 && dist < o.mouseRadius) {
+          h += (1 - dist / o.mouseRadius) * o.mouseBoostRatio * canvas.height;
+        }
+        h = Math.min(h, canvas.height * (o.maxHeightRatio + o.mouseBoostRatio));
+        const y = canvas.height - h;
+
+        ctx.fillStyle = `rgba(${o.accent}, ${o.fillAlpha})`;
+        ctx.fillRect(bar.x, y, bar.w, h);
+
+        ctx.beginPath();
+        ctx.moveTo(bar.x, y);
+        ctx.lineTo(bar.x + bar.w, y);
+        ctx.strokeStyle = `rgba(${o.accent}, ${o.topLineAlpha})`;
+        ctx.lineWidth = 1;
+        ctx.stroke();
+
+        if (o.craneBlink && i === craneIndex) {
+          const craneX = bar.x + bar.w / 2;
+          const craneTopY = y - 18;
+          ctx.beginPath();
+          ctx.moveTo(craneX, y);
+          ctx.lineTo(craneX, craneTopY);
+          ctx.strokeStyle = `rgba(${o.dimAccent}, 0.35)`;
+          ctx.lineWidth = 0.8;
+          ctx.stroke();
+          const blink = reduce ? 1 : (Math.sin(time * 2) + 1) / 2;
+          ctx.beginPath();
+          ctx.arc(craneX, craneTopY, 1.6, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${o.accent}, ${0.3 + blink * 0.5})`;
+          ctx.fill();
+        }
+      });
+
+      if (!reduce) requestAnimationFrame(frame);
+    }
+
+    window.addEventListener('resize', resize, { passive: true });
+    resize();
+    frame(performance.now());
   }
 
   // ---- Pusula/Rota — Ana Sayfa kişisel imzası ----
@@ -751,6 +890,7 @@ const { motif } = Astro.props;
     // Mobilde yoğunluğu düşür (guide'daki performans notu).
     const mobile = window.innerWidth < 768;
     const creators: Record<string, (c: HTMLCanvasElement) => void> = {
+      skyline: (c) => createSkylineGrowth(c, { fullscreen: true, barCount: mobile ? 26 : 42 }),
       compass: (c) => createCompassBearing(c, { fullscreen: true }),
       flight: (c) => createFlightPath(c, { fullscreen: true, laneCount: mobile ? 4 : 6 }),
       nodes: (c) => createNodeNetwork(c, { fullscreen: true, nodeCount: mobile ? 40 : 60 }),

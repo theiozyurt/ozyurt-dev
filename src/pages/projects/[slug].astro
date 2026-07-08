@@ -56,6 +56,11 @@ const bi = (v: any) => (typeof v === 'string' ? { en: v, tr: v } : v);
       {project.repo && (
         <a href={project.repo} target="_blank" rel="noopener" class="proj-repo"><T en="View repo" tr="Repoyu gör" /> <span class="cta-arrow" aria-hidden="true">→</span></a>
       )}
+      {'report' in project && project.report && (
+        <a href={project.report.href} download class="proj-repo">
+          <T t={bi(project.report.label)} />
+        </a>
+      )}
       <Gallery images={project.gallery} />
     </div>
   </section>
