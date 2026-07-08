@@ -89,8 +89,8 @@
     "org": { "en": "University of Salerno, Italy", "tr": "Salerno Üniversitesi, İtalya" },
     "kind": { "en": "Prior research experience", "tr": "Geçmiş araştırma deneyimi" },
     "summary": {
-      "en": "Spent three months in 2024 at the University of Salerno — a long-established, mid-sized Italian public university (~20,000 students), regionally respected in engineering and computer science — on the \"Real-Time Face Tracking with Head-Mounted Displays\" project. I researched computer vision and extended reality (XR), and authored the project's technical report.",
-      "tr": "2024'te üç ay Salerno Üniversitesi'nde bulundum — köklü, orta ölçekli (~20.000 öğrenci) bir İtalyan devlet üniversitesi; mühendislik ve bilgisayar bilimlerinde bölgesel olarak saygın. \"Real-Time Face Tracking with Head-Mounted Displays\" projesinde bilgisayarlı görü ve genişletilmiş gerçeklik (XR) üzerine araştırma yaptım ve projenin teknik raporunu yazdım."
+      "en": "Spent three months in 2024 at the University of Salerno — an Italian public research university ranked among Italy's top 20 in computer science and engineering (near the global top 500 in both), with roots in the medieval Schola Medica Salernitana, often considered Europe's first university. I worked on the \"Real-Time Face Tracking with Head-Mounted Displays\" project, researching computer vision and extended reality (XR), and authored its technical report.",
+      "tr": "2024'te üç ay Salerno Üniversitesi'nde bulundum — bilgisayar bilimi ve mühendislikte İtalya'nın ilk 20'sinde, her ikisinde de dünya genelinde ilk 500 bandına yakın bir İtalyan devlet araştırma üniversitesi; kökleri Avrupa'nın ilk üniversitesi kabul edilen ortaçağ dönemi Schola Medica Salernitana'ya dayanıyor. \"Real-Time Face Tracking with Head-Mounted Displays\" projesinde bilgisayarlı görü ve genişletilmiş gerçeklik (XR) üzerine araştırma yaptım ve projenin teknik raporunu yazdım."
     },
     "points": [],
     "tags": ["Computer Vision", "XR", "Research"],
