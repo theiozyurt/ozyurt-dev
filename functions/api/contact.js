@@ -52,6 +52,7 @@ export async function onRequestPost({ request, env }) {
   if (!res.ok) {
     const detail = await res.text().catch(() => '');
     console.log('Resend error', res.status, detail);
+    // 502/504 dönme: Cloudflare bu statülerde gövdeyi kendi hata sayfasıyla değiştiriyor
     return json(
       {
         success: false,
@@ -59,7 +60,7 @@ export async function onRequestPost({ request, env }) {
         // TODO: tanı için geçici — kök neden bulununca kaldır
         debug: { hasKey: Boolean(env.RESEND_API_KEY), resendStatus: res.status, detail: detail.slice(0, 500) },
       },
-      502
+      500
     );
   }
   return json({ success: true });
