@@ -21,8 +21,8 @@ import site from '../data/site.json';
       <h1><T en="Let's talk." tr="Konuşalım." /></h1>
       <p class="page-lead">
         <T
-          en="Building something, hiring, or just curious? The contact form is coming soon — for now, reach me directly through the channels on the left."
-          tr="Bir şey mi geliştiriyorsun, işe mi alıyorsun, yoksa sadece merak mı ettin? İletişim formu yakında aktif olacak — şimdilik soldaki kanallardan doğrudan ulaşabilirsin."
+          en="Building something, hiring, or just curious? Send a message with the form, or reach me directly through the channels on the left."
+          tr="Bir şey mi geliştiriyorsun, işe mi alıyorsun, yoksa sadece merak mı ettin? Formdan mesaj bırakabilir ya da soldaki kanallardan doğrudan ulaşabilirsin."
         />
       </p>
     </div>
@@ -49,10 +49,6 @@ import site from '../data/site.json';
           <li>
             <span class="channel-key mono">Ceviz Biyoteknoloji</span>
             <a href={site.cevizSite} target="_blank" rel="noopener" class="channel-val">{site.cevizSiteLabel}</a>
-          </li>
-          <li>
-            <span class="channel-key mono"><T en="Phone" tr="Telefon" /></span>
-            <a href={`tel:${site.phone.replace(/\s/g, '')}`} class="channel-val">{site.phone}</a>
           </li>
           <li>
             <span class="channel-key mono"><T en="Location" tr="Konum" /></span>
@@ -93,7 +89,8 @@ import site from '../data/site.json';
           </div>
 
           <Cta as="button" type="submit" variant="primary" id="contact-submit">
-            <T en="Coming soon" tr="Yakında aktif" />
+            <span class="btn-label"><T en="Send message" tr="Mesajı gönder" /></span>
+            <span class="btn-sending"><T en="Sending…" tr="Gönderiliyor…" /></span>
           </Cta>
 
           <p class="form-status mono" id="form-status" role="status" aria-live="polite" hidden></p>
@@ -147,6 +144,9 @@ import site from '../data/site.json';
     border-color: var(--accent);
   }
   .contact-form .cta { align-self: flex-start; margin-top: var(--space-sm); }
+  .contact-form .btn-sending { display: none; }
+  .contact-form .cta.is-sending .btn-label { display: none; }
+  .contact-form .cta.is-sending .btn-sending { display: inline; }
 
   /* Honeypot — ekran dışı, erişilebilirlik ağacından da uzak */
   .hp {
@@ -178,13 +178,20 @@ import site from '../data/site.json';
     var form = document.getElementById('contact-form');
     if (!form) return;
     var status = document.getElementById('form-status');
+    var submitBtn = document.getElementById('contact-submit');
 
-    // Backend (Resend) şimdilik ertelendi — form yalnızca frontend'de.
-    // Submit hiçbir istek atmaz; "yakında aktif olacak" bilgisini gösterir.
     var COPY = {
-      soon: {
-        en: 'The contact form isn’t live yet — it’s coming soon. In the meantime, email me directly at ',
-        tr: 'İletişim formu henüz aktif değil, yakında aktif olacak. Şimdilik doğrudan e-posta gönderebilirsin: ',
+      success: {
+        en: "Message sent — I'll get back to you soon.",
+        tr: 'Mesajın gönderildi — en kısa sürede dönüş yapacağım.',
+      },
+      error: {
+        en: 'Something went wrong. You can write to me directly: ',
+        tr: 'Bir şeyler ters gitti. Doğrudan yazmak istersen: ',
+      },
+      invalid: {
+        en: 'Please fill in your name, a valid email address, and a message.',
+        tr: 'Lütfen adını, geçerli bir e-posta adresini ve mesajını yaz.',
       },
     };
 
@@ -205,11 +212,65 @@ import site from '../data/site.json';
       attributeFilter: ['data-lang'],
     });
 
+    function showStatus(kind) {
+      status.hidden = false;
+      status.className = 'form-status mono ' + (kind === 'success' ? 'is-success' : 'is-error');
+      if (kind === 'error') {
+        status.innerHTML = COPY.error[lang()] + '<a href="mailto:' + email + '">' + email + '</a>';
+      } else {
+        status.textContent = COPY[kind][lang()];
+      }
+    }
+
+    var sending = false;
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      status.hidden = false;
-      status.className = 'form-status mono';
-      status.innerHTML = COPY.soon[lang()] + '<a href="mailto:' + email + '">' + email + '</a>.';
+      if (sending) return;
+
+      var fd = new FormData(form);
+      var data = {
+        name: String(fd.get('name') || '').trim(),
+        email: String(fd.get('email') || '').trim(),
+        subject: String(fd.get('subject') || '').trim(),
+        message: String(fd.get('message') || '').trim(),
+        company: String(fd.get('company') || ''),
+      };
+
+      if (!data.name || !data.message || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+        showStatus('invalid');
+        return;
+      }
+
+      sending = true;
+      submitBtn.classList.add('is-sending');
+      status.hidden = true;
+
+      fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      })
+        .then(function (res) {
+          return res
+            .json()
+            .catch(function () { return {}; })
+            .then(function (body) { return res.ok && body.success !== false; });
+        })
+        .then(function (ok) {
+          if (ok) {
+            form.reset();
+            showStatus('success');
+          } else {
+            showStatus('error');
+          }
+        })
+        .catch(function () {
+          showStatus('error');
+        })
+        .finally(function () {
+          sending = false;
+          submitBtn.classList.remove('is-sending');
+        });
     });
   })();
 </script>
