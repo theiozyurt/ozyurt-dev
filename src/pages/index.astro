@@ -134,6 +134,7 @@ import PageBackground from '../components/PageBackground.astro';
     grid-template-columns: repeat(3, 1fr);
     gap: var(--space-md);
   }
+  /* Hover, .exp-item/.leadership-item/.proj-row ile ortak — global.css'te. */
   .feature {
     padding: var(--space-lg);
     background: var(--surface);
@@ -144,14 +145,6 @@ import PageBackground from '../components/PageBackground.astro';
     display: flex;
     flex-direction: column;
     gap: var(--space-sm);
-    transition: transform 0.25s var(--ease), background 0.25s var(--ease),
-      border-color 0.25s var(--ease), box-shadow 0.25s var(--ease);
-  }
-  .feature:hover {
-    transform: translateY(-4px);
-    background: var(--surface-strong);
-    border-color: var(--border-strong);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
   }
   .feature-index {
     font-family: var(--font-body);

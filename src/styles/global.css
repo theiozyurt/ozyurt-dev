@@ -556,7 +556,10 @@ html:not([data-splash]) #splash-screen { display: none; }
    ============================================================ */
 .exp-item,
 .leadership-item,
-.proj-row {
+.proj-row,
+.feature,
+.pf-card,
+.strip-item-link {
   position: relative;
   transition: transform 0.3s var(--ease), background 0.3s var(--ease),
     border-color 0.3s var(--ease), box-shadow 0.3s var(--ease),
@@ -592,7 +595,9 @@ html:not([data-splash]) #splash-screen { display: none; }
    büyümez; yalnızca kart bir bütün olarak vurgulanır. */
 .exp-item.active,
 .leadership-item.active,
-.proj-row.active {
+.proj-row.active,
+.feature.active,
+.pf-card.active {
   transform: translateY(-4px);
   z-index: 10;
   background: var(--surface-strong);
@@ -611,7 +616,10 @@ html:not([data-splash]) #splash-screen { display: none; }
 @media (hover: hover) {
   .exp-item:hover,
   .leadership-item:hover,
-  .proj-row:hover {
+  .proj-row:hover,
+  .feature:hover,
+  .pf-card:hover,
+  .strip-item-link:hover {
     transform: translateY(-4px);
     z-index: 10;
     background: var(--surface-strong);
@@ -623,7 +631,9 @@ html:not([data-splash]) #splash-screen { display: none; }
   }
   #exp-timeline:has(.exp-item:hover) .exp-item:not(:hover),
   #lead-list:has(.leadership-item:hover) .leadership-item:not(:hover),
-  .project-list:has(.proj-row:hover) .proj-row:not(:hover) {
+  .project-list:has(.proj-row:hover) .proj-row:not(:hover),
+  .pf-list:has(.pf-card:hover) .pf-card:not(:hover),
+  .feature-grid:has(.feature:hover) .feature:not(:hover) {
     opacity: 0.45;
     filter: brightness(0.7);
   }
@@ -631,5 +641,8 @@ html:not([data-splash]) #splash-screen { display: none; }
 @media (prefers-reduced-motion: reduce) {
   .exp-item,
   .leadership-item,
-  .proj-row { transition: none; }
+  .proj-row,
+  .feature,
+  .pf-card,
+  .strip-item-link { transition: none; }
 }

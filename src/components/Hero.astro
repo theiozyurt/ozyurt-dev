@@ -223,14 +223,9 @@ import DnaHelix from './DnaHelix.astro';
   }
 
   /* Tıklanabilir strip kutusu (/goals) */
+  /* Lift + glow hover, kartlarla ortak — global.css'te. */
   .strip-item-link { text-decoration: none; }
   .strip-item-link .strip-sub { color: var(--accent); }
-  .strip-item-link:hover {
-    transform: translateY(-4px);
-    background: var(--surface-strong);
-    border-color: var(--border-strong);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-  }
   .strip-item-link:hover .strip-title { color: var(--accent); }
 
   @media (max-width: 900px) {
