@@ -29,7 +29,7 @@
     "url": "https://nuryildizdanismanlik.com.tr",
     "urlLabel": "nuryildizdanismanlik.com.tr",
     "purpose": {
-      "en": "A site for a Kütahya family and couples counselor — laying out her areas of support, how the sessions work, an FAQ, and online or in-person booking.",
+      "en": "A site for a family and couples counselor based in Kütahya — laying out her areas of support, how the sessions work, an FAQ, and online or in-person booking.",
       "tr": "Kütahyalı bir aile ve çift danışmanı için bir site — uzmanlık alanlarını, danışmanlık sürecini, sıkça sorulanları ve online/yüz yüze randevu adımını anlatıyor."
     },
     "tech": ["Astro"],

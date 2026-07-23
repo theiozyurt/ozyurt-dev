@@ -5,6 +5,7 @@
  *
  * Sayfa → motif eşleşmesi (guide'daki tablo):
  *   dust    → Ana Sayfa (derinlik tozu — kişisel imza, final)
+ *   haze    → Portfolyo (derinlik sisi — yumuşak bokeh + nabız halkaları)
  *   bricks / skyline / compass → (kullanım dışı; istenirse hazır)
  *   flight  → Deneyim (uçuş rotası şeritleri)
  *   nodes   → Projeler (düğüm ağı)
@@ -28,7 +29,8 @@ interface Props {
     | 'trail'
     | 'grid'
     | 'signal'
-    | 'formation';
+    | 'formation'
+    | 'haze';
 }
 const { motif } = Astro.props;
 ---
@@ -160,6 +162,128 @@ const { motif } = Astro.props;
           ctx.arc(x, y, L.size, 0, Math.PI * 2);
           ctx.fillStyle = `rgba(${color}, ${a})`;
           ctx.fill();
+        });
+      });
+
+      if (!reduce) requestAnimationFrame(frame);
+    }
+
+    window.addEventListener('resize', resize, { passive: true });
+    resize();
+    frame(performance.now());
+  }
+
+  // ---- Derinlik Sisi — Portfolyo zemini ----
+  // Ana Sayfa'nın derinlik tozuyla akraba ama ayrı bir imza: sert nokta +
+  // 4 uçlu yıldız yerine, dört derinlikte YUMUŞAK ışık lekeleri (bokeh)
+  // çapraz süzülür. Aynı gecikmeli paralaks derinlik hissi; farklı doku.
+  // Ön katmanda ara sıra genişleyip sönen ince "nabız halkaları" belirir.
+  function createDepthHaze(canvas: HTMLCanvasElement, options: Opts) {
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    const o = Object.assign(
+      {
+        fullscreen: false,
+        accent: '176, 141, 79',
+        dimAccent: '124, 140, 166',
+        parallaxEase: 0.045,
+        pulseCycle: 11,
+        pulseDuration: 2.6,
+        // Katmanlar: arkadan öne. n = 1400x800 referans yoğunluk (alanla
+        // ölçeklenir), size = leke yarıçapı (px), driftX/Y = çapraz süzülme
+        // (px/s), par = paralaks şiddeti (px).
+        layers: [
+          { n: 90, size: 6, alpha: 0.06, driftX: 3, driftY: -1.5, par: 5, useAccent: false, pulse: false },
+          { n: 58, size: 10, alpha: 0.09, driftX: 5, driftY: -2.5, par: 12, useAccent: false, pulse: false },
+          { n: 36, size: 16, alpha: 0.13, driftX: 8, driftY: -4, par: 22, useAccent: true, pulse: false },
+          { n: 20, size: 24, alpha: 0.18, driftX: 12, driftY: -6, par: 36, useAccent: true, pulse: true },
+        ],
+      },
+      options || {}
+    );
+    const { reduce, mouse, dims } = common(canvas, o);
+    const par = { x: 0, y: 0 };
+    let layers: any[] = [];
+
+    // Yumuşak leke sprite'ı bir kez çizilir (perf: her karede radial gradient
+    // üretmek yerine hazır dokuyu drawImage ile ölçekleyip basıyoruz).
+    function makeSprite(rgb: string) {
+      const s = document.createElement('canvas');
+      const R = 64;
+      s.width = s.height = R * 2;
+      const g = s.getContext('2d');
+      if (!g) return s;
+      const grad = g.createRadialGradient(R, R, 0, R, R, R);
+      grad.addColorStop(0, `rgba(${rgb}, 0.9)`);
+      grad.addColorStop(0.4, `rgba(${rgb}, 0.32)`);
+      grad.addColorStop(1, `rgba(${rgb}, 0)`);
+      g.fillStyle = grad;
+      g.beginPath();
+      g.arc(R, R, R, 0, Math.PI * 2);
+      g.fill();
+      return s;
+    }
+    const spriteAccent = makeSprite(o.accent);
+    const spriteDim = makeSprite(o.dimAccent);
+
+    function resize() {
+      const d = dims();
+      canvas.width = d.w;
+      canvas.height = d.h;
+      const areaScale = (canvas.width * canvas.height) / (1400 * 800);
+      layers = o.layers.map((L: any) => {
+        const pts = [];
+        const count = Math.max(6, Math.round(L.n * areaScale));
+        for (let i = 0; i < count; i++) {
+          pts.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            ph: Math.random() * Math.PI * 2,
+            vSeed: 0.5 + Math.random(),
+            pulseAt: Math.random() * o.pulseCycle * 1.5,
+          });
+        }
+        return Object.assign({}, L, { pts });
+      });
+    }
+
+    function frame(now: number) {
+      const t = now * 0.001;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      const tx = mouse.x > -500 ? (mouse.x - canvas.width / 2) / (canvas.width / 2) : 0;
+      const ty = mouse.y > -500 ? (mouse.y - canvas.height / 2) / (canvas.height / 2) : 0;
+      par.x += (tx - par.x) * o.parallaxEase;
+      par.y += (ty - par.y) * o.parallaxEase;
+
+      layers.forEach((L) => {
+        const sprite = L.useAccent ? spriteAccent : spriteDim;
+        L.pts.forEach((p: any) => {
+          const dx = reduce ? 0 : t * L.driftX;
+          const dy = reduce ? 0 : t * L.driftY;
+          const x = ((((p.x + dx) % canvas.width) + canvas.width) % canvas.width) - par.x * L.par;
+          const y =
+            ((((p.y + dy) % canvas.height) + canvas.height) % canvas.height) - par.y * L.par;
+          const tw = reduce ? 0.6 : (Math.sin(t * 0.5 * p.vSeed + p.ph) + 1) / 2;
+          const a = L.alpha * (0.5 + tw * 0.7);
+          const r = L.size;
+
+          ctx.globalAlpha = a;
+          ctx.drawImage(sprite, x - r, y - r, r * 2, r * 2);
+          ctx.globalAlpha = 1;
+
+          if (L.pulse && !reduce) {
+            const cyc = (t + p.pulseAt) % o.pulseCycle;
+            if (cyc < o.pulseDuration) {
+              const s = cyc / o.pulseDuration; // 0..1
+              const rr = r * (1 + s * 3.5);
+              ctx.beginPath();
+              ctx.arc(x, y, rr, 0, Math.PI * 2);
+              ctx.strokeStyle = `rgba(${o.accent}, ${(1 - s) * 0.32})`;
+              ctx.lineWidth = 1;
+              ctx.stroke();
+            }
+          }
         });
       });
 
@@ -1111,6 +1235,7 @@ const { motif } = Astro.props;
       grid: (c) => createTerminalGrid(c, { fullscreen: true, cellSize: mobile ? 34 : 26 }),
       signal: (c) => createSignalPulse(c, { fullscreen: true }),
       formation: (c) => createLeadershipFormation(c, { fullscreen: true, followerCount: mobile ? 16 : 26 }),
+      haze: (c) => createDepthHaze(c, { fullscreen: true }),
     };
     document.querySelectorAll<HTMLCanvasElement>('canvas[data-page-bg]').forEach((canvas) => {
       if (canvas.dataset.bgInit) return;
