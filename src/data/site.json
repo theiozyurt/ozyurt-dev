@@ -24,6 +24,7 @@
     { "href": "/", "en": "Home", "tr": "Ana Sayfa" },
     { "href": "/experience", "en": "Experience", "tr": "Deneyim" },
     { "href": "/projects", "en": "Projects", "tr": "Projeler" },
+    { "href": "/portfolio", "en": "Portfolio", "tr": "Portfolyo" },
     { "href": "/leadership", "en": "Leadership", "tr": "Liderlik" },
     { "href": "/goals", "en": "Goals", "tr": "Hedefler" },
     { "href": "/cv", "en": "CV", "tr": "CV" },

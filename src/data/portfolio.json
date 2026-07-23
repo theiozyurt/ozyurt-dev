@@ -1,0 +1,38 @@
+[
+  {
+    "id": "cevizbiotech",
+    "title": "Ceviz Biyoteknoloji",
+    "url": "https://cevizbiotech.com",
+    "urlLabel": "cevizbiotech.com",
+    "purpose": {
+      "en": "The brand site and product landing pages for Ceviz Biyoteknoloji — introducing its personalized 3D healthcare solutions and the two web platforms behind them, Ceviz App and the 3D Viewer. Hand-coded with a focus on speed and SEO.",
+      "tr": "Ceviz Biyoteknoloji'nin marka sitesi ve ürün landing sayfaları — kişiye özel 3D sağlık çözümlerini ve arkasındaki iki web platformunu, Ceviz App ile 3D Viewer'ı tanıtıyor. Hız ve SEO odağıyla elle kodlandı."
+    },
+    "tech": ["HTML5", "CSS3"],
+    "lang": { "en": "Turkish + English", "tr": "Türkçe + İngilizce" }
+  },
+  {
+    "id": "bulut-organizasyon",
+    "title": "Bulut Organizasyon",
+    "url": "https://kutahyaorganizasyon.com.tr",
+    "urlLabel": "kutahyaorganizasyon.com.tr",
+    "purpose": {
+      "en": "A site for Bulut Organizasyon, a Kütahya event company that plans engagements and weddings — showing its concepts, gift sets, and a reservation flow with WhatsApp contact.",
+      "tr": "Kütahya'da nişan ve düğün organizasyonu yapan Bulut Organizasyon için bir site — konseptlerini, hediyelik setlerini ve WhatsApp'lı rezervasyon akışını gösteriyor."
+    },
+    "tech": ["PHP"],
+    "lang": { "en": "Turkish", "tr": "Türkçe" }
+  },
+  {
+    "id": "nur-yildiz",
+    "title": "Nur Yıldız Danışmanlık",
+    "url": "https://nuryildizdanismanlik.com.tr",
+    "urlLabel": "nuryildizdanismanlik.com.tr",
+    "purpose": {
+      "en": "A site for a Kütahya family and couples counselor — laying out her areas of support, how the sessions work, an FAQ, and online or in-person booking.",
+      "tr": "Kütahyalı bir aile ve çift danışmanı için bir site — uzmanlık alanlarını, danışmanlık sürecini, sıkça sorulanları ve online/yüz yüze randevu adımını anlatıyor."
+    },
+    "tech": ["Astro"],
+    "lang": { "en": "Turkish", "tr": "Türkçe" }
+  }
+]
