@@ -5,7 +5,7 @@
  *
  * Sayfa → motif eşleşmesi (guide'daki tablo):
  *   dust    → Ana Sayfa (derinlik tozu — kişisel imza, final)
- *   haze    → Portfolyo (derinlik sisi — yumuşak bokeh + nabız halkaları)
+ *   haze    → Portfolyo (derinlik sisi — yumuşak bokeh lekeleri)
  *   bricks / skyline / compass → (kullanım dışı; istenirse hazır)
  *   flight  → Deneyim (uçuş rotası şeritleri)
  *   nodes   → Projeler (düğüm ağı)
@@ -177,7 +177,6 @@ const { motif } = Astro.props;
   // Ana Sayfa'nın derinlik tozuyla akraba ama ayrı bir imza: sert nokta +
   // 4 uçlu yıldız yerine, dört derinlikte YUMUŞAK ışık lekeleri (bokeh)
   // çapraz süzülür. Aynı gecikmeli paralaks derinlik hissi; farklı doku.
-  // Ön katmanda ara sıra genişleyip sönen ince "nabız halkaları" belirir.
   function createDepthHaze(canvas: HTMLCanvasElement, options: Opts) {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
@@ -187,16 +186,14 @@ const { motif } = Astro.props;
         accent: '176, 141, 79',
         dimAccent: '124, 140, 166',
         parallaxEase: 0.045,
-        pulseCycle: 11,
-        pulseDuration: 2.6,
         // Katmanlar: arkadan öne. n = 1400x800 referans yoğunluk (alanla
         // ölçeklenir), size = leke yarıçapı (px), driftX/Y = çapraz süzülme
         // (px/s), par = paralaks şiddeti (px).
         layers: [
-          { n: 90, size: 6, alpha: 0.06, driftX: 3, driftY: -1.5, par: 5, useAccent: false, pulse: false },
-          { n: 58, size: 10, alpha: 0.09, driftX: 5, driftY: -2.5, par: 12, useAccent: false, pulse: false },
-          { n: 36, size: 16, alpha: 0.13, driftX: 8, driftY: -4, par: 22, useAccent: true, pulse: false },
-          { n: 20, size: 24, alpha: 0.18, driftX: 12, driftY: -6, par: 36, useAccent: true, pulse: true },
+          { n: 90, size: 6, alpha: 0.06, driftX: 3, driftY: -1.5, par: 5, useAccent: false },
+          { n: 58, size: 10, alpha: 0.09, driftX: 5, driftY: -2.5, par: 12, useAccent: false },
+          { n: 36, size: 16, alpha: 0.13, driftX: 8, driftY: -4, par: 22, useAccent: true },
+          { n: 20, size: 24, alpha: 0.18, driftX: 12, driftY: -6, par: 36, useAccent: true },
         ],
       },
       options || {}
@@ -240,7 +237,6 @@ const { motif } = Astro.props;
             y: Math.random() * canvas.height,
             ph: Math.random() * Math.PI * 2,
             vSeed: 0.5 + Math.random(),
-            pulseAt: Math.random() * o.pulseCycle * 1.5,
           });
         }
         return Object.assign({}, L, { pts });
@@ -271,19 +267,6 @@ const { motif } = Astro.props;
           ctx.globalAlpha = a;
           ctx.drawImage(sprite, x - r, y - r, r * 2, r * 2);
           ctx.globalAlpha = 1;
-
-          if (L.pulse && !reduce) {
-            const cyc = (t + p.pulseAt) % o.pulseCycle;
-            if (cyc < o.pulseDuration) {
-              const s = cyc / o.pulseDuration; // 0..1
-              const rr = r * (1 + s * 3.5);
-              ctx.beginPath();
-              ctx.arc(x, y, rr, 0, Math.PI * 2);
-              ctx.strokeStyle = `rgba(${o.accent}, ${(1 - s) * 0.32})`;
-              ctx.lineWidth = 1;
-              ctx.stroke();
-            }
-          }
         });
       });
 
