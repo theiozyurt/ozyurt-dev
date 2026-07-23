@@ -1,63 +1,59 @@
 [
   {
     "id": "ceviz",
-    "slug": "ceviz",
     "period": { "en": "2025 — Present", "tr": "2025 — Devam ediyor" },
     "role": { "en": "Developer & Partner", "tr": "Developer & Partner" },
     "org": "Ceviz Biyoteknoloji A.Ş.",
     "kind": { "en": "Biotech startup · TÜBİTAK-funded", "tr": "Biyoteknoloji girişimi · TÜBİTAK destekli" },
     "summary": {
-      "en": "I'm the sole developer and a project partner at a TÜBİTAK 1501- and 1812-funded biotech startup — alongside Emirhan Bozoğlan and Abdüssamet Doğan — building a B2B platform that connects physicians and engineers for 3D implant and prosthetic design.",
-      "tr": "TÜBİTAK 1501 ve 1812 destekli bir biyoteknoloji girişiminde tek geliştirici ve proje ortağıyım — Emirhan Bozoğlan ve Abdüssamet Doğan ile birlikte. Hekimlerle mühendisleri 3D implant ve protez tasarımı için buluşturan B2B platformunu geliştiriyorum."
+      "en": "Sole developer and project partner (with Emirhan Bozoğlan and Abdussamet Doğan) at a TÜBİTAK 1501-funded biotech startup building a B2B platform that connects physicians and engineers for 3D implant and prosthetic design.",
+      "tr": "TÜBİTAK 1501 destekli, hekimler ile mühendisleri 3D implant ve protez tasarımı için buluşturan B2B platform geliştiren biyoteknoloji girişiminde tek geliştirici ve proje ortağı (Emirhan Bozoğlan ve Abdussamet Doğan ile)."
     },
     "points": [
       {
-        "en": "Ship and maintain two separate products: Ceviz App (physician–engineer B2B platform, Flutter/Firebase) and Ceviz Viewer & Converter (a 30+ format 3D viewer & converter, planned as a standalone product and currently in testing).",
-        "tr": "İki ayrı ürünü geliştirip sürdürüyorum: Ceviz App (hekim–mühendis B2B platformu, Flutter/Firebase) ve Ceviz Viewer & Converter (30+ format destekli, bağımsız ürün olarak planlanan ve şu an test aşamasında olan 3D görüntüleyici/dönüştürücü)."
+        "en": "Ship and maintain two products: Ceviz App (doctor/academician–engineer B2B platform, Flutter/Firebase) and Ceviz Viewer & Converter (a 30+ format 3D viewer & converter planned as a standalone product).",
+        "tr": "İki ürünü geliştirip sürdürüyorum: Ceviz App (hekim/akademisyen–mühendis B2B platformu, Flutter/Firebase) ve Ceviz Viewer & Converter (30+ format destekli, bağımsız ürün olarak planlanan 3D görüntüleyici/dönüştürücü)."
       },
       {
         "en": "Designed and implemented a DICOM anonymization pipeline in Python on Firebase (europe-west3) for KVKK/GDPR compliance on sensitive CT/MRI imaging.",
         "tr": "Hassas BT/MR görüntüleri için KVKK/GDPR uyumu sağlayan, Firebase (europe-west3) üzerinde Python ile DICOM anonimleştirme hattı tasarlayıp geliştirdim."
       },
       {
-        "en": "Hand-coded the brand website in HTML5/CSS3 with a focus on performance and SEO, and shipped Ceviz App live on both Google Play and the App Store.",
-        "tr": "Marka web sitesini performans ve SEO odağıyla HTML5/CSS3 ile elle kodladım; Ceviz App'i hem Google Play hem App Store'da yayına aldım."
+        "en": "Hand-coded the brand website in HTML5/CSS3 with a focus on performance and SEO, and shipped the mobile app to Google Play & App Store.",
+        "tr": "Marka web sitesini performans ve SEO odağıyla HTML5/CSS3 ile elle kodladım; mobil uygulamayı Google Play'de ve App Store'da yayınladım."
       }
     ],
     "tags": ["Flutter", "Firebase", "Python", "DICOM", "KVKK/GDPR"],
-    "gallery": [],
     "link": "/projects/ceviz",
-    "linkLabel": { "en": "Read the case study", "tr": "Nasıl geliştirdiğimi oku" }
+    "linkLabel": { "en": "Read the case study", "tr": "Vaka çalışmasını oku" }
   },
   {
     "id": "ml-research",
     "slug": "ml-research",
-    "period": { "en": "2026 — Upcoming", "tr": "2026 — Yakında" },
+    "period": { "en": "2026 — Present", "tr": "2026 — Devam ediyor" },
     "role": { "en": "Algorithm Development Lead", "tr": "Algoritma Geliştirme Lideri" },
     "org": { "en": "International ML Research Project", "tr": "Uluslararası ML Araştırma Projesi" },
     "kind": { "en": "Academic research", "tr": "Akademik araştırma" },
     "summary": {
-      "en": "Accepted onto an international machine learning research project at the invitation of Assoc. Prof. Dr. Bahar Çelik, where I'll lead algorithm development. It starts soon.",
-      "tr": "Doç. Dr. Bahar Çelik'in davetiyle uluslararası bir makine öğrenmesi araştırma projesine kabul edildim; algoritma geliştirmeye liderlik edeceğim. Çalışma yakında başlayacak."
+      "en": "Leading algorithm development on an international machine learning project, joined at the invitation of Assoc. Prof. Dr. Bahar Çelik.",
+      "tr": "Doç. Dr. Bahar Çelik'in davetiyle dahil olduğum uluslararası bir makine öğrenmesi projesinde algoritma geliştirme liderliği yürütüyorum."
     },
     "points": [],
-    "tags": ["Machine Learning", "Python", "Research"],
-    "gallery": []
+    "tags": ["Machine Learning", "Python", "Research"]
   },
   {
     "id": "gurok",
     "slug": "gurok",
     "period": { "en": "Jul — Aug 2026", "tr": "Tem — Ağu 2026" },
-    "role": { "en": "Software Project Intern", "tr": "Yazılım Proje Stajyeri" },
+    "role": { "en": "Software Development Intern", "tr": "Yazılım Geliştirme Stajyeri" },
     "org": "Gürok Group",
-    "kind": { "en": "Internship · Digitalization", "tr": "Staj · Dijitalleşme" },
+    "kind": { "en": "Internship", "tr": "Staj" },
     "summary": {
-      "en": "Summer software project internship on the digitalization side of Gürok Group — a Kütahya-rooted group that started in timber trading in 1948 and now employs around 5,000 people across three continents, exporting to 140 countries. Its businesses span glassware (LAV, the world's fifth-largest maker), tourism (Ali Bey Hotels, JOALI Maldives), construction and FMCG. I work on enterprise processes and the SQL/data side inside that structure.",
-      "tr": "Gürok Grubu'nun dijitalleşme tarafında yaz dönemi yazılım proje stajı — 1948'de Kütahya'da kereste ticaretiyle kurulan, bugün üç kıtada yaklaşık 5.000 kişiyi istihdam eden ve 140 ülkeye ihracat yapan bir grup. Cam (dünyanın 5. büyük sofra camı üreticisi LAV), turizm (Ali Bey Hotels, JOALI Maldives), yapı ve hızlı tüketim gibi alanlara yayılıyor. Bu yapının içinde kurumsal süreçler ve SQL/veri tarafında çalışıyorum."
+      "en": "Summer software development internship at Gürok Group, one of Kütahya's largest industrial groups.",
+      "tr": "Kütahya'nın en büyük sanayi gruplarından Gürok Group'ta yaz dönemi yazılım geliştirme stajı."
     },
     "points": [],
-    "tags": ["SQL", "Digitalization", "Enterprise"],
-    "gallery": []
+    "tags": []
   },
   {
     "id": "gural",
@@ -71,15 +67,7 @@
       "tr": "Türkiye'nin en büyük seramik ve porselen üreticilerinden birinde yaz stajı. Flutter, Firebase ve Figma ile kurumsal mobil uygulama geliştirmede UI tasarımından backend servis entegrasyonuna kadar uçtan uca çalıştım."
     },
     "points": [],
-    "tags": ["Flutter", "Firebase", "Figma"],
-    "gallery": [
-      "/images/projects/gural_porselen/1755007116081.jpeg",
-      "/images/projects/gural_porselen/1755007118728.jpeg",
-      "/images/projects/gural_porselen/1755007119004.jpeg",
-      "/images/projects/gural_porselen/1755007119708.jpeg",
-      "/images/projects/gural_porselen/1755007121268.jpeg",
-      "/images/projects/gural_porselen/1755007124248.jpeg"
-    ]
+    "tags": ["Flutter", "Firebase", "Figma"]
   },
   {
     "id": "salerno",
@@ -89,15 +77,10 @@
     "org": { "en": "University of Salerno, Italy", "tr": "Salerno Üniversitesi, İtalya" },
     "kind": { "en": "Prior research experience", "tr": "Geçmiş araştırma deneyimi" },
     "summary": {
-      "en": "Spent three months in 2024 at the University of Salerno — an Italian public research university ranked among Italy's top 20 in computer science and engineering (near the global top 500 in both), with roots in the medieval Schola Medica Salernitana, often considered Europe's first university. I worked on the \"Real-Time Face Tracking with Head-Mounted Displays\" project, researching computer vision and extended reality (XR), and authored its technical report.",
-      "tr": "2024'te üç ay Salerno Üniversitesi'nde bulundum — bilgisayar bilimi ve mühendislikte İtalya'nın ilk 20'sinde, her ikisinde de dünya genelinde ilk 500 bandına yakın bir İtalyan devlet araştırma üniversitesi; kökleri Avrupa'nın ilk üniversitesi kabul edilen ortaçağ dönemi Schola Medica Salernitana'ya dayanıyor. \"Real-Time Face Tracking with Head-Mounted Displays\" projesinde bilgisayarlı görü ve genişletilmiş gerçeklik (XR) üzerine araştırma yaptım ve projenin teknik raporunu yazdım."
+      "en": "Spent 3 months in 2024 on the \"Real-Time Face Tracking with Head-Mounted Displays\" project, researching computer vision and extended reality (XR), and authored the project's technical report.",
+      "tr": "2024'te 3 ay boyunca \"Real-Time Face Tracking with Head-Mounted Displays\" projesinde bilgisayarlı görü ve genişletilmiş gerçeklik (XR) üzerine araştırma yaptım ve projenin teknik raporunu yazdım."
     },
     "points": [],
-    "tags": ["Computer Vision", "XR", "Research"],
-    "gallery": [],
-    "report": {
-      "href": "/documents/unisa/InternshipReport_only.pdf",
-      "label": { "en": "Download the internship report (PDF)", "tr": "Staj raporunu indir (PDF)" }
-    }
+    "tags": ["Computer Vision", "XR", "Research"]
   }
 ]
