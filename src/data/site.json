@@ -2,8 +2,8 @@
   "name": "İsmail Özyurt",
   "domain": "ozyurt.dev",
   "role": {
-    "en": "Computer Engineering student & Developer at Ceviz Biyoteknoloji",
-    "tr": "Bilgisayar Mühendisliği öğrencisi & Ceviz Biyoteknoloji'de geliştirici"
+    "en": "Computer Engineering student & CTO at Ceviz Biyoteknoloji",
+    "tr": "Bilgisayar Mühendisliği öğrencisi & Ceviz Biyoteknoloji'de CTO"
   },
   "location": {
     "en": "Kütahya, Türkiye",
@@ -17,8 +17,8 @@
   "cevizSite": "https://cevizbiotech.com",
   "cevizSiteLabel": "cevizbiotech.com",
   "description": {
-    "en": "İsmail Özyurt — Computer Engineering student at Kütahya Health Sciences University, Developer & Partner at Ceviz Biyoteknoloji.",
-    "tr": "Kütahya Sağlık Bilimleri Üniversitesi'nde Bilgisayar Mühendisliği okuyorum. Ceviz Biyoteknoloji'de geliştirici ve ortak olarak çalışıyorum."
+    "en": "İsmail Özyurt — Computer Engineering student at Kütahya Health Sciences University and CTO at Ceviz Biyoteknoloji.",
+    "tr": "Kütahya Sağlık Bilimleri Üniversitesi'nde Bilgisayar Mühendisliği okuyorum. Ceviz Biyoteknoloji'de CTO olarak çalışıyorum."
   },
   "nav": [
     { "href": "/", "en": "Home", "tr": "Ana Sayfa" },

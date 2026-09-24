@@ -1,7 +1,7 @@
 {
   "summary": {
-    "en": "Third-year Computer Engineering student at Kütahya Health Sciences University. Developer & Partner at Ceviz Biyoteknoloji (backed by TÜBİTAK 1501 and 1812), working on a B2B health-technology platform. Experienced in Flutter/Firebase mobile development, GDPR/KVKK compliance, and international research.",
-    "tr": "Kütahya Sağlık Bilimleri Üniversitesi'nde 3. sınıf Bilgisayar Mühendisliği öğrencisiyim. Ceviz Biyoteknoloji'de (TÜBİTAK 1501 ve 1812 destekli) geliştirici ve ortak olarak bir B2B sağlık teknolojisi platformu üzerinde çalışıyorum. Flutter/Firebase mobil geliştirme, GDPR/KVKK uyumluluğu ve uluslararası araştırma deneyimim var."
+    "en": "Third-year Computer Engineering student at Kütahya Health Sciences University. Chief Technology Officer at Ceviz Biyoteknoloji (backed by TÜBİTAK 1501 and 1812), leading technology and product work for health-technology and research-tooling products. Experienced in Flutter/Firebase development, SQL and .NET, enterprise MES systems, GDPR/KVKK compliance, and international research.",
+    "tr": "Kütahya Sağlık Bilimleri Üniversitesi'nde 3. sınıf Bilgisayar Mühendisliği öğrencisiyim. Ceviz Biyoteknoloji'de (TÜBİTAK 1501 ve 1812 destekli) CTO olarak sağlık teknolojileri ve araştırma araçlarında teknoloji ile ürün çalışmalarına liderlik ediyorum. Flutter/Firebase geliştirme, SQL ve .NET, kurumsal MES sistemleri, GDPR/KVKK uyumluluğu ve uluslararası araştırma deneyimim var."
   },
   "education": [
     {
@@ -24,11 +24,11 @@
     },
     {
       "group": { "en": "Programming", "tr": "Programlama" },
-      "items": "Python, Java, Dart"
+      "items": "Python, Java, Dart, C#, SQL, .NET"
     },
     {
       "group": { "en": "Domains", "tr": "Alanlar" },
-      "items": "AI/ML, Computer Vision, Extended Reality (XR), KVKK/GDPR Compliance"
+      "items": "AI/ML, Computer Vision, Extended Reality (XR), Enterprise MES Systems, KVKK/GDPR Compliance"
     },
     {
       "group": { "en": "Soft Skills", "tr": "Kişisel Yetkinlikler" },

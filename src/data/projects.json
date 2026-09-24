@@ -1,5 +1,79 @@
 [
   {
+    "slug": "ceviz-flow",
+    "title": { "en": "Ceviz Flow", "tr": "Ceviz Flow" },
+    "period": { "en": "2026", "tr": "2026" },
+    "award": { "en": "Clinical & research platform · Product Lead", "tr": "Klinik ve araştırma platformu · Ürün Lideri" },
+    "summary": {
+      "en": "A mobile and web platform for doctors, dentists, academics, and researchers to manage patient cases, follow-ups, and experiments in one chronological, multimodal archive. Ceviz Flow brings clinical notes, standardized photos and videos, documents, DICOM studies, measurements, and 3D models together while supporting both manual workflows and natural-language interaction.",
+      "tr": "Doktorların, diş hekimlerinin, akademisyenlerin ve araştırmacıların hasta vakalarını, takiplerini ve deneylerini kronolojik ve çoklu ortam destekli tek bir arşivde yönetmesini sağlayan mobil ve web platformu. Ceviz Flow; klinik notları, standartlaştırılmış fotoğraf ve videoları, belgeleri, DICOM görüntülerini, ölçümleri ve 3B modelleri bir araya getirirken hem manuel kullanımı hem de doğal dille etkileşimi destekliyor."
+    },
+    "tags": ["Product Leadership", "Flutter", "Dart", "Computer Vision", "DICOM", "3D"],
+    "points": [
+      {
+        "en": "As product lead, I guide the MVP's product direction and coordinate its development with Ceviz's internal team.",
+        "tr": "Ürün lideri olarak MVP'nin ürün yönünü belirliyor ve Ceviz'in iç ekibiyle geliştirme sürecini koordine ediyorum."
+      },
+      {
+        "en": "Designed the patient → case → follow-up model and specialty-specific templates that keep clinical and research records structured without forcing every discipline into the same workflow.",
+        "tr": "Klinik ve araştırma kayıtlarını yapılandırırken her disiplini aynı iş akışına zorlamayan hasta → vaka → takip modelini ve branşa özel şablon yaklaşımını tasarladım."
+      },
+      {
+        "en": "The MVP combines privacy-conscious local storage with standardized anatomical photo capture, longitudinal image comparison, and integrated DICOM and 3D model workflows.",
+        "tr": "MVP; gizlilik odaklı yerel veri saklamayı, standartlaştırılmış anatomik fotoğraf çekimini, zaman içindeki görüntülerin karşılaştırılmasını ve DICOM/3B model akışlarını bir araya getiriyor."
+      },
+      {
+        "en": "The AI layer is designed to structure commands and retrieve the right record—not to make clinical decisions.",
+        "tr": "AI katmanı klinik karar vermek için değil, kullanıcı komutlarını yapılandırmak ve doğru kaydı bulmak için tasarlandı."
+      }
+    ],
+    "gallery": []
+  },
+  {
+    "slug": "mai-experimental-animal-analysis",
+    "title": { "en": "mAI Experimental Animal Analysis", "tr": "mAI Deney Hayvanları Analizi" },
+    "period": { "en": "2026", "tr": "2026" },
+    "award": { "en": "Multidisciplinary research collaboration · Product Lead", "tr": "Disiplinler arası araştırma iş birliği · Ürün Lideri" },
+    "summary": {
+      "en": "A multidisciplinary research software project for traceable analysis of laboratory-animal behavioural experiments from video. Working with Dr. Melkan Kağan Kara, Asst. Prof. Ulya Keskin, Asst. Prof. Serel Akyol, and Software Developer Rümeysa Çelik, I led product and technical redevelopment across video capture, calibration, tracking, scientific metrics, quality controls, reproducible reporting, and model evaluation.",
+      "tr": "Deney hayvanı davranış deneylerinin videodan izlenebilir biçimde analiz edilmesi için geliştirilen disiplinler arası araştırma yazılımı. Dr. Melkan Kağan Kara, Dr. Öğr. Üyesi Ulya Keskin, Dr. Öğr. Üyesi Serel Akyol ve Yazılım Geliştirici Rümeysa Çelik ile birlikte; video kaydı, kalibrasyon, takip, bilimsel metrikler, kalite kontrolleri, tekrarlanabilir raporlama ve model değerlendirmeyi kapsayan ürün ve teknik yeniden yapılanmaya liderlik ettim."
+    },
+    "tags": ["Product Leadership", "Computer Vision", "Behaviour Analysis", "Research Tooling"],
+    "points": [
+      {
+        "en": "Reorganized the product around a traceable development and validation process, making dependencies, quality gates, and scientific decisions visible to the team.",
+        "tr": "Bağımlılıkları, kalite kapılarını ve bilimsel kararları ekip için görünür kılan izlenebilir bir geliştirme ve doğrulama süreci etrafında ürünü yeniden yapılandırdım."
+      },
+      {
+        "en": "Strengthened the analysis pipeline with recording and calibration safeguards, quality-aware tracking, scientific metrics, and reproducible exports for research reporting.",
+        "tr": "Araştırma raporlaması için kayıt ve kalibrasyon güvenceleri, kalite farkındalıklı takip, bilimsel metrikler ve tekrarlanabilir dışa aktarımlarla analiz hattını güçlendirdim."
+      },
+      {
+        "en": "Collaborated with Dr. Melkan Kağan Kara; Asst. Prof. Ulya Keskin (Medical Pharmacology); Asst. Prof. Serel Akyol (Computer Engineering); and Software Developer Rümeysa Çelik.",
+        "tr": "Dr. Melkan Kağan Kara; Dr. Öğr. Üyesi Ulya Keskin (Tıbbi Farmakoloji); Dr. Öğr. Üyesi Serel Akyol (Bilgisayar Mühendisliği); ve Yazılım Geliştirici Rümeysa Çelik ile birlikte çalıştım."
+      }
+    ],
+    "gallery": []
+  },
+  {
+    "slug": "white-noise-experiment-system",
+    "title": { "en": "White Noise Experiment System", "tr": "Beyaz Gürültü Deney Sistemi" },
+    "period": { "en": "2026", "tr": "2026" },
+    "award": { "en": "Solo project · Developer", "tr": "Bireysel proje · Geliştirici" },
+    "summary": {
+      "en": "An experimental system I designed and developed on my own for stress testing in laboratory animals through controlled white-noise exposure.",
+      "tr": "Deney hayvanlarında kontrollü beyaz gürültü maruziyetiyle stres testi yapmak için kendi başıma tasarlayıp geliştirdiğim deney sistemi."
+    },
+    "tags": ["Experimental Systems", "Stress Testing", "Research Tooling"],
+    "points": [
+      {
+        "en": "Designed and developed the system on my own for controlled white-noise stress testing.",
+        "tr": "Kontrollü beyaz gürültü ile stres testi için sistemi kendi başıma tasarlayıp geliştirdim."
+      }
+    ],
+    "gallery": []
+  },
+  {
     "slug": "gural-personel-bilgi-sistemi",
     "title": { "en": "Güral Porselen Personnel Information System", "tr": "Güral Porselen Personel Bilgi Sistemi" },
     "period": { "en": "2025", "tr": "2025" },

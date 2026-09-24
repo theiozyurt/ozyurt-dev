@@ -2,12 +2,12 @@
   {
     "id": "ceviz",
     "period": { "en": "2025 — Present", "tr": "2025 — Devam ediyor" },
-    "role": { "en": "Developer & Partner", "tr": "Developer & Partner" },
+    "role": { "en": "Chief Technology Officer (CTO)", "tr": "CTO" },
     "org": "Ceviz Biyoteknoloji A.Ş.",
     "kind": { "en": "Biotech startup · TÜBİTAK-funded", "tr": "Biyoteknoloji girişimi · TÜBİTAK destekli" },
     "summary": {
-      "en": "Sole developer and project partner (with Emirhan Bozoğlan and Abdussamet Doğan) at a TÜBİTAK 1501-funded biotech startup building a B2B platform that connects physicians and engineers for 3D implant and prosthetic design.",
-      "tr": "TÜBİTAK 1501 destekli, hekimler ile mühendisleri 3D implant ve protez tasarımı için buluşturan B2B platform geliştiren biyoteknoloji girişiminde tek geliştirici ve proje ortağı (Emirhan Bozoğlan ve Abdussamet Doğan ile)."
+      "en": "Chief Technology Officer at a TÜBİTAK 1501-funded biotech startup. Alongside Ceviz's internal team, I lead technology and product work spanning health technology, research tooling, and experimental systems.",
+      "tr": "TÜBİTAK 1501 destekli biyoteknoloji girişiminde CTO olarak görev yapıyorum. Ceviz'in iç ekibiyle birlikte sağlık teknolojileri, araştırma araçları ve deney sistemlerini kapsayan teknoloji ve ürün çalışmalarına liderlik ediyorum."
     },
     "points": [
       {
@@ -21,9 +21,13 @@
       {
         "en": "Hand-coded the brand website in HTML5/CSS3 with a focus on performance and SEO, and shipped the mobile app to Google Play & App Store.",
         "tr": "Marka web sitesini performans ve SEO odağıyla HTML5/CSS3 ile elle kodladım; mobil uygulamayı Google Play'de ve App Store'da yayınladım."
+      },
+      {
+        "en": "Led Ceviz Flow with Ceviz's internal team; also led the multidisciplinary mAI Experimental Animal Analysis project and developed the White Noise Experiment System as a solo project.",
+        "tr": "Ceviz'in iç ekibiyle Ceviz Flow'a liderlik ettim; ayrıca disiplinler arası mAI Deney Hayvanları Analizi projesini yönettim ve Beyaz Gürültü Deney Sistemi'ni tek başıma geliştirdim."
       }
     ],
-    "tags": ["Flutter", "Firebase", "Python", "DICOM", "KVKK/GDPR"],
+    "tags": ["Product Leadership", "Flutter", "Firebase", "Python", "DICOM", "KVKK/GDPR"],
     "link": "/projects/ceviz",
     "linkLabel": { "en": "Read the case study", "tr": "Vaka çalışmasını oku" }
   },
@@ -44,16 +48,41 @@
   {
     "id": "gurok",
     "slug": "gurok",
-    "period": { "en": "Jul — Aug 2026", "tr": "Tem — Ağu 2026" },
+    "period": { "en": "Jul — Oct 2026", "tr": "Tem — Eki 2026" },
     "role": { "en": "Software Development Intern", "tr": "Yazılım Geliştirme Stajyeri" },
     "org": "Gürok Group",
     "kind": { "en": "Internship", "tr": "Staj" },
     "summary": {
-      "en": "Summer software development internship at Gürok Group, one of Kütahya's largest industrial groups.",
-      "tr": "Kütahya'nın en büyük sanayi gruplarından Gürok Group'ta yaz dönemi yazılım geliştirme stajı."
+      "en": "Completed an extended software development internship at Gürok Group, whose group companies include LAV, GCA, and AVOYA. I completed and deployed 30+ distinct enterprise MES tasks across SQL, .NET, production data, dashboards, quality, reporting, and operational workflows. The internship was initially planned for one month and was extended by mutual agreement after a strong fit with the work and team.",
+      "tr": "LAV, GCA ve AVOYA gibi şirketleri bünyesinde barındıran Gürok Group'ta uzatılmış yazılım geliştirme stajı yaptım. Kurumsal MES sistemi üzerinde SQL, .NET, üretim verisi, dashboard, kalite, raporlama ve operasyonel iş akışlarını kapsayan 30'dan fazla farklı görevi tamamlayıp canlı ortama aldım. Başlangıçta bir ay olarak planlanan staj, işe ve ekibe uyumum ile performansımın olumlu değerlendirilmesi üzerine karşılıklı olarak uzatıldı."
     },
-    "points": [],
-    "tags": []
+    "points": [
+      {
+        "en": "Built and expanded production dashboards that brought live operational, efficiency, and quality information together for multi-line monitoring.",
+        "tr": "Canlı operasyon, verim ve kalite bilgilerini çok hatlı izleme için bir araya getiren üretim dashboard'ları geliştirdim ve genişlettim."
+      },
+      {
+        "en": "Improved the performance and clarity of quality and production-data workflows, strengthening operational reporting and decision support.",
+        "tr": "Kalite ve üretim verisi iş akışlarının performansını ve anlaşılabilirliğini iyileştirerek operasyonel raporlama ile karar desteğini güçlendirdim."
+      },
+      {
+        "en": "Developed and tested efficiency-monitoring and production-data correction workflows with validation and safe rollback controls.",
+        "tr": "Doğrulama ve güvenli geri alma kontrollerine sahip verim izleme ve üretim verisi düzeltme iş akışları geliştirdim ve test ettim."
+      },
+      {
+        "en": "Digitized and standardized shift-log workflows to make production records more consistent and maintainable.",
+        "tr": "Üretim kayıtlarını daha tutarlı ve sürdürülebilir hale getirmek için vardiya defteri iş akışlarını dijitalleştirip standardize ettim."
+      },
+      {
+        "en": "Diagnosed production-impacting data and reporting issues, then delivered fixes and improvement plans for more reliable operational workflows.",
+        "tr": "Üretimi etkileyen veri ve raporlama sorunlarını analiz ederek daha güvenilir operasyonel iş akışları için düzeltmeler ve iyileştirme planları geliştirdim."
+      },
+      {
+        "en": "We explored extending the internship further, but the university's administrative process did not allow the timeline to continue alongside the academic term.",
+        "tr": "Stajı daha da uzatmayı değerlendirdik; ancak akademik dönemle birlikte ilerlemesini sağlayacak üniversite idari süreci buna olanak vermedi."
+      }
+    ],
+    "tags": ["C#", ".NET", "SQL", "Oracle", "MES", "WinForms"]
   },
   {
     "id": "gural",
