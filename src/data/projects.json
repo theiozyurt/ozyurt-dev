@@ -74,6 +74,33 @@
     "gallery": []
   },
   {
+    "slug": "dmk22auc03-macos-driver",
+    "title": { "en": "DMK 22AUC03 macOS Driver", "tr": "DMK 22AUC03 macOS Sürücüsü" },
+    "period": { "en": "2026", "tr": "2026" },
+    "award": { "en": "Open-source macOS ARM64 driver · Solo Developer", "tr": "Açık kaynak macOS ARM64 sürücüsü · Bireysel Geliştirici" },
+    "summary": {
+      "en": "A native Apple Silicon driver and capture tool I developed for the DMK 22AUC03 astronomy camera. It communicates with the camera directly through EUVC and libusb, adding live preview, diagnostic capture, and H.264 video recording on macOS without relying on AstroDMx or libuvc device filtering.",
+      "tr": "DMK 22AUC03 astronomi kamerası için geliştirdiğim yerel Apple Silicon sürücüsü ve görüntü yakalama aracı. Kamerayla EUVC ve libusb üzerinden doğrudan iletişim kurarak AstroDMx veya libuvc cihaz filtrelemesine ihtiyaç duymadan macOS üzerinde canlı önizleme, tanılama amaçlı kare yakalama ve H.264 video kaydı sağlıyor."
+    },
+    "tags": ["C++17", "macOS", "ARM64", "libusb", "EUVC", "AVFoundation"],
+    "repo": "https://github.com/theiozyurt/dmk22auc03-driver",
+    "points": [
+      {
+        "en": "Implemented USB descriptor parsing, EUVC control, and asynchronous bulk transfers; real 744×480 MONO8 frame capture was verified on an M5 Mac.",
+        "tr": "USB descriptor ayrıştırma, EUVC kontrolü ve eşzamansız bulk aktarım katmanlarını geliştirdim; gerçek 744×480 MONO8 kare yakalama M5 işlemcili bir Mac üzerinde doğrulandı."
+      },
+      {
+        "en": "Built a native SDL2 live preview and an AVFoundation-based H.264 recording path with a bounded, non-blocking writer queue.",
+        "tr": "Yerel SDL2 canlı önizleme ile sınırlı ve bloklamayan yazma kuyruğuna sahip AVFoundation tabanlı H.264 kayıt yolunu geliştirdim."
+      },
+      {
+        "en": "Added explicit diagnostics and frame-loss accounting while keeping the tool away from firmware writes, EEPROM changes, automatic sudo, and macOS security modifications.",
+        "tr": "Firmware yazımı, EEPROM değişikliği, otomatik sudo veya macOS güvenlik ayarı müdahalesi yapmadan açık tanılama çıktıları ve kare kaybı muhasebesi ekledim."
+      }
+    ],
+    "gallery": []
+  },
+  {
     "slug": "gural-personel-bilgi-sistemi",
     "title": { "en": "Güral Porselen Personnel Information System", "tr": "Güral Porselen Personel Bilgi Sistemi" },
     "period": { "en": "2025", "tr": "2025" },
