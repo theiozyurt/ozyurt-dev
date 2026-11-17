@@ -1,297 +1,308 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import PrintTitle from '../../components/PrintTitle.astro';
 import T from '../../components/T.astro';
-import Cta from '../../components/Cta.astro';
-import MediaPlaceholder from '../../components/MediaPlaceholder.astro';
-import Gallery from '../../components/Gallery.astro';
-import DnaHelix from '../../components/DnaHelix.astro';
 
-// Ürün kartlarındaki splash görselleri dışında kalan ekran görüntüleri,
-// her ürün için ayrı galeriler halinde.
-const cevizAppShots = [
-  '/images/projects/ceviz/app/1781127254872.jpeg',
-  '/images/projects/ceviz/app/1781127255254.jpeg',
+const app = [
+  { src: '/images/projects/ceviz/app/1781127255254.jpeg', alt: 'Ceviz App profile with recent cases', cls: 'ph-l' },
+  { src: '/images/projects/ceviz/app/1781127254872.jpeg', alt: 'Ceviz App showing a 3D jaw model', cls: 'ph-c' },
+  { src: '/images/projects/ceviz/app/1781127259880.jpeg', alt: 'Ceviz App splash screen', cls: 'ph-r' },
 ];
-const converterShots = [
-  '/images/projects/ceviz/viewer_converter/IMG_1409.jpeg',
-  '/images/projects/ceviz/viewer_converter/IMG_1410.jpeg',
-  '/images/projects/ceviz/viewer_converter/IMG_1411.jpeg',
-  '/images/projects/ceviz/viewer_converter/IMG_1412.jpeg',
+const viewer = [
+  { src: '/images/projects/ceviz/viewer_converter/IMG_1409.jpeg', alt: 'Viewer home screen', cls: 'ph-l' },
+  { src: '/images/projects/ceviz/viewer_converter/IMG_1410.jpeg', alt: 'Viewer showing an arm model', cls: 'ph-c' },
+  { src: '/images/projects/ceviz/viewer_converter/IMG_1411.jpeg', alt: 'Viewer format converter', cls: 'ph-r' },
+];
+const viewerExtra = ['/images/projects/ceviz/viewer_converter/IMG_1408.jpeg', '/images/projects/ceviz/viewer_converter/IMG_1412.jpeg'];
+
+const dicom = [
+  ['(0010,0010)', 'Patient’s Name', 'DOE^JANE', true],
+  ['(0010,0020)', 'Patient ID', 'TR-48213-07', true],
+  ['(0010,0030)', 'Patient’s Birth Date', '1984-03-12', true],
+  ['(0008,0080)', 'Institution Name', 'Sample Hospital', true],
+  ['(0028,0030)', 'Pixel Spacing', '0.39 \\ 0.39 mm', false],
+  ['(0018,0050)', 'Slice Thickness', '0.60 mm', false],
+  ['(0020,0032)', 'Image Position', '-120.0 \\ -98.5 \\ 42.0', false],
+] as const;
+
+const sites = [
+  { n: '01', c: 'var(--orange)', name: { en: 'Main site', tr: 'Ana site' }, url: 'https://cevizbiotech.com', label: 'cevizbiotech.com', d: { en: 'Brand & showcase site', tr: 'Marka ve tanıtım sitesi' },
+    bars: 'repeating-linear-gradient(90deg, #0B0C10 0 2px, transparent 2px 4px, #0B0C10 4px 7px, transparent 7px 9px)' },
+  { n: '02', c: 'var(--lime)', name: { en: 'App site', tr: 'App sitesi' }, url: 'https://cevizbiotech.com/app', label: 'cevizbiotech.com/app', d: { en: 'Physician–engineer B2B platform, web showcase', tr: 'Hekim–mühendis B2B platformu, web vitrini' },
+    bars: 'repeating-linear-gradient(90deg, #0B0C10 0 3px, transparent 3px 5px, #0B0C10 5px 6px, transparent 6px 9px)' },
+  { n: '03', c: 'var(--lilac)', name: { en: 'Viewer site', tr: 'Viewer sitesi' }, url: 'https://cevizbiotech.com/viewer', label: 'cevizbiotech.com/viewer', d: { en: '3D viewer/converter, web showcase', tr: '3D görüntüleyici/dönüştürücü, web vitrini' },
+    bars: 'repeating-linear-gradient(90deg, #0B0C10 0 1px, transparent 1px 4px, #0B0C10 4px 8px, transparent 8px 10px)' },
 ];
 ---
 
 <BaseLayout
-  path="/projects/ceviz"
   title="Ceviz Biyoteknoloji"
+  path="/projects/ceviz"
+  sheet="03"
   description="Case study: Ceviz Biyoteknoloji — a TÜBİTAK-funded biotech startup where İsmail Özyurt is CTO. Health-technology products, research tooling, and a KVKK/GDPR DICOM anonymization pipeline."
+  descriptionTr="İnceleme: Ceviz Biyoteknoloji — İsmail Özyurt’un CTO olduğu TÜBİTAK destekli biyoteknoloji girişimi. Sağlık teknolojisi ürünleri, araştırma araçları ve KVKK/GDPR uyumlu DICOM anonimleştirme hattı."
 >
-  <DnaHelix variant="page" />
-
-  <header class="case-head section">
-    <div class="container">
-      <a href="/projects" class="back-link mono">← <T en="All projects" tr="Tüm projeler" /></a>
-      <div class="case-eyebrow">
-        <span class="tag"><T en="Case study" tr="Detaylı inceleme" /></span>
-        <span class="mono"><T en="Chief Technology Officer · 2025 — Present" tr="CTO · 2025 — Devam ediyor" /></span>
+  <article>
+    <section class="wrap cs-head">
+      <div class="sheet-row">
+        <a class="back k" href="/projects">← <T en="All projects" tr="Tüm projeler" /></a>
+        <p class="k"><T en="Sheet 03.1 · Case study" tr="Sayfa 03.1 · İnceleme" /></p>
       </div>
-      <h1 class="case-title">Ceviz Biyoteknoloji</h1>
-      <blockquote class="case-intro quote-block">
-        <T
-          en="A TÜBİTAK-funded biotech startup building the bridge between physicians and engineers — from raw CT/MRI to a manufacturable 3D implant. As CTO, I work with Ceviz's internal team across health technology, research tooling, and experimental systems."
-          tr="Hekimlerle mühendisler arasında köprü kuran, TÜBİTAK destekli bir biyoteknoloji girişimi — ham BT/MR'dan üretilebilir 3D implanta. CTO olarak Ceviz'in iç ekibiyle birlikte sağlık teknolojileri, araştırma araçları ve deney sistemleri üzerinde çalışıyorum."
-        />
-      </blockquote>
-    </div>
-  </header>
-
-  <!-- Hızlı bilgiler -->
-  <section class="section">
-    <div class="container">
-      <dl class="facts">
-        <div class="fact">
-          <dt class="mono"><T en="My role" tr="Rolüm" /></dt>
-          <dd><T en="Chief Technology Officer" tr="CTO" /></dd>
+      <div class="cs-intro">
+        <div class="cs-intro-text">
+          <p class="k"><T en="Case study · Chief Technology Officer · 2025 — Present" tr="İnceleme · CTO · 2025 — Devam ediyor" /></p>
+          <PrintTitle en="Ceviz Biyoteknoloji" tr="Ceviz Biyoteknoloji" enLang="tr" size="clamp(52px, 8.6vw, 136px)" />
+          <p class="lede cs-lede">
+            <T en="A TÜBİTAK-funded biotech startup building the bridge between physicians and engineers — from raw CT/MRI to a manufacturable 3D implant. As CTO, I work with Ceviz’s internal team across health technology, research tooling, and experimental systems."
+               tr="Hekimlerle mühendisler arasında köprü kuran, TÜBİTAK destekli bir biyoteknoloji girişimi — ham BT/MR’dan üretilebilir 3D implanta. CTO olarak Ceviz’in iç ekibiyle birlikte sağlık teknolojileri, araştırma araçları ve deney sistemleri üzerinde çalışıyorum." />
+          </p>
         </div>
-        <div class="fact">
-          <dt class="mono"><T en="Funding" tr="Destek" /></dt>
-          <dd><T en="TÜBİTAK 1501 & 1812 Industrial R&D" tr="TÜBİTAK 1501 & 1812 Sanayi Ar-Ge" /></dd>
-        </div>
-        <div class="fact">
-          <dt class="mono"><T en="Domain" tr="Alan" /></dt>
-          <dd><T en="Medical imaging · 3D implants" tr="Tıbbi görüntüleme · 3D implant" /></dd>
-        </div>
-        <div class="fact">
-          <dt class="mono">Stack</dt>
-          <dd>Flutter · Firebase · Python · DICOM</dd>
+        <span class="cs-logo"><img src="/images/ceviztek.png" width="1199" height="1199" alt="Ceviz Biyoteknoloji logo" /></span>
+      </div>
+      <dl class="cs-facts">
+        <div><dt class="k"><T en="My role" tr="Rolüm" /></dt><dd><T en="Chief Technology Officer" tr="CTO" /></dd></div>
+        <div><dt class="k"><T en="Funding" tr="Destek" /></dt><dd><T en="TÜBİTAK 1501 & 1812 Industrial R&D" tr="TÜBİTAK 1501 & 1812 Sanayi Ar-Ge" /></dd></div>
+        <div class="cs-fact-last">
+          <div><dt class="k"><T en="Domain" tr="Alan" /></dt><dd><T en="Medical imaging · 3D implants" tr="Tıbbi görüntüleme · 3D implant" /></dd></div>
+          <span class="barcode" aria-hidden="true"></span>
         </div>
       </dl>
-    </div>
-  </section>
+    </section>
 
-  <!-- İki ürün -->
-  <section class="section section--darker">
-    <div class="container">
-      <span class="section-label"><T en="Two products" tr="İki ürün" /></span>
+    <section class="wrap sec" aria-labelledby="two">
+      <div class="sec-head">
+        <h2 id="two" class="disp sec-title"><T en="Two products" tr="İki ürün" /></h2>
+        <p class="k"><T en="Mobile + Web" tr="Mobil + Web" /></p>
+      </div>
       <div class="products">
-        <article class="product">
-          <span class="product-index">01</span>
-          <h2 class="product-name">Ceviz App</h2>
-          <p class="product-kind mono"><T en="B2B platform · Mobile + Web" tr="B2B platform · Mobil + Web" /></p>
-          <p>
-            <T
-              en="A platform that connects hospitals and physicians with engineers for 3D implant and prosthetic design. Built with Flutter and Firebase, and live on both Google Play and the App Store."
-              tr="Hastaneleri ve hekimleri, 3D implant ve protez tasarımı için mühendislerle buluşturan bir platform. Flutter ve Firebase ile geliştirildi; hem Google Play hem App Store'da yayında."
-            />
+        <div class="product">
+          <p class="k"><T en="B2B platform · Mobile + Web" tr="B2B platform · Mobil + Web" /></p>
+          <h3 class="disp product-h">Ceviz App</h3>
+          <p class="muted"><T en="A platform that connects hospitals and physicians with engineers for 3D implant and prosthetic design. Built with Flutter and Firebase, and live on both Google Play and the App Store."
+                              tr="Hastaneleri ve hekimleri, 3D implant ve protez tasarımı için mühendislerle buluşturan bir platform. Flutter ve Firebase ile geliştirildi; hem Google Play hem App Store’da yayında." /></p>
+          <div class="stage" style="background: var(--orange)" data-lightbox-group>
+            {app.map((s) => <button type="button" class={`ph-btn ${s.cls}`} data-lightbox aria-label={s.alt}><img class="ph" src={s.src} alt={s.alt} loading="lazy" /></button>)}
+            <div class="seal" aria-hidden="true"><span class="seal-s"><T en="Live on" tr="Yayında" /></span><span class="seal-l"><T en="Stores" tr="Mağazalarda" /></span><span class="seal-xs">Play · App Store</span></div>
+          </div>
+        </div>
+        <div class="product">
+          <p class="k"><T en="3D viewer & converter · Mobile + Web" tr="3D görüntüleyici & dönüştürücü · Mobil + Web" /></p>
+          <h3 class="disp product-h">Ceviz Viewer &amp; Converter</h3>
+          <p class="muted"><T en="A separate 3D viewer and converter supporting 30+ formats, built as a standalone product and now live. It turns the messy reality of medical and 3D file formats into something a clinician or engineer can actually open and work with."
+                              tr="30+ format destekleyen, bağımsız bir ürün olarak geliştirilen ve artık yayında olan ayrı bir 3D görüntüleyici ve dönüştürücü. Tıbbi ve 3D dosya formatlarının karmaşasını, bir klinisyen ya da mühendisin gerçekten açıp çalışabileceği bir şeye dönüştürüyor." /></p>
+          <div class="stage" style="background: var(--lilac)" data-lightbox-group>
+            {viewer.map((s) => <button type="button" class={`ph-btn ${s.cls}`} data-lightbox aria-label={s.alt}><img class="ph" src={s.src} alt={s.alt} loading="lazy" /></button>)}
+            {viewerExtra.map((src) => <button type="button" class="ph-btn ph-hidden" data-lightbox tabindex="-1" aria-hidden="true"><img src={src} alt="" loading="lazy" /></button>)}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="depth" aria-labelledby="depth">
+      <div class="wrap depth-row">
+        <div class="depth-text">
+          <p class="k" style="color: var(--lime)"><T en="Engineering depth" tr="Mühendislik derinliği" /></p>
+          <h2 id="depth" class="disp depth-h"><T en="The DICOM anonymization pipeline" tr="DICOM anonimleştirme hattı" /></h2>
+          <p class="depth-p">
+            <T en="Patient CT and MRI scans arrive as DICOM files carrying identifying metadata. Before anything else can happen, that data has to be stripped and handled lawfully. I designed and implemented a Python pipeline running on Firebase (europe-west3) that anonymizes this imaging for KVKK/GDPR compliance — keeping the geometry clinicians need while removing the identity they don’t."
+               tr="Hasta BT ve MR taramaları, kimlik bilgisi taşıyan meta verilerle birlikte DICOM dosyaları olarak geliyor. Başka hiçbir şey olmadan önce, bu veri hukuka uygun biçimde temizlenmeli. Bu görüntüleri KVKK/GDPR uyumu için anonimleştiren, Firebase (europe-west3) üzerinde çalışan bir Python hattı tasarlayıp geliştirdim — klinisyenlerin ihtiyaç duyduğu geometriyi korurken ihtiyaç duymadıkları kimliği kaldırıyor." />
           </p>
-          <MediaPlaceholder src="/images/projects/ceviz/app/1781127259880.jpeg" alt="Ceviz App splash ekranı" label="Ceviz App" ratio="16 / 10" />
-        </article>
-        <article class="product">
-          <span class="product-index">02</span>
-          <h2 class="product-name">Ceviz Viewer & Converter</h2>
-          <p class="product-kind mono"><T en="3D viewer & converter · Mobile + Web" tr="3D görüntüleyici & dönüştürücü · Mobil + Web" /></p>
-          <p>
-            <T
-              en="A separate 3D viewer and converter supporting 30+ formats, planned as a standalone product and currently in testing. It turns the messy reality of medical and 3D file formats into something a clinician or engineer can actually open and work with."
-              tr="30+ format destekleyen, bağımsız ürün olarak planlanan ve şu an test aşamasında olan ayrı bir 3D görüntüleyici ve dönüştürücü. Tıbbi ve 3D dosya formatlarının karmaşasını, bir klinisyen ya da mühendisin gerçekten açıp çalışabileceği bir şeye dönüştürüyor."
-            />
-          </p>
-          <MediaPlaceholder src="/images/projects/ceviz/viewer_converter/IMG_1408.jpeg" alt="Ceviz Viewer & Converter splash ekranı" label="Ceviz Viewer & Converter" ratio="16 / 10" />
-        </article>
+          <div class="flow">
+            <span><T en="CT / MRI · DICOM" tr="BT / MR · DICOM" /></span><span aria-hidden="true">→</span>
+            <span class="flow-hi">Python on Firebase · europe-west3</span><span aria-hidden="true">→</span>
+            <span><T en="Anonymous imaging" tr="Anonim görüntü" /></span><span aria-hidden="true">→</span>
+            <span><T en="3D implant design" tr="3D implant tasarımı" /></span>
+          </div>
+        </div>
+        <div class="dicom" data-dicom>
+          <div class="dicom-top">
+            <p class="k" style="color: var(--night-dim)"><T en="Illustrative DICOM header · sample values" tr="Örnek DICOM başlığı · temsili değerler" /></p>
+            <button type="button" class="run" aria-pressed="false" data-run>
+              <span class="run-a"><T en="Run anonymization" tr="Anonimleştirmeyi çalıştır" /></span>
+              <span class="run-b"><T en="Restore sample" tr="Örneği geri getir" /></span>
+            </button>
+          </div>
+          <div role="table" aria-label="DICOM tags">
+            {dicom.map(([tag, name, value, id]) => (
+              <div role="row" class:list={['drow', { identity: id }]}>
+                <span role="cell" class="cond dtag">{tag}</span>
+                <span role="cell" class="dname">{name}</span>
+                <span role="cell" class="dval"><span>{value}</span><span class="redact" aria-hidden="true"></span></span>
+                <span role="cell" class="dstate">
+                  {id ? (<>
+                    <span class="st-id"><T en="Identity" tr="Kimlik" /></span><span class="st-rm"><T en="Removed" tr="Silindi" /></span>
+                  </>) : <span class="st-keep"><T en="Kept" tr="Korundu" /></span>}
+                </span>
+              </div>
+            ))}
+          </div>
+          <p class="dicom-note"><T en="Identity tags are removed; geometry tags such as pixel spacing and slice thickness stay, because the 3D model depends on them." tr="Kimlik etiketleri silinir; piksel aralığı ve kesit kalınlığı gibi geometri etiketleri kalır, çünkü 3D model bunlara dayanır." /></p>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Ekran görüntüleri — her ürün ayrı -->
-  <section class="section">
-    <div class="container">
-      <span class="section-label"><T en="Screenshots" tr="Ekran görüntüleri" /></span>
-      <Gallery images={cevizAppShots} heading="[ CEVIZ APP ]" />
-      <Gallery images={converterShots} heading="[ VIEWER & CONVERTER ]" />
-    </div>
-  </section>
-
-  <!-- Teknik derinlik -->
-  <section class="section">
-    <div class="container case-narrow">
-      <span class="section-label"><T en="Engineering depth" tr="Mühendislik derinliği" /></span>
-      <h2 class="case-h2"><T en="The DICOM anonymization pipeline" tr="DICOM anonimleştirme hattı" /></h2>
-      <p>
-        <T
-          en="Patient CT and MRI scans arrive as DICOM files carrying identifying metadata. Before anything else can happen, that data has to be stripped and handled lawfully. I designed and implemented a Python pipeline running on Firebase (europe-west3) that anonymizes this imaging for KVKK/GDPR compliance — keeping the geometry clinicians need while removing the identity they don't."
-          tr="Hasta BT ve MR taramaları, kimlik bilgisi taşıyan meta verilerle birlikte DICOM dosyaları olarak geliyor. Başka hiçbir şey olmadan önce, bu veri hukuka uygun biçimde temizlenmeli. Bu görüntüleri KVKK/GDPR uyumu için anonimleştiren, Firebase (europe-west3) üzerinde çalışan bir Python hattı tasarlayıp geliştirdim — klinisyenlerin ihtiyaç duyduğu geometriyi korurken ihtiyaç duymadıkları kimliği kaldırıyor."
-        />
+    <section class="wrap beyond">
+      <h2 class="disp beyond-h"><T en="Beyond the code" tr="Kodun ötesinde" /></h2>
+      <p class="beyond-p muted">
+        <T en="I also hand-coded the brand website in HTML5 and CSS3 — deliberately avoiding off-the-shelf WordPress components — with performance and SEO as first-class goals. As a project partner, engineering here isn’t a task list; it’s part of deciding what the product should be."
+           tr="Marka web sitesini de HTML5 ve CSS3 ile elle kodladım — hazır WordPress bileşenlerinden bilinçle kaçınarak — performans ve SEO’yu birincil hedef alarak. Proje ortağı olarak buradaki mühendislik bir görev listesi değil; ürünün ne olması gerektiğine karar vermenin bir parçası." />
       </p>
+    </section>
 
-      <h2 class="case-h2"><T en="Beyond the code" tr="Kodun ötesinde" /></h2>
-      <p>
-        <T
-          en="I also hand-coded the brand website in HTML5 and CSS3 — deliberately avoiding off-the-shelf WordPress components — with performance and SEO as first-class goals. As a project partner, engineering here isn't a task list; it's part of deciding what the product should be."
-          tr="Marka web sitesini de HTML5 ve CSS3 ile elle kodladım — hazır WordPress bileşenlerinden bilinçle kaçınarak — performans ve SEO'yu birincil hedef alarak. Proje ortağı olarak buradaki mühendislik bir görev listesi değil; ürünün ne olması gerektiğine karar vermenin bir parçası."
-        />
-      </p>
-    </div>
-  </section>
-
-  <!-- Web siteleri -->
-  <section class="section">
-    <div class="container">
-      <span class="section-label"><T en="Websites" tr="Web siteleri" /></span>
-      <h2 class="case-h2"><T en="Three sites, hand-coded" tr="Üç site, elle kodlandı" /></h2>
-      <p class="websites-intro">
-        <T
-          en="Under the Ceviz Biyoteknoloji umbrella I hand-coded three separate websites in HTML5/CSS3 — free of off-the-shelf template constraints, with performance and SEO as first-class goals."
-          tr="Ceviz Biyoteknoloji çatısı altında üç ayrı web sitesini HTML5/CSS3 ile sıfırdan kodladım — hazır şablon kısıtlamalarından bağımsız, performans ve SEO odaklı."
-        />
-      </p>
-      <div class="website-cards">
-        <a href="https://cevizbiotech.com" target="_blank" rel="noopener" class="website-card">
-          <span class="website-label"><T en="Main site" tr="Ana site" /></span>
-          <span class="website-url mono">cevizbiotech.com</span>
-          <span class="website-desc"><T en="Brand & showcase site" tr="Marka ve tanıtım sitesi" /></span>
-          <span class="website-cta"><T en="Visit" tr="Siteyi gör" /> <span class="cta-arrow" aria-hidden="true">→</span></span>
-        </a>
-        <a href="https://cevizbiotech.com/app" target="_blank" rel="noopener" class="website-card">
-          <span class="website-label">Ceviz App</span>
-          <span class="website-url mono">cevizbiotech.com/app</span>
-          <span class="website-desc"><T en="Physician–engineer B2B platform, web showcase" tr="Hekim-mühendis B2B platformu, web tanıtımı" /></span>
-          <span class="website-cta"><T en="Visit" tr="Siteyi gör" /> <span class="cta-arrow" aria-hidden="true">→</span></span>
-        </a>
-        <a href="https://cevizbiotech.com/viewer" target="_blank" rel="noopener" class="website-card">
-          <span class="website-label">Ceviz Viewer & Converter</span>
-          <span class="website-url mono">cevizbiotech.com/viewer</span>
-          <span class="website-desc"><T en="3D viewer/converter, web showcase" tr="3D görüntüleyici/dönüştürücü, web tanıtımı" /></span>
-          <span class="website-cta"><T en="Visit" tr="Siteyi gör" /> <span class="cta-arrow" aria-hidden="true">→</span></span>
-        </a>
+    <section class="wrap sec" aria-labelledby="sites">
+      <div class="sec-head sites-head">
+        <h2 id="sites" class="disp sec-title"><T en="Three sites, hand-coded" tr="Üç site, elle kodlandı" /></h2>
+        <p class="k"><T en="Websites" tr="Web siteleri" /></p>
       </div>
-    </div>
-  </section>
-
-  <section class="section section--darker">
-    <div class="container cta-band">
-      <h2><T en="Want the rest of the story?" tr="Hikâyenin devamını ister misin?" /></h2>
-      <div class="cta-actions">
-        <Cta href="/experience" variant="secondary"><T en="See experience" tr="Deneyime bak" /></Cta>
-        <Cta href="/contact" variant="primary" cursor><T en="Get in touch" tr="İletişime geç" /></Cta>
+      <p class="muted sites-p">
+        <T en="Under the Ceviz Biyoteknoloji umbrella I hand-coded three separate websites in HTML5/CSS3 — free of off-the-shelf template constraints, with performance and SEO as first-class goals."
+           tr="Ceviz Biyoteknoloji çatısı altında üç ayrı web sitesini HTML5/CSS3 ile sıfırdan kodladım — hazır şablon kısıtlamalarından bağımsız, performans ve SEO odaklı." />
+      </p>
+      <div class="sites">
+        {sites.map((s) => (
+          <a class="site lift" href={s.url}>
+            <span class="site-top" style={`background: ${s.c}`}><span class="disp site-name"><T t={s.name} /></span><span class="k" style="color: var(--ink)">{s.n}</span></span>
+            <span class="site-mid"><span class="k"><T en="Shipped to" tr="Yayın adresi" /></span><span class="site-url">{s.label}</span><span class="muted site-d"><T t={s.d} /></span></span>
+            <span class="site-foot"><span class="site-bars" style={`background: ${s.bars}`} aria-hidden="true"></span><span class="site-visit"><T en="Visit" tr="Siteyi gör" /> ↗</span></span>
+          </a>
+        ))}
       </div>
-    </div>
-  </section>
+    </section>
+
+    <section class="wrap sec">
+      <div class="more">
+        <p class="disp more-h"><T en="Want the rest of the story?" tr="Hikâyenin devamı?" /></p>
+        <div class="btns">
+          <a class="btn btn--ink" href="/experience"><T en="See experience →" tr="Deneyime bak →" /></a>
+          <a class="btn" href="/contact"><T en="Get in touch" tr="İletişime geç" /></a>
+        </div>
+      </div>
+    </section>
+  </article>
 </BaseLayout>
 
+<script is:inline>
+  (function () {
+    var box = document.querySelector('[data-dicom]');
+    if (!box) return;
+    var btn = box.querySelector('[data-run]');
+    btn.addEventListener('click', function () {
+      var on = !box.classList.contains('anon');
+      box.classList.toggle('anon', on);
+      btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+  })();
+</script>
+
 <style>
-  .case-head { border-top: none; padding-bottom: var(--space-lg); }
-  .back-link { display: inline-block; margin-bottom: var(--space-lg); color: var(--text-muted); }
-  .back-link:hover { color: var(--accent); }
-  .case-eyebrow {
-    display: flex;
-    align-items: center;
-    gap: var(--space-md);
-    flex-wrap: wrap;
-    margin-bottom: var(--space-md);
+  .cs-head { padding-top: clamp(28px, 3.4vw, 48px); padding-bottom: clamp(40px, 4vw, 56px); }
+  .cs-intro { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 32px 56px; }
+  .cs-intro-text { flex: 1 1 640px; min-width: 0; display: flex; flex-direction: column; gap: 24px; }
+  .cs-lede { max-width: 720px; font-size: clamp(18px, 1.5vw, 21px); }
+  .cs-logo { flex: none; display: block; width: clamp(96px, 11vw, 150px); aspect-ratio: 1; padding: clamp(14px, 1.7vw, 24px); border: 1.5px solid var(--ink); border-radius: 22px; background: var(--ink); }
+  .cs-logo img { width: 100%; height: 100%; object-fit: contain; }
+  .cs-facts {
+    margin-top: clamp(32px, 4vw, 48px);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+    border: 1.5px solid var(--ink);
+    background: var(--card);
   }
-  .case-title { font-size: var(--fs-display); margin-bottom: var(--space-lg); }
-  .case-intro {
+  .cs-facts > div { padding: 18px 20px; border-right: 1.5px solid var(--ink); }
+  .cs-facts > div:last-child { border-right: 0; }
+  .cs-facts dd { margin-top: 8px; font-weight: 700; font-size: 18px; }
+  .cs-fact-last { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; }
+  .barcode { flex: none; width: 70px; height: 40px; background: repeating-linear-gradient(90deg, #0B0C10 0 2px, transparent 2px 4px, #0B0C10 4px 7px, transparent 7px 9px); }
+  @media (max-width: 860px) { .cs-facts > div { border-right: 0; border-bottom: 1.5px solid var(--ink); } .cs-facts > div:last-child { border-bottom: 0; } }
+
+  .products { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(480px, 100%), 1fr)); gap: 20px; }
+  .product { position: relative; display: flex; flex-direction: column; gap: 18px; padding: clamp(20px, 2.6vw, 32px); border: 1.5px solid var(--ink); background: var(--card); }
+  .product-h { font-size: clamp(30px, 3vw, 44px); line-height: 0.9; }
+  .product .muted { font-size: 17px; }
+  .stage { position: relative; height: 380px; display: flex; align-items: center; justify-content: center; border: 1.5px solid var(--ink); }
+  .ph-btn { display: block; height: 80%; padding: 0; border: 0; background: none; cursor: zoom-in; }
+  .ph-btn.ph-c { position: relative; z-index: 1; height: 92%; }
+  .ph-btn.ph-l { margin-right: -5%; transform: rotate(-4deg); }
+  .ph-btn.ph-r { margin-left: -5%; transform: rotate(4deg); }
+  .ph-btn.ph-hidden { display: none; }
+  .ph { display: block; height: 100%; width: auto; aspect-ratio: 1179 / 2556; object-fit: cover; border: 4px solid var(--ink); border-radius: 18px; background: var(--ink); box-shadow: 0 18px 34px rgba(11, 12, 16, 0.25); }
+  .seal {
+    position: absolute;
+    z-index: 2;
+    right: 14px;
+    top: 14px;
+    width: 120px;
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    border: 5px double var(--ink);
+    border-radius: 50%;
+    background: var(--paper);
+    transform: rotate(-12deg);
     font-family: var(--font-display);
-    font-size: clamp(1.3rem, 2.4vw, 1.9rem);
-    line-height: 1.3;
-    color: var(--text-heading);
-    max-width: 34ch;
-  }
-
-  .facts {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: var(--space-md);
-  }
-  .fact {
-    padding: var(--space-lg);
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-  }
-  .fact dt {
+    font-weight: 900;
     text-transform: uppercase;
-    letter-spacing: 0.14em;
-    font-size: var(--fs-label);
-    margin-bottom: 0.5rem;
+    line-height: 1;
+    text-align: center;
   }
-  .fact dd { color: var(--text-heading); font-weight: 500; }
+  .seal-s { font-size: 11px; letter-spacing: 0.1em; }
+  .seal-l { font-size: 20px; }
+  .seal-xs { font-size: 9px; letter-spacing: 0.06em; }
+  @media (max-width: 620px) { .ph-btn.ph-r { display: none; } .stage { height: 320px; } }
 
-  .products {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-md);
-  }
-  .product {
-    padding: var(--space-lg);
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-sm);
-  }
-  .product-index { font-family: var(--font-body); font-size: var(--fs-label); letter-spacing: 0.14em; color: var(--accent); }
-  .product-name { font-size: var(--fs-h2); }
-  .product p { color: var(--text-body); }
+  .depth { background: var(--ink); color: var(--night-text); }
+  .depth-row { display: flex; flex-wrap: wrap; gap: 40px 64px; padding-block: clamp(56px, 7vw, 104px); }
+  .depth-text { flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 20px; }
+  .depth-h { font-size: clamp(32px, 3.9vw, 58px); line-height: 0.88; letter-spacing: -0.045em; }
+  @media (max-width: 640px) { .depth-h { font-stretch: 82%; } }
+  .depth-p { font-size: 17px; line-height: 1.65; color: var(--night-muted); }
+  .flow { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-weight: 600; font-size: 13px; }
+  .flow span:not([aria-hidden]) { padding: 9px 12px; border: 1px solid #4A5261; border-radius: 10px; }
+  .flow .flow-hi { border-color: var(--lime); background: var(--lime); color: var(--night-2); }
 
-  .case-narrow { max-width: 760px; }
-  .case-h2 { font-size: var(--fs-h2); margin: var(--space-xl) 0 var(--space-md); }
-  .case-narrow > .case-h2:first-of-type { margin-top: var(--space-md); }
-  .case-narrow p { max-width: none; }
+  .dicom { flex: 1 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 14px; padding: clamp(18px, 2.4vw, 28px); border: 1px solid var(--night-line); border-radius: 24px; background: var(--night); }
+  .dicom-top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; }
+  .run { min-height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: var(--lime); color: var(--night-2); font: 700 14px/1 var(--font-body); cursor: pointer; }
+  .run-b { display: none; }
+  .anon .run { background: var(--night-text); }
+  .anon .run-a { display: none; }
+  .anon .run-b { display: inline; }
+  .run:focus-visible { outline-color: var(--lime); }
+  .drow { display: grid; grid-template-columns: 112px minmax(0, 1.2fr) minmax(0, 1fr) 76px; align-items: center; gap: 12px; min-height: 48px; padding: 6px 4px; border-bottom: 1px solid #1E232C; font-size: 14px; }
+  .dtag { font-size: 16px; color: var(--night-dim); }
+  .dname { font-weight: 600; }
+  .dval { position: relative; display: block; min-height: 22px; color: var(--night-muted); overflow-wrap: anywhere; }
+  .redact { position: absolute; left: 0; top: 0; bottom: 0; width: 0; border-radius: 3px; background: var(--pink); transition: width 0.5s var(--ease); }
+  .anon .identity .redact { width: 100%; }
+  .dstate { font-weight: 700; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--night-dim); }
+  .st-rm { display: none; color: #FF6FA5; }
+  .anon .st-id { display: none; }
+  .anon .st-rm { display: inline; }
+  .st-keep { color: var(--lime); }
+  .dicom-note { font-size: 13px; color: var(--night-dim); }
+  @media (max-width: 560px) { .drow { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 70px; } .dtag { display: none; } }
 
-  .websites-intro { color: var(--text-body); max-width: 640px; margin-bottom: var(--space-lg); }
-  .website-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: var(--space-md);
-  }
-  .website-card {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-    padding: var(--space-lg);
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    text-decoration: none;
-    transition: transform 0.25s var(--ease), background 0.25s var(--ease),
-      border-color 0.25s var(--ease), box-shadow 0.25s var(--ease);
-  }
-  .website-card:hover {
-    transform: translateY(-4px);
-    background: var(--surface-strong);
-    border-color: var(--border-strong);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-  }
-  .website-label { font-family: var(--font-display); font-size: 1.15rem; color: var(--text-heading); }
-  .website-url { font-size: var(--fs-label); color: var(--text-muted); }
-  .website-desc { font-size: var(--fs-small); color: var(--text-body); }
-  .website-cta {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    margin-top: var(--space-sm);
-    font-weight: 600;
-    font-size: 14px;
-    color: var(--accent);
-  }
-  .website-card:hover .website-cta .cta-arrow { transform: translateX(4px); }
+  .beyond { display: flex; flex-wrap: wrap; gap: 24px 64px; padding-top: clamp(64px, 7vw, 104px); padding-bottom: clamp(48px, 5vw, 72px); }
+  .beyond-h { flex: 1 1 300px; font-size: clamp(36px, 4vw, 60px); line-height: 0.9; letter-spacing: -0.04em; }
+  .beyond-p { flex: 2 1 520px; font-size: 19px; line-height: 1.6; }
 
-  .cta-band {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-lg);
-    flex-wrap: wrap;
-  }
-  .cta-band h2 { font-size: var(--fs-h2); max-width: 20ch; }
-  .cta-actions { display: flex; gap: var(--space-md); flex-wrap: wrap; }
+  .sites-head { margin-bottom: 14px; }
+  .sites-p { margin-bottom: 28px; max-width: 760px; font-size: 17px; }
+  .sites { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 18px; }
+  .site { display: flex; flex-direction: column; border: 1.5px solid var(--ink); background: var(--card); text-decoration: none; }
+  .site:hover { color: var(--ink); transform: translateY(-6px) rotate(-0.6deg); }
+  .site-top { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; border-bottom: 1.5px solid var(--ink); }
+  .site-name { font-size: 22px; }
+  .site-mid { display: flex; flex-direction: column; gap: 6px; padding: 16px; }
+  .site-url { font-weight: 700; font-size: 18px; }
+  .site-d { font-size: 15px; }
+  .site-foot { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 16px; border-top: 1.5px solid var(--ink); }
+  .site-bars { width: 110px; height: 30px; }
+  .site-visit { font-weight: 700; }
 
-  @media (max-width: 820px) {
-    .facts { grid-template-columns: 1fr 1fr; }
-    .products { grid-template-columns: 1fr; }
-  }
-  @media (max-width: 480px) {
-    .facts { grid-template-columns: 1fr; }
-  }
+  .more { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px 32px; padding: clamp(24px, 3vw, 40px); border: 1.5px solid var(--ink); background: var(--card); }
+  .more-h { font-size: clamp(32px, 3.6vw, 54px); line-height: 0.9; }
 </style>

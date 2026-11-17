@@ -1,188 +1,197 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import PrintTitle from '../../components/PrintTitle.astro';
 import T from '../../components/T.astro';
-import GhostNumber from '../../components/GhostNumber.astro';
-import PixelField from '../../components/PixelField.astro';
-import DnaHelix from '../../components/DnaHelix.astro';
-import PageBackground from '../../components/PageBackground.astro';
 import projects from '../../data/projects.json';
+import meta from '../../data/project-meta.json';
 
 const bi = (v: any) => (typeof v === 'string' ? { en: v, tr: v } : v);
+const M = meta as Record<string, any>;
+const list = (projects as any[]).filter((p) => !p.hidden);
+const years = list.map((p) => Number(bi(p.period).en)).filter(Boolean);
+const span = `${Math.min(...years)} → ${Math.max(...years)}`;
+const featuredTags = ['TÜBİTAK 1501 & 1812', { en: 'Medical imaging', tr: 'Tıbbi görüntüleme' }, { en: '3D implants', tr: '3D implantlar' }, 'KVKK/GDPR'];
 ---
 
 <BaseLayout
-  path="/projects"
   title="Projects"
-  description="Selected projects by İsmail Özyurt — Ceviz Biyoteknoloji, Ceviz Flow, mAI Experimental Animal Analysis, the White Noise Experiment System, and more."
+  path="/projects"
+  sheet="03"
+  description="Projects by İsmail Özyurt — Ceviz Biyoteknoloji case study, Ceviz Flow, research tooling, an Apple Silicon camera driver and more."
+  descriptionTr="İsmail Özyurt’un projeleri — Ceviz Biyoteknoloji incelemesi, Ceviz Flow, araştırma araçları, bir Apple Silicon kamera sürücüsü ve daha fazlası."
 >
-  <PageBackground motif="nodes" />
-
-  <header class="page-head section ghost-host">
-    <GhostNumber n="01" />
-    <PixelField count={14} />
-    <div class="container">
-      <span class="section-label"><T en="Projects" tr="Projeler" /></span>
-      <h1><T en="Things I've built and shipped." tr="Geliştirdiğim ve yayınladığım işler." /></h1>
+  <section class="wrap sheet head">
+    <div class="sheet-row">
+      <p class="k"><T en="Sheet 03 / 08 · Projects" tr="Sayfa 03 / 08 · Projeler" /></p>
+      <p class="k"><T en={`1 case study · ${list.length} projects · ${span}`} tr={`1 inceleme · ${list.length} proje · ${span}`} /></p>
     </div>
-  </header>
+    <PrintTitle en="Things I’ve built and shipped." tr="Geliştirdiğim ve yayınladığım işler." size="clamp(52px, 8vw, 128px)" class="head-title" />
+    <p class="lede head-p">
+      <span data-lang="en">Each project here in a few lines: what it is and what I did. For the screens and the full stack, every one has its own page on <a href="https://ismail.ozyurt.dev">ismail.ozyurt.dev</a>.</span>
+      <span data-lang="tr" lang="tr">Her proje burada birkaç satırda: ne olduğu ve benim ne yaptığım. Ekranlar ve teknoloji katmanları için her birinin <a href="https://ismail.ozyurt.dev">ismail.ozyurt.dev</a>’de kendi sayfası var.</span>
+    </p>
+  </section>
 
-  <!-- Ceviz — öne çıkan case study -->
-  <section class="section">
-    <div class="container">
-      <a href="/projects/ceviz" class="featured dna-host">
-        <DnaHelix />
-        <div class="featured-meta">
-          <span class="tag"><T en="Featured case study" tr="Öne çıkan inceleme" /></span>
-          <span class="mono featured-period">2025 — <T en="Present" tr="Devam ediyor" /></span>
+  <section class="wrap feat-sec" aria-labelledby="featured">
+    <div class="featured">
+      <div class="feat-text">
+        <div class="feat-k">
+          <img src="/images/ceviztek.png" width="52" height="52" alt="" class="feat-logo" />
+          <p class="k" style="color: var(--lime)"><T en="Featured case study · Present" tr="Öne çıkan inceleme · Devam ediyor" /></p>
         </div>
-        <h2 class="featured-title">Ceviz Biyoteknoloji</h2>
-        <p class="featured-lead">
-          <T
-            en="A TÜBİTAK-funded biotech startup where I serve as CTO. Health-technology products, research tooling, and a KVKK/GDPR-compliant path from CT/MRI to 3D implant design."
-            tr="CTO olarak görev yaptığım, TÜBİTAK destekli bir biyoteknoloji girişimi. Sağlık teknolojisi ürünleri, araştırma araçları ve BT/MR'dan 3D implant tasarımına KVKK/GDPR uyumlu bir yol."
-          />
+        <h2 id="featured" class="disp feat-h" lang="tr">Ceviz Biyoteknoloji</h2>
+        <p class="feat-p">
+          <T en="A TÜBİTAK-funded biotech startup where I serve as CTO. Health-technology products, research tooling, and a KVKK/GDPR-compliant path from CT/MRI to 3D implant design."
+             tr="CTO olarak görev yaptığım, TÜBİTAK destekli bir biyoteknoloji girişimi. Sağlık teknolojisi ürünleri, araştırma araçları ve BT/MR’dan 3D implant tasarımına KVKK/GDPR uyumlu bir yol." />
         </p>
-        <div class="featured-tags">
-          {['Product Leadership', 'Flutter', 'Firebase', 'Python', 'DICOM', 'KVKK/GDPR'].map((t) => (
-            <span class="tag tag--ghost">{t}</span>
-          ))}
-        </div>
-        <span class="featured-cta">
-          <T en="Read the full case study" tr="Ceviz'i baştan sona oku" />
-          <span class="cta-arrow" aria-hidden="true">→</span>
-        </span>
-      </a>
+        <div class="feat-tags">{featuredTags.map((t) => <span><T t={bi(t)} /></span>)}</div>
+        <a class="btn btn--lime" href="/projects/ceviz"><T en="Read the full case study →" tr="Ceviz’i baştan sona oku →" /></a>
+      </div>
+      <div class="feat-art" aria-hidden="true">
+        <img src="/images/projects/ceviz/app/1781127254872.jpeg" alt="" loading="lazy" class="ph ph-1" />
+        <img src="/images/projects/ceviz/viewer_converter/IMG_1410.jpeg" alt="" loading="lazy" class="ph ph-2" />
+      </div>
     </div>
   </section>
 
-  <!-- Diğer projeler -->
-  <section class="section section--darker ghost-host">
-    <GhostNumber n="02" />
-    <div class="container">
-      <span class="section-label"><T en="More projects" tr="Diğer projeler" /></span>
-      <div class="project-list">
-        {projects.map((p) => (
-          <a href={`/projects/${p.slug}`} class="proj-row">
-            <div class="proj-head">
-              <h3 class="proj-title"><T t={bi(p.title)} /></h3>
-              <span class="mono proj-period"><T t={bi(p.period)} /></span>
-            </div>
-            <p class="proj-award mono"><T t={bi(p.award)} /></p>
-            <p class="proj-summary"><T t={bi(p.summary)} /></p>
-            {p.tags && p.tags.length > 0 && (
-              <ul class="proj-tags">
-                {p.tags.map((t) => <li class="tag tag--ghost">{t}</li>)}
-              </ul>
-            )}
-            <span class="proj-more"><T en="View project" tr="Projeyi gör" /> <span class="cta-arrow" aria-hidden="true">→</span></span>
-          </a>
-        ))}
-      </div>
+  <section class="wrap sec" aria-labelledby="more">
+    <div class="more-head">
+      <h2 id="more" class="disp sec-title"><T en="More projects" tr="Diğer projeler" /></h2>
+      <p class="k"><span data-lang="en">Screens and stacks live on ismail.ozyurt.dev</span><span data-lang="tr" lang="tr">Ekranlar ve teknolojiler <span lang="en">ismail.ozyurt.dev</span>’de</span></p>
     </div>
+    {list.map((p, i) => {
+      const m = M[p.slug] ?? {};
+      return (
+        <article class="row" id={p.slug}>
+          <span class="disp num" style={`background: ${m.c ?? 'var(--c6)'}`} aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+          <div class="row-main">
+            <div class="row-title">
+              <h3 class="disp row-h" lang={m.lang}><a href={`/projects/${p.slug}`}><T t={bi(p.title)} /></a></h3>
+              <span class="cond row-period"><T t={bi(p.period)} /></span>
+            </div>
+            {p.award && <p class="row-award"><T t={bi(p.award)} /></p>}
+            <p class="muted row-sum"><T t={bi(p.summary)} /></p>
+            {p.tags?.length > 0 && <div class="chips">{p.tags.map((t: any) => <span class="chip chip--sm"><T t={bi(t)} /></span>)}</div>}
+          </div>
+          <div class="row-meta">
+            <div class="thumb" style={`background: ${m.c ?? 'var(--c6)'}`} aria-hidden="true">
+              {m.img
+                ? <img src={m.img} alt="" loading="lazy" style={`object-position: ${m.pos ?? 'center'}`} />
+                : <span class="cond thumb-fact"><T t={m.fact ?? { en: '', tr: '' }} /></span>}
+            </div>
+            <a class="btn btn--sm open" href={`https://ismail.ozyurt.dev/${p.slug}`}><T en="Open in portfolio" tr="Portfolyoda aç" /> <span class="arr" aria-hidden="true">→</span></a>
+          </div>
+        </article>
+      );
+    })}
+  </section>
+
+  <section class="wrap sec">
+    <a class="apps" href="https://ismail.ozyurt.dev">
+      <span class="apps-text">
+        <span class="k" style="color: var(--ink)"><T en="Looking for the apps?" tr="Uygulamaları mı arıyorsun?" /></span>
+        <span class="disp apps-h"><span data-lang="en">All eleven live on <span class="dom">ismail.<wbr />ozyurt.<wbr />dev</span></span><span data-lang="tr" lang="tr">On birinin hepsi <span class="dom" lang="en">ismail.<wbr />ozyurt.<wbr />dev</span>’de</span></span>
+      </span>
+      <span class="apps-btn"><T en="Open" tr="Aç" /> ↗</span>
+    </a>
   </section>
 </BaseLayout>
 
 <style>
-  .page-head { border-top: none; padding-bottom: var(--space-lg); }
+  .head { padding-bottom: clamp(40px, 4vw, 56px); }
+  .head :global(.head-title) { max-width: 1100px; }
+  .head-p { margin-top: clamp(20px, 2.4vw, 32px); max-width: 720px; font-size: 19px; }
+  .head-p a { font-weight: 700; color: var(--ink); text-underline-offset: 3px; }
 
+  .feat-sec { padding-bottom: clamp(56px, 6vw, 88px); }
   .featured {
-    display: block;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-left: 2px solid var(--accent);
-    border-radius: var(--radius-md);
-    padding: var(--space-xl);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    transition: transform 0.25s var(--ease), border-color 0.25s var(--ease),
-      background 0.25s var(--ease), box-shadow 0.25s var(--ease);
-  }
-  .featured:hover {
-    transform: translateY(-4px);
-    background: var(--surface-strong);
-    border-color: var(--border-strong);
-    border-left-color: var(--accent);
-    box-shadow: 0 0 28px 2px rgba(var(--glow), 0.22), 0 20px 40px rgba(0, 0, 0, 0.4);
-  }
-  .featured-meta {
+    position: relative;
+    overflow: hidden;
     display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 32px 48px;
+    padding: clamp(24px, 4vw, 56px);
+    border-radius: 28px;
+    background: var(--ink);
+    color: var(--night-text);
+  }
+  .feat-text { flex: 1 1 460px; min-width: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 20px; }
+  .feat-k { display: flex; align-items: center; gap: 14px; }
+  .feat-logo { width: 52px; height: 52px; padding: 6px; border: 1px solid var(--night-line); border-radius: 12px; object-fit: contain; background: var(--night-2); }
+  .feat-h { font-size: clamp(44px, 5.6vw, 88px); line-height: 0.86; letter-spacing: -0.045em; }
+  @media (max-width: 640px) { .feat-h { font-size: 10.5vw; font-stretch: 82%; letter-spacing: -0.03em; } }
+  .feat-p { max-width: 560px; font-size: 18px; color: var(--night-muted); }
+  .feat-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .feat-tags span { display: inline-flex; align-items: center; min-height: 28px; padding: 0 11px; border: 1px solid #4A5261; border-radius: 999px; font-weight: 600; font-size: 13px; }
+  .featured .btn--lime { border-color: var(--lime); }
+  .featured .btn--lime:hover { background: var(--night-text); border-color: var(--night-text); color: var(--ink); }
+  .feat-art { flex: 1 1 380px; min-width: 0; height: 420px; display: flex; align-items: center; justify-content: center; }
+  .ph { height: 92%; width: auto; aspect-ratio: 600 / 1300; object-fit: cover; object-position: top; border: 4px solid #000; border-radius: 22px; box-shadow: 0 26px 50px rgba(0, 0, 0, 0.6); }
+  .ph-1 { transform: rotate(-4deg); margin-right: -24px; }
+  .ph-2 { position: relative; transform: rotate(4deg); }
+
+  .more-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 10px 24px;
+    padding: 18px 0;
+    border-top: 6px solid var(--ink);
+    border-bottom: 1.5px solid var(--ink);
+  }
+  .row {
+    display: grid;
+    grid-template-columns: 76px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 12px 24px;
+    padding: 22px 12px;
+    border-bottom: 1.5px solid var(--rule);
+    transition: background 0.25s;
+    scroll-margin-top: 24px;
+  }
+  .row:hover, .row:focus-within { background: var(--card); }
+  .num { display: flex; align-items: center; justify-content: center; width: 56px; height: 56px; border-radius: 50%; outline: 1.5px solid var(--ink); font-size: 18px; }
+  .row-main { min-width: 0; display: flex; flex-direction: column; gap: 8px; }
+  .row-title { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px; }
+  .row-h { font-size: clamp(24px, 2.4vw, 34px); line-height: 0.95; letter-spacing: -0.025em; }
+  .row-h a { text-decoration: none; }
+  .row-h a:hover { color: var(--blue); }
+  .row-period { font-size: 18px; color: var(--ink-2); }
+  .row-award { font-weight: 600; font-size: 14px; color: var(--blue); }
+  .row-sum { max-width: 760px; font-size: 16px; }
+  .chip--sm { min-height: 26px; padding: 0 10px; font-size: 12px; background: transparent; }
+  .row-meta { display: flex; align-items: center; gap: 18px; }
+  .thumb { flex: none; width: 0; height: 128px; opacity: 0; overflow: hidden; border: 1.5px solid var(--ink); transition: width 0.45s var(--ease), opacity 0.3s; }
+  .row:hover .thumb, .row:focus-within .thumb { width: 200px; opacity: 1; }
+  .thumb img { width: 200px; height: 125px; object-fit: cover; }
+  .thumb-fact { display: flex; align-items: flex-end; width: 200px; height: 125px; padding: 12px; font-size: 20px; line-height: 1; }
+  .open { white-space: nowrap; }
+  .arr { transition: transform 0.3s; }
+  .row:hover .arr, .row:focus-within .arr { transform: translateX(6px); }
+
+  .apps {
+    display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    gap: var(--space-md);
-    margin-bottom: var(--space-md);
-    flex-wrap: wrap;
+    gap: 20px 32px;
+    padding: 28px 32px;
+    border: 1.5px solid var(--ink);
+    background: var(--lime);
+    text-decoration: none;
   }
-  .featured-title { font-size: var(--fs-h1); color: var(--text-heading); margin-bottom: var(--space-sm); }
-  .featured-lead { color: var(--text-body); font-size: 1.1rem; max-width: 64ch; }
-  .featured-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: var(--space-md); }
-  .featured-cta {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-top: var(--space-xl);
-    padding: 10px 20px;
-    border-radius: var(--radius-sm);
-    background: var(--surface);
-    border: 1px solid var(--border);
-    font-family: var(--font-body);
-    font-weight: 600;
-    font-size: 14px;
-    color: var(--accent);
-    transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease);
-  }
-  .featured:hover .featured-cta { background: var(--surface-strong); border-color: var(--border-strong); }
-  .featured:hover .featured-cta .cta-arrow { transform: translateX(4px); }
+  .apps:hover { color: var(--ink); }
+  .apps-text { min-width: 0; display: flex; flex-direction: column; gap: 8px; }
+  .dom { text-transform: none; }
+  .apps-h { font-size: clamp(28px, 3vw, 44px); line-height: 0.9; }
+  .apps-btn { display: inline-flex; align-items: center; min-height: 52px; padding: 0 24px; border-radius: 999px; background: var(--ink); color: var(--lime); font-weight: 700; }
 
-  .project-list {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-md);
-  }
-  .proj-row {
-    display: block;
-    padding: var(--space-lg) var(--space-xl);
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-  }
-  .proj-more {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    margin-top: var(--space-lg);
-    padding: 10px 20px;
-    border-radius: var(--radius-sm);
-    background: var(--surface);
-    border: 1px solid var(--border);
-    font-family: var(--font-body);
-    font-weight: 600;
-    font-size: 14px;
-    color: var(--accent);
-    transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease);
-  }
-  .proj-row:hover .proj-more { background: var(--surface-strong); border-color: var(--border-strong); }
-  .proj-row:hover .proj-more .cta-arrow { transform: translateX(4px); }
-  .proj-head {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: var(--space-md);
-    flex-wrap: wrap;
-  }
-  .proj-title { font-size: var(--fs-h2); }
-  .proj-award { color: var(--accent); margin-top: 0.35rem; }
-  .proj-summary { color: var(--text-body); margin-top: var(--space-sm); }
-  .proj-tags {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
-    margin-top: var(--space-md);
-  }
-
-  @media (max-width: 720px) {
-    .featured { padding: var(--space-lg); }
+  @media (max-width: 860px) {
+    .thumb { display: none; }
+    .row { grid-template-columns: 56px minmax(0, 1fr); align-items: start; }
+    .row-meta { grid-column: 2; }
+    .feat-art { height: 340px; }
   }
 </style>

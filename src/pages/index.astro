@@ -1,217 +1,284 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Hero from '../components/Hero.astro';
+import PrintTitle from '../components/PrintTitle.astro';
 import T from '../components/T.astro';
-import Cta from '../components/Cta.astro';
-import GhostNumber from '../components/GhostNumber.astro';
-import DnaHelix from '../components/DnaHelix.astro';
-import PageBackground from '../components/PageBackground.astro';
+import site from '../data/site.json';
+
+const tickets = [
+  { href: '/projects/ceviz', color: 'var(--lime)', side: { en: 'Now', tr: 'Şimdi' }, k: { en: 'now', tr: 'şu an' },
+    title: { en: 'Chief Technology Officer', tr: 'CTO' }, foot: { en: 'Ceviz Biyoteknoloji →', tr: 'Ceviz Biyoteknoloji →' },
+    bars: 'repeating-linear-gradient(90deg, #0B0C10 0 2px, transparent 2px 4px, #0B0C10 4px 7px, transparent 7px 9px)' },
+  { href: '/experience/salerno', color: 'var(--c11)', side: { en: 'Before', tr: 'Önce' }, k: { en: 'before', tr: 'öncesinde' },
+    title: { en: 'University of Salerno', tr: 'Salerno Üniversitesi' }, foot: { en: 'Computer vision, 2024 →', tr: 'Bilgisayarlı görü, 2024 →' },
+    bars: 'repeating-linear-gradient(90deg, #0B0C10 0 3px, transparent 3px 5px, #0B0C10 5px 6px, transparent 6px 9px)' },
+  { href: '/goals', color: 'var(--c9)', side: { en: 'Ahead', tr: 'İleri' }, k: { en: 'ahead', tr: 'ilerisi' },
+    title: { en: 'Where I’m headed', tr: 'Sırada ne var' }, foot: { en: 'Goals →', tr: 'Hedefler →' },
+    bars: 'repeating-linear-gradient(90deg, #0B0C10 0 1px, transparent 1px 4px, #0B0C10 4px 8px, transparent 8px 10px)' },
+];
+
+const brief = [
+  { dt: { en: 'Based in', tr: 'Yaşadığım yer' }, dd: { en: 'Kütahya, Türkiye', tr: 'Kütahya, Türkiye' } },
+  { dt: { en: 'Studying', tr: 'Okuduğum' },
+    dd: { en: 'B.Sc. Computer Engineering, Kütahya Health Sciences University', tr: 'Bilgisayar Mühendisliği (Lisans), Kütahya Sağlık Bilimleri Üniversitesi' },
+    note: { en: 'Third year. Admitted as the top-ranked student in the department.', tr: 'Üçüncü sınıftayım. Bölüme birincilikle girdim.' } },
+  { dt: { en: 'Now', tr: 'Şimdi' }, dd: { en: 'CTO, Ceviz Biyoteknoloji', tr: 'CTO, Ceviz Biyoteknoloji' },
+    note: { en: 'and Algorithm Development Lead on an international ML research project.', tr: 've uluslararası bir makine öğrenmesi araştırma projesinde Algoritma Geliştirme Lideri.' } },
+  { dt: { en: 'Before', tr: 'Önce' }, dd: { en: 'Erasmus+ research intern, University of Salerno, 2024', tr: 'Erasmus+ araştırma stajyeri, Salerno Üniversitesi, 2024' },
+    note: { en: 'Internships at Güral Porselen (2025) and Gürok Group (2026).', tr: 'Güral Porselen (2025) ve Gürok Grup (2026) stajları.' } },
+  { dt: { en: 'Languages', tr: 'Diller' }, dd: { en: 'Turkish, English, Italian', tr: 'Türkçe, İngilizce, İtalyanca' },
+    note: { en: 'Native · C2, WLA certified · A1', tr: 'Ana dil · C2, WLA sertifikalı · A1' } },
+  { dt: { en: 'Community', tr: 'Topluluk' }, dd: { en: 'Founding President, KSBÜ Teknofest Club', tr: 'Kurucu Başkan, KSBÜ Teknofest Topluluğu' },
+    note: { en: 'Deneyap mentor and two-time T3 “Sen Geleceksin” scholar.', tr: 'Deneyap mentoru ve iki kez T3 “Sen Geleceksin” bursiyeri.' } },
+];
+
+const building = [
+  { n: '01', color: 'var(--pink)', k: { en: 'Chief Technology Officer · Now', tr: 'CTO · Şimdi' }, h: { en: 'Ceviz Biyoteknoloji', tr: 'Ceviz Biyoteknoloji' }, hLang: 'tr',
+    p: { en: 'A TÜBİTAK-funded biotech startup where I serve as CTO. I lead Ceviz Flow with our internal team while continuing to build health-technology products and research systems.',
+         tr: 'CTO olarak görev yaptığım TÜBİTAK destekli bir biyoteknoloji girişimi. İç ekibimizle Ceviz Flow’a liderlik ederken sağlık teknolojisi ürünleri ve araştırma sistemleri geliştirmeyi sürdürüyorum.' },
+    href: '/projects/ceviz', link: { en: 'Read the case study →', tr: 'Nasıl geliştirdiğimi oku →' } },
+  { n: '02', color: 'var(--blue)', k: { en: 'Salerno, Güral, Gürok · Track record', tr: 'Salerno, Güral, Gürok · Geçmiş' }, h: { en: 'Research & internships', tr: 'Araştırma & stajlar' },
+    p: { en: 'Computer-vision research at the University of Salerno (2024), enterprise Flutter at Güral Porselen, and SQL, .NET, and MES work at Gürok Group have each deepened my engineering experience.',
+         tr: 'Salerno Üniversitesi’nde bilgisayarlı görü araştırması (2024), Güral Porselen’de kurumsal Flutter deneyimi ve Gürok Grup’ta SQL, .NET ile MES çalışmaları mühendislik deneyimimi daha da derinleştirdi.' },
+    href: '/experience', link: { en: 'See the timeline →', tr: 'Zaman çizelgesine bak →' } },
+  { n: '03', color: 'var(--ink)', k: { en: 'The bigger picture · Ahead', tr: 'Büyük resim · İleride' }, h: { en: 'Leading & learning', tr: 'Liderlik ve öğrenme' },
+    p: { en: 'Beyond the day-to-day: founding and leading KSBÜ Teknofest Club, mentoring, and academic work — the part of the story that points forward.',
+         tr: 'Günlük işin ötesi: KSBÜ Teknofest Topluluğu’nu kurup yönetmek, mentorluk ve akademik çalışmalar — hikâyenin ileriye bakan tarafı.' },
+    href: '/goals', link: { en: 'Where I’m headed →', tr: 'Devamını gör →' } },
+];
+
+const tiles = [
+  { href: '/experience', color: 'var(--c8)', t: { en: 'Experience', tr: 'Deneyim' }, d: { en: 'Timeline of work & research', tr: 'İş ve araştırma zaman çizelgesi' } },
+  { href: '/projects', color: 'var(--c1)', t: { en: 'Projects', tr: 'Projeler' }, d: { en: 'Ceviz, research tools & more', tr: 'Ceviz, araştırma araçları ve daha fazlası' } },
+  { href: '/portfolio', color: 'var(--c7)', t: { en: 'Portfolio', tr: 'Portfolyo' }, d: { en: 'Websites I’ve built & shipped', tr: 'Yaptığım ve yayınladığım siteler' } },
+  { href: '/leadership', color: 'var(--c10)', t: { en: 'Leadership', tr: 'Liderlik' }, d: { en: 'Teknofest Club, Deneyap, T3, ÜNİDES', tr: 'Teknofest Topluluğu, Deneyap, T3, ÜNİDES' } },
+  { href: '/goals', color: 'var(--c3)', t: { en: 'Goals', tr: 'Hedefler' }, d: { en: 'What keeps me building', tr: 'Beni üretmeye iten şey' } },
+  { href: '/cv', color: 'var(--c4)', t: { en: 'CV', tr: 'Özgeçmiş' }, d: { en: 'Full résumé, web & print', tr: 'Tam özgeçmiş, web ve baskı' } },
+];
+const pills = ['--c1', '--c2', '--c3', '--c4', '--c5', '--night-text', '--c7', '--c8', '--c9', '--c10', '--c11'];
 ---
 
-<BaseLayout path="/">
-  <PageBackground motif="dust" />
-  <Hero />
-
-  <!-- Öne çıkan üç şey -->
-  <section class="section section--darker ghost-host">
-    <GhostNumber n="02" />
-    <div class="container">
-      <span class="section-label">
-        <T en="What I'm building" tr="Üzerinde Çalıştıklarım" />
-      </span>
-
-      <div class="feature-grid">
-        <article class="feature dna-host">
-          <DnaHelix />
-          <span class="feature-index">01</span>
-          <h2 class="feature-title">Ceviz Biyoteknoloji</h2>
-          <p class="feature-lead mono"><T en="Chief Technology Officer · Now" tr="CTO · Şimdi" /></p>
-          <p>
-            <T
-              en="A TÜBİTAK-funded biotech startup where I serve as CTO. I lead Ceviz Flow with our internal team while continuing to build health-technology products and research systems."
-              tr="CTO olarak görev yaptığım TÜBİTAK destekli bir biyoteknoloji girişimi. İç ekibimizle Ceviz Flow'a liderlik ederken sağlık teknolojisi ürünleri ve araştırma sistemleri geliştirmeyi sürdürüyorum."
-            />
-          </p>
-          <Cta href="/projects/ceviz" variant="secondary" class="feature-link">
-            <T en="Read the case study" tr="Nasıl geliştirdiğimi oku" />
-          </Cta>
-        </article>
-
-        <article class="feature">
-          <span class="feature-index">02</span>
-          <h2 class="feature-title"><T en="Research & internships" tr="Araştırma & stajlar" /></h2>
-          <p class="feature-lead mono"><T en="Salerno, Güral, Gürok · Track record" tr="Salerno, Güral, Gürok · Geçmiş" /></p>
-          <p>
-            <T
-              en="Computer-vision research at the University of Salerno (2024), enterprise Flutter at Güral Porselen, and SQL, .NET, and MES work at Gürok Group have each deepened my engineering experience."
-              tr="Salerno Üniversitesi'nde bilgisayarlı görü araştırması (2024), Güral Porselen'de kurumsal Flutter deneyimi ve Gürok Group'ta SQL, .NET ile MES çalışmaları mühendislik deneyimimi daha da derinleştirdi."
-            />
-          </p>
-          <Cta href="/experience" variant="secondary" class="feature-link">
-            <T en="See the timeline" tr="Zaman çizelgesine bak" />
-          </Cta>
-        </article>
-
-        <article class="feature">
-          <span class="feature-index">03</span>
-          <h2 class="feature-title"><T en="Leading & learning" tr="Liderlik ve öğrenme" /></h2>
-          <p class="feature-lead mono"><T en="The bigger picture · Ahead" tr="Büyük resim · İleride" /></p>
-          <p>
-            <T
-              en="Beyond the day-to-day: founding and leading KSBÜ Teknofest Club, mentoring, and academic work — the part of the story that points forward."
-              tr="Günlük işin ötesi: KSBÜ Teknofest Topluluğu'nu kurup yönetmek, mentorluk ve akademik çalışmalar — hikâyenin ileriye bakan tarafı."
-            />
-          </p>
-          <Cta href="/goals" variant="secondary" class="feature-link">
-            <T en="Where I'm headed" tr="Devamını gör" />
-          </Cta>
-        </article>
+<BaseLayout path="/" sheet="01">
+  <section class="wrap sheet">
+    <div class="sheet-row">
+      <p class="k"><T en="Sheet 01 / 08 · Home" tr="Sayfa 01 / 08 · Ana Sayfa" /></p>
+      <p class="k"><T t={site.role} /></p>
+    </div>
+    <div class="hero">
+      <div class="hero-text">
+        <PrintTitle en="This is where I document my journey." tr="Yolculuğumu burada belgeliyorum." size="clamp(52px, 7.6vw, 124px)" />
+        <p class="lede hero-lede">
+          <T
+            en="I lead and build real products with Flutter, Firebase and Python — not just prototypes. As CTO at Ceviz Biyoteknoloji, I lead technology and product work; I also bring hands-on experience in SQL, .NET, and enterprise MES systems."
+            tr="Flutter, Firebase ve Python ile gerçek ürünlere liderlik ediyor ve geliştiriyorum — prototip değil. Ceviz Biyoteknoloji’de CTO olarak teknoloji ve ürün çalışmalarına liderlik ediyor; SQL, .NET ve kurumsal MES sistemlerinde uygulamalı deneyim getiriyorum."
+          />
+        </p>
+        <div class="btns">
+          <a class="btn btn--ink" href="https://ismail.ozyurt.dev"><T en="See my work on ismail.ozyurt.dev →" tr="Çalışmalarımı ismail.ozyurt.dev’de gör →" /></a>
+          <a class="btn" href="/contact"><T en="Get in touch" tr="İletişime geç" /></a>
+        </div>
       </div>
+      <figure class="fig portrait">
+        <span class="fig-block" style="background: var(--c1)" aria-hidden="true"></span>
+        <img src="/images/portrait.jpg" width="869" height="928" alt="Portrait of İsmail Özyurt" fetchpriority="high" />
+        <span class="tick tick-h" aria-hidden="true"></span><span class="tick tick-v" aria-hidden="true"></span>
+        <figcaption class="k"><T en="Fig. 01" tr="Şekil 01" /> — <span lang="tr">İsmail Özyurt, Kütahya</span></figcaption>
+      </figure>
     </div>
   </section>
 
-  <!-- Kısa yönlendirmeler -->
-  <section class="section ghost-host">
-    <GhostNumber n="03" />
-    <div class="container directory">
-      <div class="directory-intro">
-        <span class="section-label"><T en="Explore more" tr="Yakından incele" /></span>
-        <h2>
-          <T
-            en="The full picture."
-            tr="Hepsi bir arada."
-          />
-        </h2>
-        <figure class="intro-photo">
-          <img
-            src="/images/selcuk_bayraktar.jpeg"
-            alt="İsmail Özyurt, Selçuk Bayraktar'a Teknofest Kulübü plaketini takdim ederken"
-            width="760"
-            height="900"
-            loading="lazy"
-          />
-        </figure>
+  <section class="wrap tickets-sec" aria-label="Now, before, ahead">
+    <div class="tickets">
+      {tickets.map((t) => (
+        <a class="tk lift" href={t.href}>
+          <span class="tk-stub" style={`background: ${t.color}`}>
+            <span class="disp tk-side"><T t={t.side} /></span>
+            <span class="tk-bars" style={`background: ${t.bars}`} aria-hidden="true"></span>
+          </span>
+          <span class="tk-body">
+            <span class="k"><T t={t.k} /></span>
+            <span class="disp tk-title"><T t={t.title} /></span>
+            <span class="tk-foot"><T t={t.foot} /></span>
+          </span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="wrap sec" aria-labelledby="brief">
+    <div class="sec-head">
+      <h2 id="brief" class="disp sec-title"><T en="About me, in brief" tr="Kısaca ben" /></h2>
+      <p class="k"><T en="01.1 · The person, not the projects" tr="01.1 · Projeler değil, kişi" /></p>
+    </div>
+    <dl class="brief">
+      {brief.map((b) => (
+        <div>
+          <dt class="k"><T t={b.dt} /></dt>
+          <dd><T t={b.dd} />{b.note && <span class="brief-note"><T t={b.note} /></span>}</dd>
+        </div>
+      ))}
+    </dl>
+    <a class="bar-link" href="https://ismail.ozyurt.dev">
+      <span><T en="The apps themselves, screen by screen and layer by layer, are on ismail.ozyurt.dev." tr="Uygulamaların kendisi, ekran ekran ve katman katman, ismail.ozyurt.dev’de." /></span>
+      <strong><T en="Open the portfolio →" tr="Portfolyoyu aç →" /></strong>
+    </a>
+  </section>
+
+  <section class="wrap sec" aria-labelledby="building">
+    <div class="sec-head">
+      <h2 id="building" class="disp sec-title"><T en="What I’m building" tr="Üzerinde çalıştıklarım" /></h2>
+      <p class="k">02</p>
+    </div>
+    <div class="building">
+      {building.map((b) => (
+        <article>
+          <p class="disp building-n" style={`color: ${b.color}`} aria-hidden="true">{b.n}</p>
+          <p class="k"><T t={b.k} /></p>
+          <h3 class="disp building-h" lang={b.hLang}><T t={b.h} /></h3>
+          <p class="muted"><T t={b.p} /></p>
+          <a class="ulink" href={b.href}><T t={b.link} /></a>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="wrap sec" aria-labelledby="picture">
+    <div class="sec-head">
+      <h2 id="picture" class="disp sec-title"><T en="The full picture." tr="Hepsi bir arada." /></h2>
+      <p class="k"><T en="03 · Explore more" tr="03 · Yakından incele" /></p>
+    </div>
+    <div class="tiles">
+      {tiles.map((t, i) => (
+        <a class="tile lift" href={t.href} style={`background: ${t.color}`}>
+          <span class="tile-top"><span class="disp tile-n">{String(i + 1).padStart(2, '0')}</span><span aria-hidden="true" class="tile-arr">→</span></span>
+          <span class="tile-bottom"><span class="disp tile-t"><T t={t.t} /></span><span class="tile-d"><T t={t.d} /></span></span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="sister" aria-labelledby="sister">
+    <div class="wrap sister-row">
+      <div class="sister-text">
+        <p class="k" style="color: var(--lime)"><T en="Next door" tr="Kapı komşusu" /> · <span lang="en">ismail.ozyurt.dev</span></p>
+        <h2 id="sister" class="disp sister-h"><T en="The apps have their own address." tr="Uygulamaların kendi adresi var." /></h2>
+        <p class="sister-p">
+          <T en="Eleven projects, from Ceviz Flow to an astronomy-camera driver, each with its own colour. This site tells the story; that one shows the work."
+             tr="Ceviz Flow’dan bir astronomi kamerası sürücüsüne on bir proje, her biri kendi renginde. Bu site hikâyeyi anlatıyor; o site işin kendisini gösteriyor." />
+        </p>
       </div>
-      <nav class="directory-links" aria-label="Sections">
-        <a href="/experience" class="dir-row">
-          <span class="dir-num">01</span>
-          <span class="dir-name"><T en="Experience" tr="Deneyim" /></span>
-          <span class="dir-desc mono"><T en="Timeline of work & research" tr="İş ve araştırma zaman çizelgesi" /></span>
-        </a>
-        <a href="/projects" class="dir-row">
-          <span class="dir-num">02</span>
-          <span class="dir-name"><T en="Projects" tr="Projeler" /></span>
-          <span class="dir-desc mono"><T en="Ceviz, Birth Adventure & more" tr="Ceviz, Birth Adventure ve daha fazlası" /></span>
-        </a>
-        <a href="/portfolio" class="dir-row">
-          <span class="dir-num">03</span>
-          <span class="dir-name"><T en="Portfolio" tr="Portfolyo" /></span>
-          <span class="dir-desc mono"><T en="Websites I've built & shipped" tr="Yaptığım ve yayınladığım siteler" /></span>
-        </a>
-        <a href="/leadership" class="dir-row">
-          <span class="dir-num">04</span>
-          <span class="dir-name"><T en="Leadership" tr="Liderlik" /></span>
-          <span class="dir-desc mono"><T en="Teknofest Club, Deneyap, T3, ÜNİDES" tr="Teknofest Topluluğu, Deneyap, T3, ÜNİDES" /></span>
-        </a>
-        <a href="/goals" class="dir-row">
-          <span class="dir-num">05</span>
-          <span class="dir-name"><T en="Goals" tr="Hedefler" /></span>
-          <span class="dir-desc mono"><T en="What keeps me building" tr="Beni üretmeye iten şey" /></span>
-        </a>
-        <a href="/cv" class="dir-row">
-          <span class="dir-num">06</span>
-          <span class="dir-name"><T en="CV" tr="Özgeçmiş" /></span>
-          <span class="dir-desc mono"><T en="Full résumé, web & print" tr="Tam özgeçmiş, web ve baskı" /></span>
-        </a>
-      </nav>
+      <div class="sister-end">
+        <div class="pills" aria-hidden="true">{pills.map((c) => <span style={`background: var(${c})`}></span>)}</div>
+        <a class="btn btn--lime" href="https://ismail.ozyurt.dev"><T en="Open ismail.ozyurt.dev" tr="ismail.ozyurt.dev’i aç" /> <span aria-hidden="true">↗</span></a>
+      </div>
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  .feature-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-md);
-  }
-  /* Hover, .exp-item/.leadership-item/.proj-row ile ortak — global.css'te. */
-  .feature {
-    padding: var(--space-lg);
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+  .hero { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 40px 56px; }
+  .hero-text { flex: 1 1 600px; min-width: 0; display: flex; flex-direction: column; gap: 28px; }
+  .hero-lede { max-width: 620px; }
+  .portrait { flex: 0 1 400px; min-width: 260px; margin-inline: auto; }
+  .portrait img { aspect-ratio: 869 / 928; }
+  .tick { position: absolute; background: var(--ink); }
+  .tick-h { left: -14px; top: 18px; width: 14px; height: 1px; }
+  .tick-v { left: 0; top: 4px; width: 1px; height: 14px; }
+
+  .tickets-sec { padding-bottom: clamp(56px, 6vw, 88px); }
+  .tickets { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr)); gap: 16px; }
+  .tk { display: flex; min-height: 150px; border: 1.5px solid var(--ink); background: var(--card); text-decoration: none; }
+  .tk-stub {
+    flex: 0 0 88px;
     display: flex;
     flex-direction: column;
-    gap: var(--space-sm);
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 0;
+    border-right: 2px dashed var(--ink);
   }
-  .feature-index {
-    font-family: var(--font-body);
-    font-size: var(--fs-label);
-    letter-spacing: 0.14em;
-    color: var(--accent);
-  }
-  .feature-title { font-size: var(--fs-h3); }
-  .feature-lead { margin-bottom: var(--space-2xs); }
-  .feature p { color: var(--text-body); }
-  .feature-link {
-    margin-top: auto;
-    padding-top: var(--space-md);
-    align-self: flex-start;
-  }
+  .tk-side { font-size: 15px; letter-spacing: 0.08em; }
+  .tk-bars { width: 44px; height: 44px; }
+  .tk-body { flex: 1; display: flex; flex-direction: column; justify-content: space-between; gap: 10px; padding: 18px 20px; }
+  .tk-title { font-size: 26px; line-height: 0.95; letter-spacing: -0.02em; }
+  .tk-foot { font-weight: 600; font-size: 15px; transition: transform 0.3s; }
+  .tk:hover .tk-foot { transform: translateX(4px); }
 
-  .directory {
+  .brief {
     display: grid;
-    grid-template-columns: 0.8fr 1.2fr;
-    gap: var(--space-xl);
-    align-items: start;
+    grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+    border-top: 1.5px solid var(--ink);
+    border-left: 1.5px solid var(--ink);
+    background: var(--card);
   }
-  .directory-intro h2 { max-width: 14ch; }
-  .intro-photo {
-    margin-top: var(--space-xl);
-    max-width: 360px;
-  }
-  .intro-photo img {
-    display: block;
-    width: 100%;
-    height: auto;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-  }
-  .directory-links {
+  .brief > div {
     display: flex;
     flex-direction: column;
-    border-top: 1px solid var(--border);
+    gap: 8px;
+    padding: 20px 22px;
+    border-right: 1.5px solid var(--ink);
+    border-bottom: 1.5px solid var(--ink);
   }
-  .dir-row {
-    display: grid;
-    grid-template-columns: 3rem 1fr;
-    grid-template-areas: 'num name' 'num desc';
-    row-gap: 0.25rem;
-    column-gap: var(--space-md);
-    padding: var(--space-md) 0;
-    border-bottom: 1px solid var(--border-faint);
-    align-items: baseline;
-    transition: padding-left var(--dur) var(--ease);
+  .brief dd { font-weight: 700; font-size: 19px; line-height: 1.35; }
+  .brief-note { display: block; margin-top: 4px; font-weight: 500; font-size: 15px; color: var(--ink-2); }
+  .bar-link {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px 24px;
+    margin-top: 18px;
+    padding: 18px 22px;
+    background: var(--ink);
+    color: var(--paper);
+    font-weight: 600;
+    text-decoration: none;
   }
-  .dir-row:hover { padding-left: 0.75rem; }
-  .dir-num {
-    grid-area: num;
-    font-family: var(--font-body);
-    font-size: var(--fs-small);
-    color: var(--accent);
-  }
-  .dir-name {
-    grid-area: name;
-    font-family: var(--font-display);
-    font-size: var(--fs-h3);
-    color: var(--text-heading);
-  }
-  .dir-desc { grid-area: desc; }
+  .bar-link strong { color: var(--lime); }
+  .bar-link:hover { color: var(--paper); background: var(--blue); }
+  .bar-link:hover strong { color: #FFFFFF; }
 
-  @media (max-width: 820px) {
-    .feature-grid { grid-template-columns: 1fr; }
-    .directory { grid-template-columns: 1fr; gap: var(--space-lg); }
+  .building { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr)); gap: 40px; }
+  .building article { display: flex; flex-direction: column; gap: 14px; }
+  .building-n { font-size: 72px; line-height: 0.8; letter-spacing: -0.05em; mix-blend-mode: multiply; }
+  .building-h { font-size: 30px; line-height: 0.95; letter-spacing: -0.02em; }
+  .building .muted { font-size: 17px; }
+
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 16px; }
+  .tile {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 32px;
+    min-height: 200px;
+    padding: 22px;
+    border: 1.5px solid var(--ink);
+    text-decoration: none;
   }
+  .tile:hover { color: var(--ink); }
+  .tile-top { display: flex; justify-content: space-between; }
+  .tile-n { font-size: 40px; line-height: 0.8; }
+  .tile-arr { font-size: 26px; transition: transform 0.3s; }
+  .tile:hover .tile-arr { transform: translateX(6px); }
+  .tile-bottom { display: flex; flex-direction: column; gap: 6px; }
+  .tile-t { font-size: 30px; line-height: 0.95; }
+  .tile-d { font-weight: 600; font-size: 15px; }
+
+  .sister { background: var(--ink); color: var(--night-text); }
+  .sister-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px 56px;
+    padding-block: clamp(48px, 6vw, 88px);
+  }
+  .sister-text { flex: 1 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 18px; }
+  .sister-h { font-size: clamp(36px, 5vw, 76px); line-height: 0.88; letter-spacing: -0.045em; }
+  @media (max-width: 640px) { .sister-h { font-size: 9.6vw; font-stretch: 82%; } }
+  .sister-p { max-width: 560px; font-size: 18px; color: var(--night-muted); }
+  .sister-end { flex: 0 1 420px; display: flex; flex-direction: column; align-items: flex-start; gap: 20px; }
+  .pills { width: 100%; display: grid; grid-template-columns: repeat(11, minmax(0, 1fr)); gap: 6px; }
+  .pills span { aspect-ratio: 1 / 3; border-radius: 999px; }
+  .sister .btn--lime { border-color: var(--lime); }
+  .sister .btn--lime:hover { background: var(--night-text); color: var(--ink); border-color: var(--night-text); }
 </style>

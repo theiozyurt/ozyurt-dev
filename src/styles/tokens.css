@@ -1,75 +1,58 @@
 /* ============================================================
-   Design tokens — Ceviz Biotech dili
-   Glassmorphism, koyu mod, mavi glow, yumuşak köşeler.
-   (DESIGN_SYSTEM_REALIGNMENT_ADDENDUM.md — Navy+Brass/pixel sisteminin yerine)
+   Design tokens — "kâğıt" (paper) ailesi
+   Kâğıt zemin + grain, mürekkep siyahı, baskı kayması (mavi/pembe),
+   Archivo (display) + Inter (gövde). ismail.ozyurt.dev ile aynı
+   11 renkli şerit: her renk bir projeyi temsil eder.
    ============================================================ */
 
 :root {
-  /* --- Arka planlar --- */
-  --bg-primary: #06090F;          /* Ana zemin */
-  --bg-primary-darker: #0B111C;   /* Daha koyu bölüm zemini */
-  --bg-2: #11192A;                /* Üçüncü katman — kart arkası vb. */
+  /* --- Kâğıt & mürekkep --- */
+  --paper: #F4F4F0;
+  --paper-hover: #E2E3DC;
+  --card: #FFFFFF;
+  --ink: #0B0C10;
+  --ink-2: #3D414A;      /* ikincil metin */
+  --ink-3: #5B606B;      /* soluk metin, alt satırlar */
+  --rule: #B9BBB3;       /* ince çizgi */
 
-  /* --- Cam yüzeyler --- */
-  --surface: rgba(255, 255, 255, 0.035);
-  --surface-strong: rgba(255, 255, 255, 0.06);
+  /* --- Baskı renkleri --- */
+  --blue: #2B50F0;       /* vurgu, linkler */
+  --pink: #FF2E7E;       /* kayma katmanı */
+  --lime: #D9FF4A;       /* sinyal, CTA */
+  --orange: #FF5A2B;
+  --lilac: #B9A7FF;
 
-  /* --- Metin --- */
-  --text-heading: #F0F4FA;
-  --text-body: #A8B2C5;
-  --text-muted: #6B7488;
+  /* --- Gece yüzeyleri (form kartı, koyu bantlar) --- */
+  --night: #0D1016;
+  --night-2: #07080B;
+  --night-line: #2A303B;
+  --night-field: #3A414D;
+  --night-text: #EDEFF2;
+  --night-muted: #C3CAD6;
+  --night-dim: #9AA3B2;
 
-  /* --- Vurgu — mavi aile (bronz DEĞİL) --- */
-  --accent: #6BB7FF;
-  --accent-soft: #88C7FF;
-  --accent-deep: #2C7FD9;
-  --accent-hover: #88C7FF;        /* geriye dönük uyum (eski --accent-hover referansları) */
-  --glow: 107, 183, 255;          /* RGB triplet — rgba(var(--glow), 0.3) gibi kullanılır */
+  /* --- 11 proje rengi (üst şerit, ismail.ozyurt.dev ile ortak) --- */
+  --c1: #5C7CFF;
+  --c2: #FF5A2B;
+  --c3: #B9A7FF;
+  --c4: #D9FF4A;
+  --c5: #5FD3A6;
+  --c6: #C9CCD3;
+  --c7: #FFC53D;
+  --c8: #4DD6C1;
+  --c9: #F7B8D8;
+  --c10: #FF8A66;
+  --c11: #7FD4FF;
 
-  /* --- Kenarlıklar --- */
-  --border: rgba(255, 255, 255, 0.08);
-  --border-strong: rgba(255, 255, 255, 0.16);  /* hover */
-  --border-faint: rgba(255, 255, 255, 0.05);
+  /* --- Tipografi --- */
+  --font-display: 'Archivo', 'Arial Black', Arial, sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
 
-  /* --- Etiketler --- */
-  --tag-bg: rgba(107, 183, 255, 0.12);
-  --tag-text: #F0F4FA;
+  /* --- Yerleşim --- */
+  --max: 1320px;
+  --pad: clamp(16px, 3.4vw, 48px);
 
-  /* --- Köşe yarıçapları --- */
-  --radius-sm: 8px;   /* butonlar, tag'ler, küçük öğeler */
-  --radius-md: 16px;  /* kartlar */
-  --radius-lg: 20px;  /* büyük yüzeyler */
-
-  /* --- Typography --- */
-  --font-display: 'Bricolage Grotesque', system-ui, sans-serif; /* Başlıklar */
-  --font-body: 'Manrope', system-ui, -apple-system, sans-serif; /* Gövde + etiketler */
-  --font-serif: 'Instrument Serif', Georgia, serif;             /* Opsiyonel dramatik vurgu */
-  --font-mono: 'Geist Mono', ui-monospace, monospace;           /* SADECE splash ekranı */
-
-  /* --- Spacing scale --- */
-  --space-2xs: 0.25rem;
-  --space-xs: 0.5rem;
-  --space-sm: 0.75rem;
-  --space-md: 1.25rem;
-  --space-lg: 2rem;
-  --space-xl: 3.5rem;
-  --space-2xl: 5.5rem;
-  --space-3xl: 8rem;
-
-  /* --- Layout --- */
-  --max-width: 1180px;
-  --gutter: clamp(1.25rem, 5vw, 4rem);
-
-  /* --- Type scale (fluid) --- */
-  --fs-display: clamp(2.6rem, 6vw, 4.75rem);
-  --fs-h1: clamp(2.1rem, 4.5vw, 3.4rem);
-  --fs-h2: clamp(1.6rem, 3vw, 2.35rem);
-  --fs-h3: clamp(1.25rem, 2vw, 1.55rem);
-  --fs-body: clamp(1rem, 1.05vw, 1.12rem);
-  --fs-small: 0.8125rem;
-  --fs-label: 0.72rem;
-
-  /* --- Motion --- */
-  --ease: cubic-bezier(0.2, 0.6, 0.2, 1);
-  --dur: 180ms;
+  /* --- Hareket --- */
+  --ease: cubic-bezier(0.2, 0.9, 0.2, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 }

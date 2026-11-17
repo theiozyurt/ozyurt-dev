@@ -1,0 +1,10 @@
+{
+  "_note": "Proje listesi görünümü için: renk (ismail.ozyurt.dev ile aynı), küçük görsel ya da tek satırlık bilgi. Metinler projects.json'da.",
+  "ceviz-flow": { "c": "var(--c1)", "img": "/images/projects/thumbs/ceviz-flow.jpg", "pos": "center 30%" },
+  "mai-experimental-animal-analysis": { "c": "var(--c5)", "img": "/images/projects/thumbs/mai.jpg", "pos": "center" },
+  "white-noise-experiment-system": { "c": "var(--c6)", "img": "/images/projects/thumbs/white-noise.jpg", "pos": "top" },
+  "dmk22auc03-macos-driver": { "c": "var(--c7)", "fact": { "en": "744 × 480 Mono8, verified on an M5 Mac", "tr": "744 × 480 Mono8, M5 Mac’te doğrulandı" } },
+  "gural-personel-bilgi-sistemi": { "c": "var(--c9)", "img": "/images/projects/gural_porselen/1755007116081.jpeg", "pos": "center 20%" },
+  "motivasyon-adam": { "c": "var(--c10)", "fact": { "en": "Every step moves the game forward", "tr": "Her adım oyunu ilerletir" }, "lang": "tr" },
+  "hmd-face-tracking": { "c": "var(--c11)", "fact": { "en": "dlib · OpenCV · VGG Face", "tr": "dlib · OpenCV · VGG Face" } }
+}

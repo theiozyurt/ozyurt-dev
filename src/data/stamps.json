@@ -1,0 +1,24 @@
+{
+  "teknofest-club": {
+    "ink": "#E0246B", "rot": -9,
+    "ring": { "en": "KSBÜ TEKNOFEST CLUB • SINCE 2024 • ", "tr": "KSBÜ TEKNOFEST TOPLULUĞU • 2024’TEN BERİ • " },
+    "center": { "en": ["FOUNDING", "PRESIDENT"], "tr": ["KURUCU", "BAŞKAN"] },
+    "stat": "38",
+    "statLabel": { "en": "participants on the club’s summit trip", "tr": "katılımcı, topluluğun zirve gezisinde" }
+  },
+  "deneyap": {
+    "ink": "#2B50F0", "rot": 7,
+    "ring": { "en": "DENEYAP TECHNOLOGY WORKSHOPS • SINCE 2024 • ", "tr": "DENEYAP TEKNOLOJİ ATÖLYELERİ • 2024’TEN BERİ • " },
+    "center": { "en": ["TECHNICAL", "MENTOR"], "tr": ["TEKNİK", "MENTOR"] }
+  },
+  "t3": {
+    "ink": "#D9480F", "rot": -4,
+    "ring": { "en": "T3 FOUNDATION • SEN GELECEKSİN • SINCE 2024 • ", "tr": "T3 VAKFI • SEN GELECEKSİN • 2024’TEN BERİ • " },
+    "center": { "en": ["SCHOLAR", "× 2"], "tr": ["BURSİYER", "× 2"] }
+  },
+  "unides": {
+    "ink": "#0E7C66", "rot": 10,
+    "ring": { "en": "ÜNİDES • MINISTRY OF YOUTH & SPORTS • 2025 • ", "tr": "ÜNİDES • GENÇLİK VE SPOR BAKANLIĞI • 2025 • " },
+    "center": { "en": ["PROJECT", "COORDINATOR"], "tr": ["PROJE", "KOORDİNATÖRÜ"] }
+  }
+}

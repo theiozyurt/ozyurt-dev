@@ -129,6 +129,7 @@
   },
   {
     "slug": "birth-adventure",
+    "hidden": true,
     "title": { "en": "Birth Adventure", "tr": "Birth Adventure" },
     "period": { "en": "2025", "tr": "2025" },
     "award": { "en": "Bronze Medal — 1IDEA 1WORLD International Competition", "tr": "Bronz Madalya — 1IDEA 1WORLD Uluslararası Yarışması" },

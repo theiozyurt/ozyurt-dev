@@ -1,34 +1,31 @@
 ---
-// Çift dil geçişi. JS, BaseLayout içinde global olarak dinleniyor.
+// Çift dil geçişi. Tıklama BaseLayout içinde global olarak dinleniyor.
 ---
-<div class="lang-toggle" role="group" aria-label="Language / Dil">
+<div class="lang" role="group" aria-label="Language / Dil">
   <button type="button" data-lang-set="en" aria-pressed="true">EN</button>
-  <span class="lang-sep" aria-hidden="true">/</span>
-  <button type="button" data-lang-set="tr" aria-pressed="false">TR</button>
+  <button type="button" data-lang-set="tr" aria-pressed="false" lang="tr">TR</button>
 </div>
 
 <style>
-  .lang-toggle {
+  .lang {
+    display: flex;
+    gap: 2px;
+    padding: 2px;
+    border: 1.5px solid var(--ink);
+    border-radius: 999px;
+  }
+  .lang button {
     display: inline-flex;
     align-items: center;
-    gap: 0.35rem;
-    font-family: var(--font-body);
-    font-size: var(--fs-label);
-    letter-spacing: 0.12em;
-  }
-  .lang-toggle button {
-    background: none;
-    border: none;
-    color: var(--text-muted);
-    font: inherit;
-    letter-spacing: inherit;
-    padding: 0.2rem 0.15rem;
+    min-height: 40px;
+    padding: 0 12px;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--ink);
+    font: 700 13px/1 var(--font-body);
     cursor: pointer;
-    transition: color var(--dur) var(--ease);
   }
-  .lang-toggle button:hover { color: var(--text-body); }
-  .lang-toggle button[aria-pressed='true'] {
-    color: var(--accent);
-  }
-  .lang-sep { color: var(--border); }
+  .lang button:hover { background: var(--paper-hover); }
+  .lang button[aria-pressed='true'] { background: var(--ink); color: var(--paper); }
 </style>

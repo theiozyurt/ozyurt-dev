@@ -1,120 +1,87 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import T from '../../components/T.astro';
-import Cta from '../../components/Cta.astro';
-import GhostNumber from '../../components/GhostNumber.astro';
+import PrintTitle from '../../components/PrintTitle.astro';
 import Gallery from '../../components/Gallery.astro';
+import T from '../../components/T.astro';
 import experience from '../../data/experience.json';
 
 export function getStaticPaths() {
-  // Kendi dış linki (ör. Ceviz vaka çalışması) olan girdiler ayrı detay
-  // sayfası üretmez; diğer tüm deneyimler /experience/[slug] alır.
-  return experience
-    .filter((item) => !item.link)
-    .map((item, i) => ({
-      params: { slug: item.slug },
-      props: { item, n: experience.indexOf(item) + 1 },
-    }));
+  const withSlug = experience.filter((e: any) => e.slug);
+  return withSlug.map((item: any, i: number) => ({
+    params: { slug: item.slug },
+    props: { item, next: withSlug[(i + 1) % withSlug.length] },
+  }));
 }
 
-const { item, n } = Astro.props;
+const { item, next } = Astro.props as any;
 const bi = (v: any) => (typeof v === 'string' ? { en: v, tr: v } : v);
-const org = bi(item.org);
+const role = bi(item.role);
+const points = (item.points ?? []).map(bi);
+const color: Record<string, string> = { 'ml-research': 'var(--c5)', gurok: 'var(--c8)', gural: 'var(--c9)', salerno: 'var(--c11)' };
 ---
 
 <BaseLayout
   path={`/experience/${item.slug}`}
-  title={org.en}
+  title={`${role.en} — ${bi(item.org).en}`}
+  sheet="02"
   description={bi(item.summary).en}
+  descriptionTr={bi(item.summary).tr}
 >
-  <header class="exp-head section ghost-host">
-    <GhostNumber n={String(n).padStart(2, '0')} />
-    <div class="container">
-      <a href="/experience" class="back-link mono">← <T en="Back to experience" tr="Deneyimlere dön" /></a>
-      <span class="mono exp-period"><T t={bi(item.period)} /></span>
-      <h1 class="exp-title"><T t={org} /></h1>
-      <p class="exp-role mono"><T t={bi(item.role)} /> · <T t={bi(item.kind)} /></p>
+  <section class="wrap sheet">
+    <div class="sheet-row">
+      <a class="back k" href="/experience">← <T en="Sheet 02 · Experience" tr="Sayfa 02 · Deneyim" /></a>
+      <p class="k"><T t={bi(item.kind)} /></p>
     </div>
-  </header>
-
-  <section class="section">
-    <div class="container exp-narrow">
-      <p class="exp-summary"><T t={bi(item.summary)} /></p>
-
-      {item.points && item.points.length > 0 && (
-        <ul class="exp-points">
-          {item.points.map((p) => (
-            <li><T t={bi(p)} /></li>
-          ))}
-        </ul>
-      )}
-
-      {item.tags && item.tags.length > 0 && (
-        <ul class="exp-tags" aria-label="Tools">
-          {item.tags.map((t) => <li class="tag tag--ghost">{t}</li>)}
-        </ul>
-      )}
-
-      {item.report && (
-        <a href={item.report.href} download class="report-download">
-          <T t={bi(item.report.label)} />
-        </a>
-      )}
-
-      <Gallery images={item.gallery} />
+    <div class="detail-intro">
+      <div class="detail-intro-text">
+        <p class="cond period" style={`--c: ${color[item.id] ?? 'var(--c6)'}`}><span class="swatch" aria-hidden="true"></span><T t={bi(item.period)} /></p>
+        <PrintTitle en={role.en} tr={role.tr} size="clamp(44px, 6.4vw, 104px)" />
+        <p class="detail-sub"><T t={bi(item.org)} /></p>
+      </div>
     </div>
   </section>
 
-  <section class="section section--darker">
-    <div class="container cta-band">
-      <Cta href="/experience" variant="secondary"><T en="Back to experience" tr="Deneyime dön" /></Cta>
-      <Cta href="/contact" variant="primary" cursor><T en="Get in touch" tr="İletişime geç" /></Cta>
+  <section class="wrap sec">
+    <div class="detail">
+      <div class="detail-main">
+        <p class="detail-summary"><T t={bi(item.summary)} /></p>
+        {points.length > 0 && (
+          <ol class="plain outcome-list">
+            {points.map((p: any, i: number) => (
+              <li><span class="cond outcome-n">{String(i + 1).padStart(2, '0')}</span><span><T t={p} /></span></li>
+            ))}
+          </ol>
+        )}
+        {item.report && (
+          <a class="btn btn--ink report" href={item.report.href} download>↓ <T t={bi(item.report.label)} /></a>
+        )}
+        {item.gallery?.length > 0 && <Gallery images={item.gallery} />}
+      </div>
+      <dl class="facts">
+        <div><dt class="k"><T en="Role" tr="Rol" /></dt><dd><T t={role} /></dd></div>
+        <div><dt class="k"><T en="Organization" tr="Kurum" /></dt><dd><T t={bi(item.org)} /></dd></div>
+        <div><dt class="k"><T en="Period" tr="Dönem" /></dt><dd><T t={bi(item.period)} /></dd></div>
+        {item.tags?.length > 0 && (
+          <div><dt class="k"><T en="Stack & focus" tr="Teknoloji & odak" /></dt><dd class="chips">{item.tags.map((t: string) => <span class="chip">{t}</span>)}</dd></div>
+        )}
+      </dl>
+    </div>
+  </section>
+
+  <section class="wrap sec">
+    <div class="next-row">
+      <a class="btn" href="/experience">← <T en="Full timeline" tr="Tüm zaman çizelgesi" /></a>
+      <a class="ulink" href={`/experience/${next.slug}`}><T en="Next:" tr="Sıradaki:" />&nbsp;<T t={bi(next.org)} /> →</a>
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  .exp-head { border-top: none; padding-bottom: var(--space-lg); }
-  .back-link { display: inline-block; margin-bottom: var(--space-lg); color: var(--text-muted); }
-  .back-link:hover { color: var(--accent); }
-  .exp-period { display: block; margin-bottom: var(--space-sm); }
-  .exp-title { font-size: var(--fs-display); margin-bottom: var(--space-sm); }
-  .exp-role { color: var(--accent); }
-  .exp-narrow { max-width: 760px; }
-  .exp-summary { font-size: 1.2rem; color: var(--text-body); }
-  .exp-points {
-    list-style: none;
-    margin-top: var(--space-lg);
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
-  }
-  .exp-points li {
-    position: relative;
-    padding-left: 1.25rem;
-    color: var(--text-body);
-  }
-  .exp-points li::before { content: '—'; position: absolute; left: 0; color: var(--accent); }
-  .exp-tags {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
-    margin-top: var(--space-lg);
-  }
-  .report-download {
-    display: inline-flex;
-    align-items: center;
-    margin-top: var(--space-xl);
-    padding: 12px 24px;
-    border-radius: var(--radius-sm);
-    background: var(--surface);
-    border: 1px solid var(--border);
-    font-weight: 600;
-    font-size: 14px;
-    color: var(--accent);
-    transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease);
-  }
-  .report-download:hover { background: var(--surface-strong); border-color: var(--border-strong); }
-  .cta-band { display: flex; gap: var(--space-md); flex-wrap: wrap; }
+  .period { display: inline-flex; align-items: center; gap: 12px; font-size: 22px; line-height: 1; }
+  .swatch { width: 28px; height: 28px; border: 3px solid var(--ink); border-radius: 50%; background: var(--c); }
+  .outcome-list { display: grid; gap: 12px; }
+  .outcome-list li { display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 10px; font-size: 17px; line-height: 1.6; }
+  .outcome-n { font-size: 19px; color: var(--ink-2); }
+  .report { align-self: flex-start; }
+  .facts .chips { padding-top: 4px; }
 </style>

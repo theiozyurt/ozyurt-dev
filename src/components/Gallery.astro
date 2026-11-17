@@ -1,81 +1,45 @@
 ---
 /**
- * Paylaşılan galeri bölümü — /projects/[slug], /experience/[slug] ve
- * /leadership/[slug] sayfalarının altında kullanılır.
- * Görsel varsa keskin köşeli bir grid, yoksa placeholder gösterir.
+ * Paylaşılan galeri — /projects/[slug], /experience/[slug], /leadership/[slug]
+ * ve Ceviz vaka sayfasında kullanılır. Görsel yoksa hiçbir şey basmaz.
+ * Tıklanınca BaseLayout'taki Lightbox açılır (data-lightbox-group).
  */
 import T from './T.astro';
 
 interface Props {
   images?: string[];
-  heading?: string;
+  heading?: { en: string; tr: string };
+  phone?: boolean;   // telefon ekran görüntüleri: dar ve uzun karolar
 }
-const { images = [], heading = '[ GALLERY ]' } = Astro.props;
+const { images = [], heading = { en: 'Gallery', tr: 'Galeri' }, phone = false } = Astro.props;
 ---
-<div class="entry-gallery">
-  <h3 class="gallery-heading mono">{heading}</h3>
-  {images.length > 0 ? (
-    <div class="gallery-grid" data-lightbox-group>
-      {images.map((img) => (
-        <button class="gallery-item" type="button" data-lightbox aria-label="Görseli büyüt">
-          <img src={img} alt="" loading="lazy" />
+{images.length > 0 && (
+  <div class="gallery">
+    <p class="k gallery-k"><T t={heading} /> · {String(images.length).padStart(2, '0')}</p>
+    <div class:list={['grid', { phone }]} data-lightbox-group>
+      {images.map((img, i) => (
+        <button class="item" type="button" data-lightbox aria-label={`Open image ${i + 1} / Görsel ${i + 1}`}>
+          <img src={img} alt="" loading="lazy" decoding="async" />
         </button>
       ))}
     </div>
-  ) : (
-    <div class="gallery-placeholder mono">
-      <T en="Images coming soon" tr="Görseller yakında eklenecek" />
-    </div>
-  )}
-</div>
+  </div>
+)}
 
 <style>
-  .entry-gallery { margin-top: var(--space-xl); }
-  .gallery-heading {
-    font-size: var(--fs-label);
-    letter-spacing: 0.14em;
-    color: var(--accent);
-    text-transform: uppercase;
-    margin-bottom: var(--space-md);
-  }
-  .gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 16px;
-    margin-top: 24px;
-  }
-  .gallery-item {
+  .gallery { display: flex; flex-direction: column; gap: 14px; }
+  .gallery-k { padding-top: 14px; border-top: 1.5px solid var(--ink); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(220px, 100%), 1fr)); gap: 12px; }
+  .grid.phone { grid-template-columns: repeat(auto-fill, minmax(min(150px, 45%), 1fr)); }
+  .item {
     display: block;
-    width: 100%;
-    aspect-ratio: 4 / 3;
-    overflow: hidden;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
     padding: 0;
-    background: none;
-    cursor: pointer;
+    border: 1.5px solid var(--ink);
+    background: var(--card);
+    cursor: zoom-in;
+    overflow: hidden;
   }
-  .gallery-item:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-  }
-  .gallery-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    /* keskin köşe kuralı — proje/etkinlik görsellerinde yuvarlatma yok */
-    filter: grayscale(10%);
-    transition: filter 0.3s var(--ease), transform 0.3s var(--ease);
-  }
-  .gallery-item:hover img {
-    filter: grayscale(0%);
-    transform: scale(1.03);
-  }
-  .gallery-placeholder {
-    border: 1px dashed var(--border);
-    padding: 40px;
-    text-align: center;
-    color: var(--text-muted);
-    font-size: 13px;
-  }
+  .item img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; transition: transform 0.4s var(--ease); }
+  .grid.phone .item img { aspect-ratio: 9 / 19.5; object-position: top; }
+  .item:hover img { transform: scale(1.03); }
 </style>

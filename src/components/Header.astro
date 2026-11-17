@@ -1,0 +1,121 @@
+---
+import site from '../data/site.json';
+import T from './T.astro';
+import LangToggle from './LangToggle.astro';
+
+interface Props {
+  path?: string;
+}
+const { path = '' } = Astro.props;
+
+function isActive(href: string) {
+  if (href === '/') return path === '/' || path === '';
+  return path === href || path.startsWith(href + '/');
+}
+const stripe = ['--c1', '--c2', '--c3', '--c4', '--c5', '--c6', '--c7', '--c8', '--c9', '--c10', '--c11'];
+---
+<header class="hdr">
+  <div class="stripe" aria-hidden="true">
+    {stripe.map((c) => <span style={`background: var(${c})`}></span>)}
+  </div>
+  <div class="wrap hdr-row">
+    <a class="brand" href="/" aria-label="İsmail Özyurt — ozyurt.dev">
+      <span class="disp brand-name" lang="tr">İsmail Özyurt</span><span class="brand-dot">.dev</span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a class="nv nv-apps" href="https://ismail.ozyurt.dev"><T en="Apps" tr="Uygulamalar" /> ↗</a>
+      {site.nav.map((n) => (
+        <a
+          href={n.href}
+          class:list={['nv', { on: isActive(n.href) }]}
+          aria-current={isActive(n.href) ? 'page' : undefined}
+        >
+          <T en={n.en} tr={n.tr} />
+        </a>
+      ))}
+    </nav>
+    <div class="hdr-end">
+      <LangToggle />
+      <a class="btn btn--lime btn--sm apps" href="https://ismail.ozyurt.dev">
+        <T en="Apps" tr="Uygulamalar" /> <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<style>
+  .stripe { display: flex; height: 8px; }
+  .stripe span { flex: 1; }
+
+  .hdr-row {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 8px 24px;
+    padding-block: 14px;
+    border-bottom: 1.5px solid var(--ink);
+  }
+
+  .brand {
+    display: flex;
+    align-items: baseline;
+    gap: 2px;
+    min-height: 44px;
+    padding-top: 10px;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .brand-name { font-size: 20px; letter-spacing: -0.02em; }
+  .brand-dot { font-weight: 700; font-size: 15px; color: var(--blue); }
+  .brand:hover .brand-name { color: var(--blue); }
+
+  .nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 2px;
+  }
+  .nv {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 13px;
+    border-radius: 999px;
+    color: var(--ink);
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .nv:hover { background: var(--paper-hover); color: var(--ink); }
+  .nv.on { background: var(--ink); color: var(--paper); }
+
+  .hdr-end { display: flex; align-items: center; gap: 10px; }
+  .apps { white-space: nowrap; }
+
+  /* Dar ekran: menü ikinci satıra iner ve yatay kayar (sarılıp sayfayı itmez) */
+  @media (max-width: 1180px) {
+    .hdr-row { grid-template-columns: 1fr auto; }
+    .nav {
+      grid-column: 1 / -1;
+      grid-row: 2;
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      overflow-x: auto;
+      margin-inline: calc(var(--pad) * -1);
+      padding-inline: var(--pad);
+      scrollbar-width: none;
+      -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 var(--pad), #000 calc(100% - var(--pad)), transparent 100%);
+              mask-image: linear-gradient(90deg, transparent 0, #000 var(--pad), #000 calc(100% - var(--pad)), transparent 100%);
+    }
+    .nav::-webkit-scrollbar { display: none; }
+  }
+  .nv-apps { display: none; }
+  @media (max-width: 600px) {
+    .brand-name { font-size: 17px; }
+    .hdr-end .apps { display: none; }
+    .nv-apps { display: inline-flex; gap: 6px; order: -1; background: var(--lime); border: 1.5px solid var(--ink); font-weight: 700; }
+    .nv-apps:hover { background: var(--ink); color: var(--lime); }
+  }
+</style>

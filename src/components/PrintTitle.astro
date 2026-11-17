@@ -1,0 +1,68 @@
+---
+/**
+ * Baskı kayması başlığı: mavi ve pembe katmanlar siyah metnin altında
+ * hafifçe kaymış durur ve sayfa açılırken yerine oturur.
+ * Her dilin yazı boyutu, en uzun kelimesi başlığın genişliğine sığacak
+ * şekilde sınırlanır (kelimeler asla ortadan bölünmez).
+ */
+import { widestWord } from '../lib/fit';
+
+interface Props {
+  en: string;
+  tr?: string;
+  enLang?: 'en' | 'tr';  // İngilizce metin Türkçe özel isimse (ör. Ceviz Biyoteknoloji)
+  as?: 'h1' | 'h2' | 'p';
+  size?: string;         // istenen en büyük font-size (CSS)
+  class?: string;
+  id?: string;
+}
+const { en, tr = en, enLang = 'en', as: Tag = 'h1', size = 'clamp(52px, 7.6vw, 124px)', class: cls = '', id } = Astro.props;
+
+const vars = [
+  `--fs: ${size}`,
+  `--tw-en: ${widestWord(en, enLang, -0.05)}`,
+  `--tw-tr: ${widestWord(tr, 'tr', -0.05)}`,
+  `--tw-en-n: ${widestWord(en, enLang, -0.035, true)}`,
+  `--tw-tr-n: ${widestWord(tr, 'tr', -0.035, true)}`,
+].join('; ');
+const layers = [
+  { cls: 'pc pc-b', hidden: true, fx: '48px', fy: '-26px' },
+  { cls: 'pc pc-p', hidden: true, fx: '-40px', fy: '22px' },
+  { cls: 'pc-k', hidden: false, fx: '8px', fy: '6px' },
+];
+---
+<Tag class:list={['disp', 'print', cls]} style={vars} id={id}>
+  {layers.map((l) => (
+    <span class={l.cls} aria-hidden={l.hidden ? 'true' : undefined}>
+      <span class="dr l-en" data-lang="en" lang={enLang === 'tr' ? 'tr' : undefined} style={`--fx: ${l.fx}; --fy: ${l.fy}`}>{en}</span>
+      <span class="dr l-tr" data-lang="tr" lang="tr" style={`--fx: ${l.fx}; --fy: ${l.fy}`}>{tr}</span>
+    </span>
+  ))}
+</Tag>
+
+<style>
+  .print {
+    position: relative;
+    isolation: isolate;
+    container-type: inline-size;
+    font-size: var(--fs);
+    line-height: 0.86;
+    letter-spacing: -0.05em;
+  }
+  .pc { position: absolute; left: 0; top: 0; right: 0; mix-blend-mode: multiply; pointer-events: none; }
+  .pc-b { color: var(--blue); transform: translate(-4px, -2px); }
+  .pc-p { color: var(--pink); transform: translate(4px, 3px); }
+  .pc-k { position: relative; display: block; mix-blend-mode: multiply; }
+  .dr { display: block; animation: dr 1.6s var(--ease-out) both; }
+  .l-en { font-size: min(var(--fs), calc(100cqi / var(--tw-en))); }
+  .l-tr { font-size: min(var(--fs), calc(100cqi / var(--tw-tr))); }
+  .l-tr, .l-en:lang(tr) { line-height: 1; }
+  @keyframes dr { from { transform: translate(var(--fx), var(--fy)); } to { transform: translate(0, 0); } }
+  /* Dar ekran: biraz daralt (wdth 80) ve vw ile sınırla */
+  @media (max-width: 640px) {
+    .print { font-stretch: 80%; letter-spacing: -0.035em; }
+    .l-en { font-size: min(var(--fs), 12vw, calc(100cqi / var(--tw-en-n))); }
+    .l-tr { font-size: min(var(--fs), 12vw, calc(100cqi / var(--tw-tr-n))); }
+  }
+  @media (prefers-reduced-motion: reduce) { .dr { animation: none; } }
+</style>

@@ -1,81 +1,207 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PrintTitle from '../components/PrintTitle.astro';
 import T from '../components/T.astro';
-import Cta from '../components/Cta.astro';
-import GhostNumber from '../components/GhostNumber.astro';
-import PixelField from '../components/PixelField.astro';
-import PageBackground from '../components/PageBackground.astro';
+
+const rings = [
+  { id: 'build', c: 'var(--lime)', label: { en: 'Build', tr: 'Geliştir' }, items: [
+    { href: '/projects/ceviz', t: { en: 'Ceviz App and Ceviz Viewer & Converter, shipped and maintained as CTO', tr: 'Ceviz App ve Ceviz Viewer & Converter: CTO olarak yayınladım ve sürdürüyorum' } },
+    { href: '/projects/ceviz-flow', t: { en: 'Ceviz Flow, a clinical & research platform, as product lead', tr: 'Ceviz Flow: klinik ve araştırma platformu, ürün lideri olarak' } },
+    { href: '/projects/dmk22auc03-macos-driver', t: { en: 'A native Apple Silicon driver for an astronomy camera, solo', tr: 'Bir astronomi kamerası için yerel Apple Silicon sürücüsü, tek başıma' } },
+  ] },
+  { id: 'lead', c: 'var(--orange)', label: { en: 'Lead', tr: 'Yönet' }, items: [
+    { href: '/experience', t: { en: 'Chief Technology Officer, Ceviz Biyoteknoloji', tr: 'CTO, Ceviz Biyoteknoloji' } },
+    { href: '/leadership/teknofest-club', t: { en: 'Founding President, KSBÜ Teknofest Club', tr: 'Kurucu Başkan, KSBÜ Teknofest Topluluğu' } },
+    { href: '/experience/ml-research', t: { en: 'Algorithm Development Lead, international ML research project', tr: 'Algoritma Geliştirme Lideri, uluslararası makine öğrenmesi araştırma projesi' } },
+  ] },
+  { id: 'learn', c: 'var(--lilac)', label: { en: 'Learn', tr: 'Öğren' }, items: [
+    { href: '/cv', t: { en: 'Third-year Computer Engineering student, Kütahya Health Sciences University', tr: 'Kütahya Sağlık Bilimleri Üniversitesi, Bilgisayar Mühendisliği 3. sınıf' } },
+    { href: '/experience/salerno', t: { en: 'Erasmus+ research internship, University of Salerno', tr: 'Erasmus+ araştırma stajı, Salerno Üniversitesi' } },
+    { href: '/cv', t: { en: 'Complete Flutter Bootcamp with Dart, 2025', tr: 'Complete Flutter Bootcamp with Dart, 2025' } },
+  ] },
+];
 ---
 
 <BaseLayout
-  path="/goals"
   title="Goals"
+  path="/goals"
+  sheet="06"
   description="İsmail Özyurt on where this is going — building things that work end-to-end, and figuring out what shape that takes long-term."
   descriptionTr="Bu işin nereye gittiğine dair düşüncelerim — bir fikri baştan sona gerçek bir ürüne dönüştürmek ve bunun uzun vadede alacağı şekil."
 >
-  <PageBackground motif="trail" />
-
-  <header class="page-head section ghost-host">
-    <GhostNumber n="01" />
-    <PixelField count={14} />
-    <div class="container">
-      <span class="section-label"><T en="Goals" tr="Hedefler" /></span>
-      <h1><T en="Where this is going" tr="Bundan sonrası" /></h1>
+  <section class="wrap sheet">
+    <div class="sheet-row">
+      <p class="k"><T en="Sheet 06 / 08 · Goals" tr="Sayfa 06 / 08 · Hedefler" /></p>
+      <p class="k"><T en="Build · Lead · Learn" tr="Geliştir · Yönet · Öğren" /></p>
     </div>
-  </header>
+    <PrintTitle en="Where this is going" tr="Bundan sonrası" size="clamp(56px, 9.4vw, 152px)" />
+  </section>
 
-  <section class="section">
-    <div class="container">
-      <div class="goals-body">
-      <blockquote class="goals-lead quote-block">
-        <T
-          en="Turning an idea into a real product that people actively use, end to end, is my biggest motivation. It's that act of making that draws me in — in my work at Ceviz Biyoteknoloji and in the projects I run. I'm still figuring out exactly where this journey leads long-term, but I'll keep making, leading, and learning how to get strong teams and projects in sync."
-          tr="Bir fikri baştan sona, insanların aktif olarak kullandığı gerçek bir ürüne dönüştürmek en büyük motivasyon kaynağım. Ceviz Biyoteknoloji'deki çalışmalarımda ve yürüttüğüm projelerde beni çeken ana güç bu üretim sürecidir. Gelecekte bu yolculuğun tam olarak nereye evrileceğini henüz keşfediyor olsam da üretmeye, liderlik yapmaya ve başarılı ekipler ile projeleri nasıl senkronize edeceğimi öğrenmeye odaklanmaya devam edeceğim."
-        />
-      </blockquote>
+  <section class="band" aria-label="Build, lead, learn">
+    <div class="wrap band-row" data-rings>
+      <div class="band-text">
+        <blockquote class="quote">
+          <T
+            en="“Turning an idea into a real product that people actively use, end to end, is my biggest motivation. It’s that act of making that draws me in — in my work at Ceviz Biyoteknoloji and in the projects I run. I’m still figuring out exactly where this journey leads long-term, but I’ll keep making, leading, and learning how to get strong teams and projects in sync.”"
+            tr="“Bir fikri baştan sona, insanların aktif olarak kullandığı gerçek bir ürüne dönüştürmek en büyük motivasyon kaynağım. Ceviz Biyoteknoloji’deki çalışmalarımda ve yürüttüğüm projelerde beni çeken ana güç bu üretim süreci. Bu yolculuğun uzun vadede tam olarak nereye evrileceğini henüz keşfediyor olsam da üretmeye, liderlik yapmaya ve güçlü ekiplerle projeleri nasıl uyum içinde yürüteceğimi öğrenmeye devam edeceğim.”"
+          />
+        </blockquote>
 
-      <p class="goals-pull">
-        <T en="Build. Lead. Learn." tr="Geliştir. Yönet. Öğren." />
-      </p>
+        <div class="ring-btns" role="group" aria-label="Choose a ring">
+          {rings.map((r, i) => (
+            <button type="button" class="ring-btn" data-ring={r.id} aria-pressed={i === 0 ? 'true' : 'false'}>
+              <span class="dot" style={`background: ${r.c}`} aria-hidden="true"></span><T t={r.label} />
+            </button>
+          ))}
+        </div>
 
-      <div class="goals-cta">
-        <Cta href="/projects" variant="primary" cursor>
-          <T en="See what I'm building" tr="Neler geliştirdiğime bak" />
-        </Cta>
-        <Cta href="/contact" variant="secondary">
-          <T en="Get in touch" tr="İletişime geç" />
-        </Cta>
+        <div class="record" aria-live="polite">
+          {rings.map((r, i) => (
+            <div data-record={r.id} hidden={i !== 0}>
+              <p class="k"><T t={r.label} /> · <T en="on the record" tr="kayıtlarda" /></p>
+              <ul class="plain record-list">
+                {r.items.map((it) => (
+                  <li><span class="dot" style={`background: ${r.c}`} aria-hidden="true"></span><a href={it.href}><T t={it.t} /></a></li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
       </div>
+
+      <div class="band-art">
+        <div class="sys" aria-hidden="true">
+          <div class="orbit o-learn" data-orbit="learn"></div>
+          <div class="orbit o-lead" data-orbit="lead"></div>
+          <div class="orbit o-build on" data-orbit="build"></div>
+          <div class="spin s-learn"><span style="background: var(--lilac)"></span></div>
+          <div class="spin s-lead ccw"><span style="background: var(--orange)"></span></div>
+          <div class="spin s-build"><span style="background: var(--lime)"></span></div>
+          <div class="core"><span class="disp"><T en="Now" tr="Şimdi" /></span></div>
+          <span class="disp tag t-learn"><T en="Learn" tr="Öğren" /></span>
+          <span class="disp tag t-lead"><T en="Lead" tr="Yönet" /></span>
+          <span class="disp tag t-build"><T en="Build" tr="Geliştir" /></span>
+        </div>
       </div>
+    </div>
+  </section>
+
+  <section class="wrap sec closing">
+    <p class="disp big">
+      <span data-lang="en"><span>Build.</span> <span class="blue">Lead.</span> <span class="hl"><span class="hl-bg" aria-hidden="true"></span><span class="hl-t">Learn.</span></span></span>
+      <span data-lang="tr" lang="tr"><span>Geliştir.</span> <span class="blue">Yönet.</span> <span class="hl"><span class="hl-bg" aria-hidden="true"></span><span class="hl-t">Öğren.</span></span></span>
+    </p>
+    <div class="btns">
+      <a class="btn btn--ink" href="/projects"><T en="See what I’m building →" tr="Neler geliştirdiğime bak →" /></a>
+      <a class="btn" href="/contact"><T en="Get in touch" tr="İletişime geç" /></a>
     </div>
   </section>
 </BaseLayout>
 
+<script is:inline>
+  (function () {
+    var root = document.querySelector('[data-rings]');
+    if (!root) return;
+    root.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-ring]');
+      if (!b) return;
+      var id = b.getAttribute('data-ring');
+      root.querySelectorAll('[data-ring]').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      root.querySelectorAll('[data-record]').forEach(function (x) { x.hidden = x.getAttribute('data-record') !== id; });
+      root.querySelectorAll('[data-orbit]').forEach(function (x) { x.classList.toggle('on', x.getAttribute('data-orbit') === id); });
+    });
+  })();
+</script>
+
 <style>
-  .page-head { border-top: none; padding-bottom: var(--space-lg); }
-  .goals-body { max-width: 760px; }
-
-  .goals-lead {
-    font-family: var(--font-body);
-    font-size: clamp(1.15rem, 1.8vw, 1.5rem);
-    line-height: 1.5;
-    color: var(--text-heading);
-  }
-
-  .goals-pull {
-    font-family: var(--font-display);
-    font-size: clamp(1.8rem, 4vw, 3rem);
-    font-weight: 600;
-    color: var(--accent);
-    letter-spacing: -0.01em;
-    margin-top: var(--space-xl);
-    max-width: none;
-  }
-
-  .goals-cta {
+  .band { background: var(--blue); color: #FFFFFF; }
+  .band-row {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--space-md);
-    margin-top: var(--space-xl);
+    align-items: center;
+    gap: 40px 64px;
+    padding-block: clamp(48px, 6vw, 96px);
   }
+  .band-text { flex: 1 1 440px; min-width: 0; display: flex; flex-direction: column; gap: 28px; }
+  .quote { font-size: clamp(20px, 1.9vw, 26px); line-height: 1.5; font-weight: 500; }
+
+  .ring-btns { display: flex; flex-wrap: wrap; gap: 10px; }
+  .ring-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 48px;
+    padding: 0 20px;
+    border: 1.5px solid #FFFFFF;
+    border-radius: 999px;
+    background: transparent;
+    color: #FFFFFF;
+    font: 700 15px/1 var(--font-body);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+  .ring-btn:hover, .ring-btn[aria-pressed='true'] { background: #FFFFFF; color: var(--ink); }
+  .ring-btn:focus-visible { outline-color: var(--lime); }
+  .dot { flex: none; width: 12px; height: 12px; border-radius: 50%; outline: 1.5px solid var(--ink); }
+
+  .record { padding: 20px 22px; border-radius: 22px; background: var(--paper); color: var(--ink); }
+  .record-list { margin-top: 12px; display: grid; gap: 8px; }
+  .record-list li { display: grid; grid-template-columns: 20px minmax(0, 1fr); gap: 8px; font-size: 16px; line-height: 1.5; }
+  .record-list .dot { width: 10px; height: 10px; margin-top: 7px; }
+  .record-list a { text-decoration: none; }
+  .record-list a:hover { text-decoration: underline; }
+
+  .band-art { flex: 1 1 440px; min-width: 0; display: flex; justify-content: center; }
+  .sys { position: relative; width: min(560px, 100%); aspect-ratio: 1 / 1; container-type: inline-size; }
+  .orbit { position: absolute; border-radius: 50%; border: 1.5px solid rgba(255, 255, 255, 0.45); transition: border 0.3s; }
+  .orbit.on { border: 3px solid #FFFFFF; }
+  .o-learn, .s-learn { inset: 2%; }
+  .o-lead, .s-lead { inset: 18%; }
+  .o-build, .s-build { inset: 33%; }
+  .spin { position: absolute; animation: spin 40s linear infinite; }
+  .s-lead { animation-duration: 28s; }
+  .s-build { animation-duration: 18s; }
+  .spin.ccw { animation-direction: reverse; }
+  .sys:hover .spin { animation-play-state: paused; }
+  .spin span { position: absolute; left: 50%; top: 0; border-radius: 50%; outline: 2px solid var(--ink); }
+  .s-learn span { width: 6cqw; height: 6cqw; margin: -3cqw 0 0 -3cqw; }
+  .s-lead span { width: 5.4cqw; height: 5.4cqw; margin: -2.7cqw 0 0 -2.7cqw; }
+  .s-build span { width: 4.8cqw; height: 4.8cqw; margin: -2.4cqw 0 0 -2.4cqw; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .core {
+    position: absolute;
+    inset: 42%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #FFFFFF;
+    color: var(--ink);
+  }
+  .core .disp { font-size: max(14px, 3.2cqw); }
+  .tag {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 4px 12px;
+    border: 1.5px solid #FFFFFF;
+    border-radius: 999px;
+    background: var(--blue);
+    font-size: max(12px, 2cqw);
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+  }
+  .t-learn { top: 2%; }
+  .t-lead { top: 18%; }
+  .t-build { top: 33%; }
+
+  .closing { padding-top: clamp(56px, 7vw, 104px); }
+  .big { font-size: clamp(52px, 10vw, 160px); line-height: 0.84; letter-spacing: -0.05em; }
+  .blue { color: var(--blue); }
+  .hl { position: relative; display: inline-block; }
+  .hl-bg { position: absolute; left: -0.04em; right: -0.04em; bottom: 0.06em; height: 0.44em; background: var(--lime); }
+  .hl-t { position: relative; }
+  .closing .btns { margin-top: 40px; }
+  @media (max-width: 640px) { .big { font-size: 13vw; font-stretch: 85%; } }
 </style>

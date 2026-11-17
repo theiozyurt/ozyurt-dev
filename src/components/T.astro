@@ -4,6 +4,7 @@
  * İki dili de DOM'a basar; aktif dili CSS (html[data-lang]) gösterir.
  * Kullanım:  <T en="Hello" tr="Merhaba" />
  * ya da bir alan objesiyle:  <T t={item.title} />  ({ en, tr })
+ * TR metin lang="tr" taşır: büyük harfe çevrilen başlıklarda i → İ doğru olur.
  */
 interface Props {
   en?: string;
@@ -14,4 +15,4 @@ const { en, tr, t } = Astro.props;
 const enText = t?.en ?? en ?? '';
 const trText = t?.tr ?? tr ?? '';
 ---
-<span data-lang="en">{enText}</span><span data-lang="tr">{trText}</span>
+<span data-lang="en">{enText}</span><span data-lang="tr" lang="tr">{trText}</span>

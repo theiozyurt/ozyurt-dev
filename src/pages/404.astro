@@ -1,31 +1,36 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PrintTitle from '../components/PrintTitle.astro';
 import T from '../components/T.astro';
-import Cta from '../components/Cta.astro';
 ---
 
 <BaseLayout path="/404" title="Not found">
-  <section class="section notfound">
-    <div class="container">
-      <span class="section-label">404</span>
-      <h1><T en="This page took a different path." tr="Bu sayfa başka bir yola saptı." /></h1>
-      <p class="notfound-lead">
-        <T
-          en="The page you're after doesn't exist — or moved. Everything else is still one click away."
-          tr="Aradığın sayfa yok — ya da taşındı. Geri kalan her şey bir tık uzağında."
-        />
-      </p>
-      <div class="notfound-cta">
-        <Cta href="/" variant="primary" cursor><T en="Back home" tr="Ana sayfaya dön" /></Cta>
-        <Cta href="/projects" variant="secondary"><T en="See projects" tr="Projelere bak" /></Cta>
-      </div>
+  <section class="wrap sheet nf">
+    <div class="sheet-row">
+      <p class="k"><T en="Sheet 404 · Misprint" tr="Sayfa 404 · Baskı hatası" /></p>
+      <p class="k"><T en="Not in this edition" tr="Bu baskıda yok" /></p>
+    </div>
+    <p class="disp nf-code" aria-hidden="true">404</p>
+    <PrintTitle en="This page took a different path." tr="Bu sayfa başka bir yola saptı." size="clamp(44px, 6.6vw, 104px)" />
+    <p class="lede nf-p">
+      <T en="The page you’re after doesn’t exist — or moved. Everything else is still one click away."
+         tr="Aradığın sayfa yok — ya da taşındı. Geri kalan her şey bir tık uzağında." />
+    </p>
+    <div class="btns">
+      <a class="btn btn--ink" href="/"><T en="Back home" tr="Ana sayfaya dön" /></a>
+      <a class="btn" href="/projects"><T en="See projects" tr="Projelere bak" /></a>
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  .notfound { border-top: none; padding-block: var(--space-3xl); }
-  .notfound h1 { font-size: var(--fs-display); max-width: 16ch; }
-  .notfound-lead { color: var(--text-body); font-size: 1.2rem; margin-top: var(--space-md); max-width: 48ch; }
-  .notfound-cta { display: flex; gap: var(--space-md); flex-wrap: wrap; margin-top: var(--space-xl); }
+  .nf { display: flex; flex-direction: column; gap: 24px; padding-bottom: clamp(64px, 8vw, 120px); }
+  .nf-code {
+    font-size: clamp(120px, 24vw, 340px);
+    line-height: 0.8;
+    letter-spacing: -0.06em;
+    color: transparent;
+    -webkit-text-stroke: 2px var(--ink);
+  }
+  .nf-p { max-width: 560px; }
 </style>

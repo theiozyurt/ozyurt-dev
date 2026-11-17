@@ -1,90 +1,81 @@
 ---
 import site from '../data/site.json';
 import T from './T.astro';
+
+interface Props {
+  sheet?: string;            // "01" … "08" — sayfanın numarası
+  variant?: 'talk' | 'name'; // iletişim sayfasında "Konuşalım" yerine isim
+}
+const { sheet, variant = 'talk' } = Astro.props;
+const total = String(site.nav.length).padStart(2, '0');
 const year = new Date().getFullYear();
 ---
-
-<footer class="site-footer">
-  <div class="container footer-inner">
-    <div class="footer-brand">
-      <span class="footer-name">İsmail Özyurt<span class="footer-dot">.dev</span></span>
-    </div>
-
-    <div class="footer-cols">
-      <div class="footer-col">
-        <span class="footer-label"><T en="Elsewhere" tr="Diğer" /></span>
-        <a href={`mailto:${site.email}`}>{site.email}</a>
-        <a href={site.linkedin} target="_blank" rel="noopener">LinkedIn</a>
-        <a href={site.github} target="_blank" rel="noopener">GitHub</a>
-        <a href={site.cevizSite} target="_blank" rel="noopener">Ceviz Biyoteknoloji</a>
+<footer class="ftr">
+  <div class="wrap ftr-top">
+    {variant === 'talk' ? (
+      <div class="ftr-talk">
+        <p class="disp ftr-big"><T en="Let’s talk." tr="Konuşalım." /></p>
+        <a class="btn btn--ink" href={`mailto:${site.email}`}>{site.email} <span aria-hidden="true">↗</span></a>
       </div>
-      <div class="footer-col">
-        <span class="footer-label"><T en="Site" tr="Site" /></span>
-        {site.nav.filter((n) => n.href !== '/').map((n) => (
-          <a href={n.href}><T en={n.en} tr={n.tr} /></a>
-        ))}
-      </div>
+    ) : (
+      <p class="disp ftr-big ftr-name" lang="tr">İsmail Özyurt<span>.dev</span></p>
+    )}
+
+    <nav class="ftr-col" aria-label="Footer">
+      <p class="k"><T en="Sheets" tr="Sayfalar" /></p>
+      {site.nav.map((n, i) => (
+        <a href={n.href}><span class="ftr-n">{String(i + 1).padStart(2, '0')}</span><T en={n.en} tr={n.tr} /></a>
+      ))}
+    </nav>
+
+    <div class="ftr-col">
+      <p class="k"><T en="Elsewhere" tr="Diğer adresler" /></p>
+      <a href={site.linkedin} rel="me">LinkedIn ↗</a>
+      <a href={site.github} rel="me">GitHub ↗</a>
+      <a href={site.cevizSite} lang="tr">Ceviz Biyoteknoloji ↗</a>
+      <a href="https://ismail.ozyurt.dev">ismail.ozyurt.dev ↗</a>
     </div>
   </div>
 
-  <div class="container footer-bottom">
-    <span class="mono">© {year} İsmail Özyurt</span>
-    <span class="mono footer-built">by Ozyurt</span>
+  <div class="wrap ftr-base">
+    <span>© {year} <span lang="tr">İsmail Özyurt</span></span>
+    <span>ozyurt.dev{sheet ? <> · <T en={`Sheet ${sheet} / ${total}`} tr={`Sayfa ${sheet} / ${total}`} /></> : null}</span>
+    <span lang="tr">Kütahya, Türkiye</span>
   </div>
 </footer>
 
 <style>
-  .site-footer {
-    margin-top: auto;
-    border-top: 1px solid var(--border);
-    background: var(--bg-primary-darker);
-    padding-block: var(--space-2xl) var(--space-lg);
-  }
-  .footer-inner {
-    display: grid;
-    grid-template-columns: 1.4fr 1fr;
-    gap: var(--space-xl);
-    padding-bottom: var(--space-xl);
-    border-bottom: 1px solid var(--border-faint);
-  }
-  .footer-name {
-    font-family: var(--font-display);
-    font-size: 1.4rem;
-    color: var(--text-heading);
-  }
-  .footer-dot { color: var(--accent); }
-  .footer-cols {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-lg);
-  }
-  .footer-col {
+  .ftr { border-top: 6px solid var(--ink); }
+  .ftr-top {
     display: flex;
-    flex-direction: column;
-    gap: 0.55rem;
-    align-items: flex-start;
-  }
-  .footer-col a {
-    color: var(--text-body);
-    font-size: var(--fs-small);
-  }
-  .footer-col a:hover { color: var(--accent); }
-  .footer-label {
-    font-family: var(--font-body);
-    font-size: var(--fs-label);
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin-bottom: 0.35rem;
-  }
-  .footer-bottom {
-    display: flex;
-    justify-content: space-between;
-    gap: var(--space-md);
     flex-wrap: wrap;
-    padding-top: var(--space-lg);
+    justify-content: space-between;
+    gap: 40px;
+    padding-top: clamp(48px, 6vw, 80px);
+    padding-bottom: 40px;
   }
-  @media (max-width: 720px) {
-    .footer-inner { grid-template-columns: 1fr; gap: var(--space-lg); }
+  .ftr-talk { flex: 1 1 420px; display: flex; flex-direction: column; align-items: flex-start; gap: 22px; }
+  .ftr-big { font-size: clamp(52px, 6.4vw, 96px); line-height: 0.84; letter-spacing: -0.05em; }
+  .ftr-name { flex: 1 1 420px; font-size: clamp(48px, 6vw, 88px); }
+  .ftr-name span { color: var(--blue); }
+
+  .ftr-col { flex: 0 1 220px; display: flex; flex-direction: column; gap: 2px; font-weight: 600; font-size: 15px; }
+  .ftr-col .k { margin-bottom: 8px; }
+  .ftr-col a { display: flex; align-items: center; min-height: 32px; text-decoration: none; }
+  .ftr-n { min-width: 2.1em; font-variant-numeric: tabular-nums; }
+
+  .ftr-base {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 8px 24px;
+    padding-top: 16px;
+    padding-bottom: 32px;
+    border-top: 1px solid var(--rule);
+    color: var(--ink-3);
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
   }
 </style>

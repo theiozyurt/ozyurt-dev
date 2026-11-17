@@ -1,119 +1,88 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import T from '../../components/T.astro';
-import Cta from '../../components/Cta.astro';
+import PrintTitle from '../../components/PrintTitle.astro';
 import Gallery from '../../components/Gallery.astro';
+import T from '../../components/T.astro';
 import projects from '../../data/projects.json';
+import meta from '../../data/project-meta.json';
 
 export function getStaticPaths() {
-  return projects.map((p) => ({
+  // "hidden" projeler sayfa üretmez (eski adres public/_redirects ile /projects'e yönlenir)
+  const list = (projects as any[]).filter((p) => !p.hidden);
+  return list.map((p, i) => ({
     params: { slug: p.slug },
-    props: { project: p },
+    props: { project: p, n: i + 1, next: list[(i + 1) % list.length] },
   }));
 }
 
-const { project } = Astro.props;
+const { project, n, next } = Astro.props as any;
 const bi = (v: any) => (typeof v === 'string' ? { en: v, tr: v } : v);
+const title = bi(project.title);
+const m = (meta as Record<string, any>)[project.slug] ?? {};
+const points = (project.points ?? []).map(bi);
 ---
 
 <BaseLayout
   path={`/projects/${project.slug}`}
-  title={project.title.en}
-  description={project.summary.en}
+  title={title.en}
+  sheet="03"
+  description={bi(project.summary).en}
+  descriptionTr={bi(project.summary).tr}
 >
-  <header class="proj-head section">
-    <div class="container">
-      <a href="/projects" class="back-link mono">← <T en="All projects" tr="Tüm projeler" /></a>
-      <span class="mono proj-period"><T t={bi(project.period)} /></span>
-      <h1 class="proj-title"><T t={bi(project.title)} /></h1>
-      <p class="proj-award mono"><T t={bi(project.award)} /></p>
+  <section class="wrap sheet">
+    <div class="sheet-row">
+      <a class="back k" href="/projects">← <T en="Sheet 03 · Projects" tr="Sayfa 03 · Projeler" /></a>
+      <p class="k"><T en={`Project ${String(n).padStart(2, '0')}`} tr={`Proje ${String(n).padStart(2, '0')}`} /> · <T t={bi(project.period)} /></p>
     </div>
-  </header>
-
-  <section class="section">
-    <div class="container proj-narrow">
-      <p class="proj-summary"><T t={bi(project.summary)} /></p>
-
-      {project.points && project.points.length > 0 && (
-        <ul class="proj-points">
-          {project.points.map((p: any) => (
-            <li><T t={bi(p)} /></li>
-          ))}
-        </ul>
-      )}
-
-      {project.mentor && (
-        <p class="proj-mentor mono">
-          <T en="Mentored by " tr="Staj boyunca " /><a href={project.mentor.url} target="_blank" rel="noopener">{project.mentor.name}</a><T en=" throughout the internship." tr="'ın mentorluğunda çalıştım." />
-        </p>
-      )}
-
-      {project.tags && project.tags.length > 0 && (
-        <ul class="proj-tags">
-          {project.tags.map((t: string) => <li class="tag tag--ghost">{t}</li>)}
-        </ul>
-      )}
-      {project.repo && (
-        <a href={project.repo} target="_blank" rel="noopener" class="proj-repo"><T en="View repo" tr="Repoyu gör" /> <span class="cta-arrow" aria-hidden="true">→</span></a>
-      )}
-      {'report' in project && project.report && (
-        <a href={project.report.href} download class="proj-repo">
-          <T t={bi(project.report.label)} />
-        </a>
-      )}
-      <Gallery images={project.gallery} />
+    <div class="detail-intro">
+      <div class="detail-intro-text">
+        <p class="award"><span class="swatch" style={`background: ${m.c ?? 'var(--c6)'}`} aria-hidden="true"></span><T t={bi(project.award)} /></p>
+        <PrintTitle en={title.en} tr={title.tr} size="clamp(44px, 6.4vw, 104px)" />
+      </div>
     </div>
   </section>
 
-  <section class="section section--darker">
-    <div class="container cta-band">
-      <Cta href="/projects" variant="secondary"><T en="Back to projects" tr="Projelere dön" /></Cta>
-      <Cta href="/contact" variant="primary" cursor><T en="Get in touch" tr="İletişime geç" /></Cta>
+  <section class="wrap sec">
+    <div class="detail">
+      <div class="detail-main">
+        <p class="detail-summary"><T t={bi(project.summary)} /></p>
+        {points.length > 0 && (
+          <ul class="plain bullets" style={`--dot: ${m.c ?? 'var(--ink)'}`}>
+            {points.map((p: any) => <li><span><T t={p} /></span></li>)}
+          </ul>
+        )}
+        {project.mentor && (
+          <p class="muted">
+            <T en="Mentored by " tr="Staj boyunca " /><a href={project.mentor.url} rel="noopener">{project.mentor.name}</a><T en=" throughout the internship." tr="’ın mentorluğunda çalıştım." />
+          </p>
+        )}
+        <div class="btns">
+          <a class="btn btn--ink" href={`https://ismail.ozyurt.dev/${project.slug}`}><T en="Screens & stack on ismail.ozyurt.dev" tr="Ekranlar ve teknolojiler ismail.ozyurt.dev’de" /> ↗</a>
+          {project.repo && <a class="btn" href={project.repo} rel="noopener"><T en="View repo" tr="Repoyu gör" /> ↗</a>}
+          {project.report && <a class="btn" href={project.report.href} download>↓ <T t={bi(project.report.label)} /></a>}
+        </div>
+        {project.gallery?.length > 0 && <Gallery images={project.gallery} phone />}
+      </div>
+      <dl class="facts">
+        <div><dt class="k"><T en="Period" tr="Dönem" /></dt><dd><T t={bi(project.period)} /></dd></div>
+        <div><dt class="k"><T en="Context" tr="Bağlam" /></dt><dd><T t={bi(project.award)} /></dd></div>
+        {project.tags?.length > 0 && (
+          <div><dt class="k"><T en="Stack & focus" tr="Teknoloji & odak" /></dt><dd class="chips">{project.tags.map((t: any) => <span class="chip"><T t={bi(t)} /></span>)}</dd></div>
+        )}
+      </dl>
+    </div>
+  </section>
+
+  <section class="wrap sec">
+    <div class="next-row">
+      <a class="btn" href="/projects">← <T en="All projects" tr="Tüm projeler" /></a>
+      <a class="ulink" href={`/projects/${next.slug}`}><T en="Next:" tr="Sıradaki:" />&nbsp;<T t={bi(next.title)} /> →</a>
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  .proj-head { border-top: none; padding-bottom: var(--space-lg); }
-  .back-link { display: inline-block; margin-bottom: var(--space-lg); color: var(--text-muted); }
-  .back-link:hover { color: var(--accent); }
-  .proj-period { display: block; margin-bottom: var(--space-sm); }
-  .proj-title { font-size: var(--fs-display); margin-bottom: var(--space-sm); }
-  .proj-award { color: var(--accent); }
-  .proj-narrow { max-width: 720px; }
-  .proj-summary { font-size: 1.2rem; color: var(--text-body); }
-  .proj-points {
-    list-style: none;
-    margin-top: var(--space-lg);
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
-  }
-  .proj-points li {
-    position: relative;
-    padding-left: 1.25rem;
-    color: var(--text-body);
-    max-width: 68ch;
-  }
-  .proj-points li::before { content: '—'; position: absolute; left: 0; color: var(--accent); }
-  .proj-mentor { margin-top: var(--space-lg); color: var(--text-muted); font-size: var(--fs-small); }
-  .proj-mentor a { color: var(--accent); }
-  .proj-tags { list-style: none; display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: var(--space-lg); }
-  .proj-repo {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-top: var(--space-lg);
-    padding: 12px 24px;
-    border-radius: var(--radius-sm);
-    background: var(--surface);
-    border: 1px solid var(--border);
-    font-weight: 600;
-    font-size: 14px;
-    color: var(--accent);
-    transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease);
-  }
-  .proj-repo:hover { background: var(--surface-strong); border-color: var(--border-strong); }
-  .proj-repo:hover .cta-arrow { transform: translateX(4px); }
-  .cta-band { display: flex; gap: var(--space-md); flex-wrap: wrap; }
+  .award { display: inline-flex; align-items: center; gap: 12px; font-weight: 700; font-size: 16px; color: var(--blue); }
+  .swatch { flex: none; width: 28px; height: 28px; border: 3px solid var(--ink); border-radius: 50%; }
+  .facts .chips { padding-top: 4px; }
 </style>

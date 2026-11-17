@@ -1,83 +1,81 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import T from '../../components/T.astro';
-import Cta from '../../components/Cta.astro';
-import GhostNumber from '../../components/GhostNumber.astro';
+import PrintTitle from '../../components/PrintTitle.astro';
+import Stamp from '../../components/Stamp.astro';
 import Gallery from '../../components/Gallery.astro';
+import T from '../../components/T.astro';
 import leadership from '../../data/leadership.json';
+import stamps from '../../data/stamps.json';
 
 export function getStaticPaths() {
   return leadership.map((item, i) => ({
     params: { slug: item.slug },
-    props: { item, n: i + 1 },
+    props: { item, i },
   }));
 }
 
-const { item, n } = Astro.props;
+const { item, i } = Astro.props;
 const bi = (v: any) => (typeof v === 'string' ? { en: v, tr: v } : v);
 const org = bi(item.org);
+const s = (stamps as Record<string, any>)[item.slug] ?? {};
+const points = ((item as any).points ?? []).map(bi);
+const gallery: string[] = (item as any).gallery ?? [];
+const next = leadership[(i + 1) % leadership.length];
 ---
 
 <BaseLayout
   path={`/leadership/${item.slug}`}
   title={org.en}
+  sheet="05"
   description={bi(item.summary).en}
+  descriptionTr={bi(item.summary).tr}
 >
-  <header class="lead-head section ghost-host">
-    <GhostNumber n={String(n).padStart(2, '0')} />
-    <div class="container">
-      <a href="/leadership" class="back-link mono">← <T en="Back to leadership" tr="Liderliğe dön" /></a>
-      <span class="mono lead-period"><T t={bi(item.period)} /></span>
-      <h1 class="lead-title"><T t={org} /></h1>
-      <p class="lead-role mono"><T t={bi(item.role)} /></p>
+  <section class="wrap sheet">
+    <div class="sheet-row">
+      <a class="back k" href="/leadership">← <T en="Sheet 05 · Leadership" tr="Sayfa 05 · Liderlik" /></a>
+      <p class="k"><T t={bi(item.period)} /></p>
     </div>
-  </header>
-
-  <section class="section">
-    <div class="container lead-narrow">
-      <p class="lead-summary"><T t={bi(item.summary)} /></p>
-
-      {item.points && item.points.length > 0 && (
-        <ul class="lead-points">
-          {item.points.map((p) => (
-            <li><T t={bi(p)} /></li>
-          ))}
-        </ul>
-      )}
-
-      <Gallery images={item.gallery} />
+    <div class="detail-intro">
+      <div class="detail-intro-text">
+        <p class="k" style={`color: ${s.ink}`}><T t={bi(item.role)} /></p>
+        <PrintTitle en={org.en} tr={org.tr} size="clamp(44px, 6.4vw, 104px)" />
+      </div>
+      <Stamp slug={item.slug} size={220} delay={0.3} />
     </div>
   </section>
 
-  <section class="section section--darker">
-    <div class="container cta-band">
-      <Cta href="/leadership" variant="secondary"><T en="Back to leadership" tr="Liderliğe dön" /></Cta>
-      <Cta href="/contact" variant="primary" cursor><T en="Get in touch" tr="İletişime geç" /></Cta>
+  <section class="wrap sec">
+    <div class="detail">
+      <div class="detail-main">
+        <p class="detail-summary"><T t={bi(item.summary)} /></p>
+        {points.length > 0 && (
+          <ul class="plain bullets" style={`--dot: ${s.ink}`}>
+            {points.map((p: any) => <li><span><T t={p} /></span></li>)}
+          </ul>
+        )}
+        {s.stat && (
+          <p class="stat"><span class="disp stat-n">{s.stat}</span><span class="stat-l"><T t={s.statLabel} /></span></p>
+        )}
+        {gallery.length > 0 && <Gallery images={gallery} />}
+      </div>
+      <dl class="facts">
+        <div><dt class="k"><T en="Role" tr="Rol" /></dt><dd><T t={bi(item.role)} /></dd></div>
+        <div><dt class="k"><T en="Organization" tr="Kurum" /></dt><dd><T t={org} /></dd></div>
+        <div><dt class="k"><T en="Period" tr="Dönem" /></dt><dd><T t={bi(item.period)} /></dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="wrap sec">
+    <div class="next-row">
+      <a class="btn" href="/leadership">← <T en="All roles" tr="Tüm roller" /></a>
+      <a class="ulink" href={`/leadership/${next.slug}`}><T en="Next:" tr="Sıradaki:" />&nbsp;<T t={bi(next.org)} /> →</a>
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  .lead-head { border-top: none; padding-bottom: var(--space-lg); }
-  .back-link { display: inline-block; margin-bottom: var(--space-lg); color: var(--text-muted); }
-  .back-link:hover { color: var(--accent); }
-  .lead-period { display: block; margin-bottom: var(--space-sm); }
-  .lead-title { font-size: var(--fs-display); margin-bottom: var(--space-sm); }
-  .lead-role { color: var(--accent); }
-  .lead-narrow { max-width: 760px; }
-  .lead-summary { font-size: 1.2rem; color: var(--text-body); }
-  .lead-points {
-    list-style: none;
-    margin-top: var(--space-lg);
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
-  }
-  .lead-points li {
-    position: relative;
-    padding-left: 1.25rem;
-    color: var(--text-body);
-  }
-  .lead-points li::before { content: '—'; position: absolute; left: 0; color: var(--accent); }
-  .cta-band { display: flex; gap: var(--space-md); flex-wrap: wrap; }
+  .stat { align-self: flex-start; display: flex; align-items: baseline; gap: 10px; padding: 10px 16px; border: 1.5px dashed var(--ink); }
+  .stat-n { font-size: 40px; line-height: 1; }
+  .stat-l { font-weight: 600; font-size: 14px; }
 </style>

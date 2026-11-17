@@ -1,12 +1,23 @@
 # ozyurt.dev
 
-İsmail Özyurt'un kişisel portfolyo sitesi. Editorial, keskin köşeli, "Autumn Harvest" paletli, TR/EN çift dilli statik site.
+İsmail Özyurt'un kişisel sitesi: kim olduğumu anlatan "karar" sitesi. Uygulamaların ekranları ve teknolojileri kardeş site **ismail.ozyurt.dev**'de.
+TR/EN çift dilli, statik bir Astro sitesi.
+
+## Tasarım: kâğıt ailesi (v2)
+
+- Kâğıt zemin + grain dokusu, mürekkep siyahı, baskı kayması başlıklar (mavi/pembe katmanlar yerine oturur).
+- Üstteki 11 renkli şerit ismail.ozyurt.dev ile ortak: her renk bir projeyi temsil eder.
+- Her sayfa bir "sayfa" (Sheet 01–08); alt bilgide numarası yazar.
+- Renkler ve ölçüler: `src/styles/tokens.css`; ortak sınıflar: `src/styles/global.css`.
+- Başlıklar uzun kelimelere göre kendiliğinden küçülür (`src/components/PrintTitle.astro`, `src/lib/fit.ts`,
+  genişlik tablosu `src/data/archivo-adv.json`): BELGELİYORUM gibi kelimeler hiçbir ekranda bölünmez.
 
 ## Stack
 
 - **Astro** — statik site üretimi
-- **Vanilla CSS** + CSS custom properties (`src/styles/tokens.css`) — CSS framework yok. Palet: "Navy + Brass" (koyu lacivert zemin, pirinç/bronz imza vurgusu)
-- **Google Fonts** — Fraunces (serif), JetBrains Mono (mono), Manrope (gövde)
+- **Vanilla CSS** + CSS custom properties — CSS framework yok
+- **Fontlar kendi sunucumuzda** (Google Fonts yok): Archivo (başlık, değişken genişlik) + Inter (gövde),
+  `public/fonts/` — OFL lisansları aynı klasörde
 - İçerik: `src/data/*.json` (her string `{ "en": ..., "tr": ... }` biçiminde)
 - **İletişim formu backend'i:** Cloudflare Pages Functions + Resend (`functions/api/contact.js`)
 
@@ -37,7 +48,10 @@ Yeni çift dilli metin için `T` bileşenini kullan:
 
 - `src/data/site.json` — isim, nav, iletişim, meta
 - `src/data/experience.json` — deneyim zaman çizelgesi
-- `src/data/projects.json` — Ceviz dışı projeler (`/projects/[slug]` otomatik üretilir)
+- `src/data/projects.json` — Ceviz dışı projeler (`/projects/[slug]` otomatik üretilir).
+  Bir projeyi siteden kaldırmak için silme: `"hidden": true` ekle (eski adresi `public/_redirects` ile yönlendir).
+- `src/data/project-meta.json` — proje listesinde renk, küçük görsel ya da tek satırlık bilgi
+- `src/data/stamps.json` — liderlik sayfasındaki mürekkep damgalarının yazıları ve renkleri
 - `src/data/leadership.json` — liderlik/topluluk
 - `src/data/cv.json` — CV özeti, eğitim, beceri, dil, sertifika
 - Ceviz case study: `src/pages/projects/ceviz.astro`
@@ -74,5 +88,5 @@ npx wrangler pages dev dist   # RESEND_API_KEY'i .dev.vars ya da --binding ile v
 
 ## Notlar / olası iyileştirmeler
 
-- `public/og.svg` sosyal paylaşım görseli SVG'dir. Bazı platformlar OG için yalnızca PNG/JPG render eder; daha geniş uyum için 1200×630 PNG'ye dönüştürmek iyi olur.
+- Sosyal paylaşım görseli `public/og.jpg` (1200×630, kâğıt tasarım). Eski `public/og.svg` yedek olarak duruyor.
 - Form JS kapalıyken gönderim yapmaz; bu durumda kullanıcılar soldaki doğrudan e-posta/LinkedIn kanallarını kullanır.

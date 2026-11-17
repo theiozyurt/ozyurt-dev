@@ -1,173 +1,104 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import PrintTitle from '../../components/PrintTitle.astro';
+import Stamp from '../../components/Stamp.astro';
 import T from '../../components/T.astro';
-import GhostNumber from '../../components/GhostNumber.astro';
-import PixelField from '../../components/PixelField.astro';
-import CardExpandScript from '../../components/CardExpandScript.astro';
-import PageBackground from '../../components/PageBackground.astro';
 import leadership from '../../data/leadership.json';
+import stamps from '../../data/stamps.json';
 
 const bi = (v: any) => (typeof v === 'string' ? { en: v, tr: v } : v);
+const S = stamps as Record<string, any>;
 ---
 
 <BaseLayout
-  path="/leadership"
   title="Leadership"
+  path="/leadership"
+  sheet="05"
   description="Community & leadership by İsmail Özyurt — founding president of KSBÜ Teknofest Club, Deneyap mentor, T3 Foundation scholar, and ÜNİDES project coordinator."
+  descriptionTr="İsmail Özyurt’un topluluk ve liderlik rolleri — KSBÜ Teknofest Topluluğu kurucu başkanı, Deneyap mentoru, T3 Vakfı bursiyeri ve ÜNİDES proje koordinatörü."
 >
-  <PageBackground motif="formation" />
-
-  <header class="page-head section ghost-host">
-    <GhostNumber n="01" />
-    <PixelField count={14} />
-    <div class="container">
-      <div class="page-head-grid">
-        <div class="page-head-text">
-          <span class="section-label"><T en="Leadership" tr="Liderlik" /></span>
-          <h1><T en="Community, at a realistic scale." tr="Topluluk, gerçekçi bir ölçekte." /></h1>
-          <p class="page-lead">
-            <T
-              en="No inflated titles — just roles I actually hold and what they've produced."
-              tr="Abartılı unvanlar yok — gerçekten üstlendiğim roller ve ortaya çıkardıkları işler."
-            />
-          </p>
-        </div>
-        <figure class="page-head-photo">
-          <img
-            src="/images/teknofest.jpeg"
-            alt="İsmail Özyurt, TEKNOFEST'te görevli olarak Bayraktar Akıncı'nın önünde"
-            width="2048"
-            height="1536"
-            loading="eager"
-          />
-        </figure>
-      </div>
+  <section class="wrap sheet">
+    <div class="sheet-row">
+      <p class="k"><T en="Sheet 05 / 08 · Leadership" tr="Sayfa 05 / 08 · Liderlik" /></p>
+      <p class="k"><T en={`${leadership.length} roles · 2024 → now`} tr={`${leadership.length} rol · 2024 → bugün`} /></p>
     </div>
-  </header>
-
-  <section class="section">
-    <div class="container">
-      <div class="lead-list" id="lead-list">
-        {leadership.map((item) => (
-          <article class="lead-item leadership-item">
-            <div class="lead-side">
-              <span class="mono lead-period"><T t={bi(item.period)} /></span>
-            </div>
-            <div class="lead-body">
-              <h2 class="lead-org"><T t={bi(item.org)} /></h2>
-              <span class="lead-role mono"><T t={bi(item.role)} /></span>
-              <p class="lead-summary item-description"><T t={bi(item.summary)} /></p>
-              {item.points && item.points.length > 0 && (
-                <ul class="lead-points">
-                  {item.points.map((p) => (
-                    <li><T t={bi(p)} /></li>
-                  ))}
-                </ul>
-              )}
-              {item.gallery && item.gallery.length > 0 && (
-                <div class="item-gallery-preview" aria-hidden="true" data-lightbox-group>
-                  {item.gallery.slice(0, 3).map((img) => (
-                    <button type="button" class="preview-shot" tabindex="-1" data-lightbox>
-                      <img src={img} alt="" loading="lazy" />
-                    </button>
-                  ))}
-                </div>
-              )}
-              <a href={`/leadership/${item.slug}`} class="lead-link list-cta">
-                <T en="View details" tr="Detayları gör" />
-                <span class="cta-arrow" aria-hidden="true">→</span>
-              </a>
-            </div>
-          </article>
-        ))}
+    <div class="intro">
+      <div class="intro-text">
+        <PrintTitle en="Community, at a realistic scale." tr="Topluluk, gerçekçi bir ölçekte." size="clamp(52px, 7.6vw, 120px)" />
+        <p class="lede intro-p">
+          <T en="No inflated titles — just roles I actually hold and what they’ve produced." tr="Abartılı unvanlar yok — gerçekten üstlendiğim roller ve ortaya çıkardıkları işler." />
+        </p>
       </div>
+      <figure class="fig intro-fig">
+        <span class="fig-block" style="background: var(--pink)" aria-hidden="true"></span>
+        <img src="/images/teknofest.jpeg" width="2048" height="1536" alt="İsmail Özyurt on duty at TEKNOFEST, in front of a Bayraktar Akıncı" />
+        <figcaption class="k"><T en="Fig. 02 — At TEKNOFEST" tr="Şekil 02 — TEKNOFEST’te" /></figcaption>
+      </figure>
     </div>
   </section>
 
-  <CardExpandScript />
+  <section class="wrap sec" aria-label="Roles">
+    <div class="roles">
+      {leadership.map((item, i) => {
+        const s = S[item.slug] ?? {};
+        const points = (item.points ?? []).map(bi);
+        return (
+          <article class="card" id={item.slug}>
+            <Stamp slug={item.slug} delay={0.4 + i * 0.25} />
+            <div class="card-body">
+              <p class="k"><T t={bi(item.period)} /></p>
+              <h2 class="disp role"><T t={bi(item.role)} /></h2>
+              <p class="org"><T t={bi(item.org)} /></p>
+              <p class="muted summary"><T t={bi(item.summary)} /></p>
+              {points.length > 0 && (
+                <ul class="plain points">
+                  {points.map((p) => (
+                    <li><span class="dot" style={`background: ${s.ink}`} aria-hidden="true"></span><span><T t={p} /></span></li>
+                  ))}
+                </ul>
+              )}
+              {s.stat && (
+                <p class="stat"><span class="disp stat-n">{s.stat}</span><span class="stat-l"><T t={s.statLabel} /></span></p>
+              )}
+              <a class="ulink" href={`/leadership/${item.slug}`}><T en="View details →" tr="Detayları gör →" /></a>
+            </div>
+          </article>
+        );
+      })}
+    </div>
+  </section>
 </BaseLayout>
 
 <style>
-  .page-head { border-top: none; padding-bottom: var(--space-lg); }
-  .page-lead { color: var(--text-body); font-size: 1.15rem; margin-top: var(--space-md); max-width: 58ch; }
+  .intro { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 32px 56px; }
+  .intro-text { flex: 1 1 620px; min-width: 0; display: flex; flex-direction: column; gap: 26px; }
+  .intro-p { max-width: 560px; font-size: 19px; }
+  .intro-fig { flex: 0 1 420px; min-width: 260px; padding: 0 16px 16px 0; }
+  .intro-fig .fig-block { left: 16px; top: 16px; right: 0; bottom: 34px; }
+  .intro-fig img { aspect-ratio: 4 / 3; }
 
-  .page-head-grid {
+  .roles {
     display: grid;
-    grid-template-columns: 1fr 0.9fr;
-    gap: clamp(2rem, 5vw, 4rem);
-    align-items: center;
+    grid-template-columns: repeat(auto-fit, minmax(min(560px, 100%), 1fr));
+    border-top: 6px solid var(--ink);
   }
-  /* Hero portresi gibi yuvarlak avatar (bilinçli border-radius istisnası) */
-  .page-head-photo {
-    position: relative;
-    width: 100%;
-    max-width: 380px;
-    aspect-ratio: 1 / 1;
-    margin: 0 auto;
-  }
-  .page-head-photo img {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: 38% center;
-    border-radius: 50%;
-    border: 3px solid var(--accent);
-    filter: grayscale(15%) contrast(1.05);
-  }
-
-  @media (max-width: 820px) {
-    .page-head-grid { grid-template-columns: 1fr; gap: var(--space-lg); }
-    .page-head-photo { max-width: 300px; }
-  }
-
-  .lead-list {
+  .card {
     display: flex;
-    flex-direction: column;
-    gap: var(--space-md);
+    flex-wrap: wrap;
+    gap: 24px 32px;
+    padding: 36px 8px 44px;
+    border-bottom: 1.5px solid var(--ink);
+    scroll-margin-top: 24px;
   }
-  .lead-item {
-    display: grid;
-    grid-template-columns: 10rem 1fr;
-    gap: var(--space-lg);
-    padding: var(--space-lg) var(--space-xl);
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-  }
-  .lead-period { display: block; padding-top: 0.3rem; }
-  .lead-org { font-size: var(--fs-h3); }
-  .lead-role {
-    display: block;
-    color: var(--accent);
-    margin: 0.3rem 0 var(--space-sm);
-  }
-  .lead-summary { color: var(--text-body); }
-  .lead-points {
-    list-style: none;
-    margin-top: var(--space-md);
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
-  }
-  .lead-points li {
-    position: relative;
-    padding-left: 1.25rem;
-    color: var(--text-body);
-    max-width: 64ch;
-  }
-  .lead-points li::before {
-    content: '—';
-    position: absolute;
-    left: 0;
-    color: var(--accent);
-  }
-  .lead-link { margin-top: var(--space-lg); }
-
-  @media (max-width: 720px) {
-    .lead-item { grid-template-columns: 1fr; gap: var(--space-xs); padding: var(--space-lg); }
-  }
+  .card-body { flex: 1 1 260px; min-width: 0; display: flex; flex-direction: column; gap: 12px; }
+  .role { font-size: clamp(28px, 2.8vw, 40px); line-height: 0.92; letter-spacing: -0.03em; }
+  .org { font-weight: 700; font-size: 17px; }
+  .summary { font-size: 16px; line-height: 1.6; }
+  .points { margin-top: 4px; display: grid; gap: 10px; }
+  .points li { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 8px; font-size: 15px; line-height: 1.55; }
+  .dot { width: 12px; height: 12px; margin-top: 6px; border-radius: 50%; }
+  .stat { margin-top: 6px; align-self: flex-start; display: flex; align-items: baseline; gap: 10px; padding: 10px 16px; border: 1.5px dashed var(--ink); }
+  .stat-n { font-size: 40px; line-height: 1; }
+  .stat-l { font-weight: 600; font-size: 14px; }
+  .card .ulink { align-self: flex-start; }
 </style>

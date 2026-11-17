@@ -1,0 +1,52 @@
+---
+/**
+ * Mürekkep damgası (liderlik rolleri). İki dil de SVG içinde durur,
+ * aktif dili html[data-lang] seçer. Merkez yazısı kutuya sığacak
+ * şekilde kelime uzunluğuna göre küçülür.
+ */
+import stamps from '../data/stamps.json';
+
+interface Props {
+  slug: string;
+  size?: number;
+  delay?: number;   // "thunk" animasyon gecikmesi (s)
+}
+const { slug, size = 196, delay = 0 } = Astro.props;
+const s = (stamps as Record<string, any>)[slug];
+const fit = (word: string) => Math.min(15, Math.round((104 / (Math.max(word.length, 1) * 0.7)) * 10) / 10);
+const langs: Array<'en' | 'tr'> = ['en', 'tr'];
+---
+{s && (
+  <div class="thunk" style={`animation-delay: ${delay}s`}>
+    <div class="rot" style={`--rot: ${s.rot}deg`}>
+      <svg class="stamp" width={size} height={size} viewBox="0 0 200 200" aria-hidden="true">
+        <defs><path id={`ring-${slug}`} d="M100,100 m-74,0 a74,74 0 1,1 148,0 a74,74 0 1,1 -148,0"></path></defs>
+        <circle cx="100" cy="100" r="94" fill="none" stroke={s.ink} stroke-width="5"></circle>
+        <circle cx="100" cy="100" r="86" fill="none" stroke={s.ink} stroke-width="1.5"></circle>
+        <circle cx="100" cy="100" r="56" fill="none" stroke={s.ink} stroke-width="2"></circle>
+        {langs.map((l) => (
+          <g data-lang={l} lang={l} fill={s.ink}>
+            <text class="ring"><textPath href={`#ring-${slug}`}>{s.ring[l]}</textPath></text>
+            <text class="mid" x="100" y="96" text-anchor="middle" style={`font-size: ${fit(s.center[l][0])}px`}>{s.center[l][0]}</text>
+            <text class="mid" x="100" y="115" text-anchor="middle" style={`font-size: ${fit(s.center[l][1])}px`}>{s.center[l][1]}</text>
+          </g>
+        ))}
+      </svg>
+    </div>
+  </div>
+)}
+
+<style>
+  .thunk { flex: none; animation: thunk 0.7s cubic-bezier(0.2, 1.4, 0.4, 1) both; }
+  @keyframes thunk {
+    0% { transform: scale(2.1); opacity: 0; }
+    60% { transform: scale(0.93); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  .rot { transform: rotate(var(--rot)); transition: transform 0.5s var(--ease); }
+  :global(.card:hover) .rot { transform: rotate(0deg); }
+  .stamp { display: block; mix-blend-mode: multiply; }
+  .ring { font-family: var(--font-display); font-weight: 800; font-size: 12.5px; letter-spacing: 1.5px; }
+  .mid { font-family: var(--font-display); font-weight: 900; }
+  @media (prefers-reduced-motion: reduce) { .thunk { animation: none; } .rot { transition: none; } }
+</style>
