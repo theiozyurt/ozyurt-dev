@@ -2,7 +2,10 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PrintTitle from '../../components/PrintTitle.astro';
 import T from '../../components/T.astro';
-import experience from '../../data/experience.json';
+import allExperience from '../../data/experience.json';
+
+// "hidden": true olan kayıtlar listede görünmez (veri experience.json içinde durur)
+const experience = (allExperience as any[]).filter((e) => !e.hidden);
 
 const bi = (v: any) => (typeof v === 'string' ? { en: v, tr: v } : v);
 const color: Record<string, string> = {
@@ -19,17 +22,19 @@ const route = [
   { year: { en: '2025', tr: '2025' }, label: { en: 'Güral Porselen', tr: 'Güral Porselen' }, c: 'var(--c9)', href: '#gural' },
   { year: { en: '2025', tr: '2025' }, label: { en: 'Ceviz Biyoteknoloji · CTO', tr: 'Ceviz Biyoteknoloji · CTO' }, c: 'var(--lime)', href: '#ceviz' },
   { year: { en: '2026', tr: '2026' }, label: { en: 'Gürok Group · MES', tr: 'Gürok Grup · MES' }, c: 'var(--c8)', href: '#gurok' },
-  { year: { en: '2026', tr: '2026' }, label: { en: 'International ML research', tr: 'Uluslararası ML araştırması' }, c: 'var(--c5)', href: '#ml-research' },
-  { year: { en: 'Now', tr: 'Şimdi' }, label: { en: 'CTO + ML lead, in parallel', tr: 'CTO + ML liderliği, paralel' }, c: '#FFFFFF', href: '#ceviz', pulse: true },
+  { year: { en: 'Now', tr: 'Şimdi' }, label: { en: 'CTO at Ceviz', tr: 'Ceviz’de CTO' }, c: '#FFFFFF', href: '#ceviz', pulse: true },
 ];
+// Hat: durak sayısı kadar sütun; her parça bir sonraki durağa kendi rengiyle bağlanır
+const seg = 100 / (route.length - 1);
+const lineBg = `linear-gradient(90deg, ${route.slice(0, -1).map((r, i) => `${r.c} ${+(i * seg).toFixed(3)}% ${+((i + 1) * seg).toFixed(3)}%`).join(', ')})`;
 ---
 
 <BaseLayout
   title="Experience"
   path="/experience"
   sheet="02"
-  description="Experience of İsmail Özyurt — CTO at Ceviz Biyoteknoloji, ML research, internships at Gürok Group and Güral Porselen, and Erasmus+ research at the University of Salerno."
-  descriptionTr="İsmail Özyurt’un deneyimi — Ceviz Biyoteknoloji’de CTO, makine öğrenmesi araştırması, Gürok Grup ve Güral Porselen stajları, Salerno Üniversitesi’nde Erasmus+ araştırması."
+  description="Experience of İsmail Özyurt — CTO at Ceviz Biyoteknoloji, internships at Gürok Group and Güral Porselen, and Erasmus+ research at the University of Salerno."
+  descriptionTr="İsmail Özyurt’un deneyimi — Ceviz Biyoteknoloji’de CTO, Gürok Grup ve Güral Porselen stajları, Salerno Üniversitesi’nde Erasmus+ araştırması."
 >
   <section class="wrap sheet head">
     <div class="sheet-row">
@@ -42,8 +47,8 @@ const route = [
 
   <section class="wrap route-sec" aria-label="Route overview">
     <div class="route-scroll">
-      <div class="route">
-        <span class="route-line" aria-hidden="true"></span>
+      <div class="route" style={`--n: ${route.length}`}>
+        <span class="route-line" style={`background: ${lineBg}`} aria-hidden="true"></span>
         {route.map((r) => (
           <a class="stn" href={r.href}>
             <span class:list={['stn-dot', { pulse: r.pulse }]} style={`background: ${r.c}`} aria-hidden="true"></span>
@@ -119,15 +124,14 @@ const route = [
 
   .route-sec { padding-top: 24px; padding-bottom: 56px; }
   .route-scroll { overflow-x: auto; padding: 8px 0 4px; }
-  .route { position: relative; min-width: 760px; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); padding-top: 34px; }
+  .route { position: relative; min-width: 760px; display: grid; grid-template-columns: repeat(var(--n), minmax(0, 1fr)); padding-top: 34px; }
   .route-line {
     position: absolute;
-    left: 8%;
-    right: 8%;
+    left: calc(50% / var(--n));
+    right: calc(50% / var(--n));
     top: 47px;
     height: 8px;
     border-radius: 8px;
-    background: linear-gradient(90deg, var(--c11) 0 20%, var(--c9) 20% 40%, var(--lime) 40% 60%, var(--c8) 60% 80%, var(--c5) 80% 100%);
     outline: 1.5px solid var(--ink);
   }
   .stn { position: relative; display: flex; flex-direction: column; align-items: center; gap: 10px; min-height: 44px; text-align: center; text-decoration: none; }

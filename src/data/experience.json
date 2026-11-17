@@ -34,6 +34,7 @@
   {
     "id": "ml-research",
     "slug": "ml-research",
+    "hidden": true,
     "period": { "en": "2026 — Present", "tr": "2026 — Devam ediyor" },
     "role": { "en": "Algorithm Development Lead", "tr": "Algoritma Geliştirme Lideri" },
     "org": { "en": "International ML Research Project", "tr": "Uluslararası ML Araştırma Projesi" },

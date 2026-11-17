@@ -1,2 +1,5 @@
 # Kaldırılan sayfa: ana listeden çıkarıldı (veri projects.json içinde "hidden": true olarak duruyor)
 /projects/birth-adventure /projects 301
+
+# Geçici olarak gizlenen deneyim (veri experience.json içinde "hidden": true); geri açılınca bu satırı sil
+/experience/ml-research /experience 302

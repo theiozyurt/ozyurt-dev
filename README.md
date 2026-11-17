@@ -47,7 +47,8 @@ Yeni çift dilli metin için `T` bileşenini kullan:
 ## İçerik düzenleme
 
 - `src/data/site.json` — isim, nav, iletişim, meta
-- `src/data/experience.json` — deneyim zaman çizelgesi
+- `src/data/experience.json` — deneyim zaman çizelgesi.
+  Bir kaydı geçici gizlemek için `"hidden": true` ekle: listede, CV'de ve sayfa olarak görünmez (eski adresi `public/_redirects` ile yönlendir).
 - `src/data/projects.json` — Ceviz dışı projeler (`/projects/[slug]` otomatik üretilir).
   Bir projeyi siteden kaldırmak için silme: `"hidden": true` ekle (eski adresi `public/_redirects` ile yönlendir).
 - `src/data/project-meta.json` — proje listesinde renk, küçük görsel ya da tek satırlık bilgi

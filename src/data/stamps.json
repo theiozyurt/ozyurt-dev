@@ -2,9 +2,7 @@
   "teknofest-club": {
     "ink": "#E0246B", "rot": -9,
     "ring": { "en": "KSBÜ TEKNOFEST CLUB • SINCE 2024 • ", "tr": "KSBÜ TEKNOFEST TOPLULUĞU • 2024’TEN BERİ • " },
-    "center": { "en": ["FOUNDING", "PRESIDENT"], "tr": ["KURUCU", "BAŞKAN"] },
-    "stat": "38",
-    "statLabel": { "en": "participants on the club’s summit trip", "tr": "katılımcı, topluluğun zirve gezisinde" }
+    "center": { "en": ["FOUNDING", "PRESIDENT"], "tr": ["KURUCU", "BAŞKAN"] }
   },
   "deneyap": {
     "ink": "#2B50F0", "rot": 7,

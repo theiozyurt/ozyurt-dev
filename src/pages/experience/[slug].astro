@@ -6,7 +6,7 @@ import T from '../../components/T.astro';
 import experience from '../../data/experience.json';
 
 export function getStaticPaths() {
-  const withSlug = experience.filter((e: any) => e.slug);
+  const withSlug = experience.filter((e: any) => e.slug && !e.hidden);
   return withSlug.map((item: any, i: number) => ({
     params: { slug: item.slug },
     props: { item, next: withSlug[(i + 1) % withSlug.length] },

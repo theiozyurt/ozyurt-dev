@@ -65,7 +65,7 @@ const corners = ['tl', 'tr', 'bl', 'br'];
             <section>
               <h3 class="sh" style="--c: var(--blue)"><T en="Experience" tr="Deneyim" /></h3>
               <div class="entries">
-                {experience.map((e: any) => (
+                {experience.filter((e: any) => !e.hidden).map((e: any) => (
                   <div class="entry">
                     <div class="entry-head"><p class="entry-role"><T t={bi(e.role)} /></p><p class="entry-date"><T t={bi(e.period)} /></p></div>
                     <p class="entry-org"><T t={bi(e.org)} /></p>
