@@ -27,7 +27,7 @@ const channels = [
       <p class="k"><span data-lang="en">Replies come from {site.email}</span><span data-lang="tr" lang="tr">Yanıtlar <span lang="en">{site.email}</span> adresinden gelir</span></p>
     </div>
     <div class="intro">
-      <PrintTitle en="Let’s talk." tr="Konuşalım." size="clamp(64px, 11vw, 176px)" />
+      <PrintTitle en="Let’s talk." tr="Konuşalım." size="clamp(64px, 11vw, 176px)" class="intro-h" />
       <p class="lede intro-p">
         <T
           en="Building something, hiring, or just curious? Send a message with the form, or reach me directly through the channels here."
@@ -204,6 +204,7 @@ const channels = [
 
 <style>
   .intro { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 24px 56px; }
+  .intro :global(.intro-h) { flex: 1 1 520px; min-width: 0; }
   .intro-p { flex: 0 1 460px; font-size: 19px; }
 
   .contact {
